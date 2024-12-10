@@ -1,3 +1,48 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+:root {
+    --background: #171614;
+    --text: #f3f3f3;
+    --border: #f3f3f31d;
+    --border-active: #f3f3f3a2;
+    --primary: #3d8865;
+    --primary-active: #3b732d;
+    --secondary: #fbd17d;
+    --secondary-active: #f9bc40;
+    --error: #F02D3A; 
+}
+
+.dark {
+    --background: #171614;
+    --text: #f3f3f3;
+    --border: #f3f3f31d;
+    --border-active: #f3f3f3a2;
+    --primary: #3d8865;
+    --primary-active: #3b732d;
+    --secondary: #fbd17d;
+    --secondary-active: #f9bc40;
+    --error: #F02D3A; 
+}
+
+.light {
+    --background: #f3f3f3;;
+    --text: #171614;
+    --border: #f3f3f31d;
+    --border-active: #f3f3f3a2;
+    --primary: #3d8865;
+    --primary-active: #3b732d;
+    --secondary: #fbd17d;
+    --secondary-active: #f9bc40;
+    --error: #F02D3A; 
+}
+
+.glass {
+	background: rgba(45, 3, 61, 0);
+	box-shadow: 0 3px 20px 0 rgba(85, 31, 135, 0.044);
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
+	border: 1px solid rgba(255, 255, 255, 0.012);
+	z-index: 10;
+}
