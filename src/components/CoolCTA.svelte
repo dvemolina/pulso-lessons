@@ -16,10 +16,10 @@
 	}
 
 	let {
-		bgColor = "#000000",
-		bgSubtleColor = 'var(--secondary)',
-		highlightColor = 'var(--secondary)',
-		highlightSubtleColor = 'var(--secondary)',
+		bgColor = "#012216",
+		bgSubtleColor = 'var(--primary-active)',
+		highlightColor = 'var(--primary-active)',
+		highlightSubtleColor = 'var(--primary-active)',
 		paddingProp = '1rem 2rem',
 		borderRadius = '360px',
 		btnWidth = '',
@@ -46,8 +46,8 @@ onclick={onClick}
 <style lang="postcss">
 	:root {
 		
-		--shiny-cta-fg: #ffffff;
-		--transition: all 0.1s ease-in-out;
+		--shiny-cta-fg: #f4f4f4;
+		--transition: all 3s ease-in;
 	}
 
 	@property --gradient-angle {
@@ -58,19 +58,19 @@ onclick={onClick}
 
 	@property --gradient-angle-offset {
 		syntax: '<angle>';
-		initial-value: 0deg;
+		initial-value: 100deg;
 		inherits: false;
 	}
 
 	@property --gradient-percent {
 		syntax: '<percentage>';
-		initial-value: 5%;
+		initial-value: 0%;
 		inherits: false;
 	}
 
 	@property --gradient-shine {
 		syntax: '<color>';
-		initial-value: white;
+		initial-value: rgba(255, 255, 255, 0);
 		inherits: false;
 	}
 
