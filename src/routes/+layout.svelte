@@ -6,7 +6,7 @@
 	import '@fontsource-variable/public-sans';
 	import '@fontsource/fira-sans';
 	import { ModeWatcher } from 'mode-watcher';
-	import Header from '$src/components/Header.svelte';
+	import Header from '$src/components/HeaderMinimalist.svelte';
 	let { children } = $props();
 </script>
 
@@ -15,8 +15,10 @@
 	<ParaglideJS {i18n}>
 		<div class="greenball">
 			<div class="grain">
-				<Header />
-				{@render children()}
+				<div class="content z-0">
+					<Header />
+					{@render children()}
+				</div>
 			</div>
 		</div>
 	</ParaglideJS>

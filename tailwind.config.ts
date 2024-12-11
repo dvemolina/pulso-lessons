@@ -3,8 +3,8 @@ import forms from '@tailwindcss/forms';
 import type { Config } from 'tailwindcss';
 
 export default {
+	darkMode: "selector",
 	content: ['./src/**/*.{html,js,svelte,ts}'],
-
 	theme: {
 		extend: {
 			colors: {
@@ -15,8 +15,10 @@ export default {
 				borderActive: "var(--border-active)",
 				primary: "var(--primary)",
 				primaryActive: "var(--primary-active)",
+				primaryWashed: "var(--primary-washed)",
 				secondary: "var(--secondary)",
 				secondaryActive: "var(--secondary-active)",
+				secondaryWashed: "var(--secondary-washed)",
 				error: "var(--error)"
 			},
 			fontFamily: {

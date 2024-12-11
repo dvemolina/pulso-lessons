@@ -5,7 +5,6 @@
 	import { fade, slide } from 'svelte/transition';
 	import { goto } from '$app/navigation';
 	import AvatarMenu from './AvatarMenu.svelte';
-	
 
 	interface Props {
 		user: any;
@@ -40,17 +39,17 @@
 		{
 			name: 'LinkedIn',
 			href: 'https://linkedin.com/your-profile',
-			src: '/svg/linkedin.svg',
+			src: '/svg/linkedin.svg'
 		},
 		{
 			name: 'Instagram',
 			href: 'https://instagram.com/your-profile',
-			src: '/svg/instagram.svg',
+			src: '/svg/instagram.svg'
 		},
 		{
 			name: 'Twitter',
 			href: 'https://twitter.com/your-profile',
-			src: '/svg/x-twitter.svg',
+			src: '/svg/x-twitter.svg'
 		}
 	];
 
@@ -103,7 +102,7 @@
 
 	{#if isMobile}
 		<button class="hamburger" onclick={toggleMenu} aria-label="Menu">
-			<img src="/svg/menu-dots.svg" alt="Menu" class="invert-0 dark:invert">
+			<img src="/svg/menu-dots.svg" alt="Menu" class="invert-0 dark:invert" />
 		</button>
 	{:else}
 		<nav aria-label="Navegación Menú Principal" class="justify-start">
@@ -134,7 +133,7 @@
 			<div class="social-icons">
 				{#each socialIcons as { name, href, src }}
 					<a {href} target="_blank" rel="noopener noreferrer" aria-label={name}>
-						<img {src} alt={name} class="max-w-4 invert-0 dark:invert">
+						<img {src} alt={name} class="max-w-4 invert-0 dark:invert" />
 					</a>
 				{/each}
 			</div>
@@ -144,7 +143,7 @@
 				<div class="access">
 					<ShinyCta
 						type="button"
-						onClick={() => goto("/auth/login")}
+						onClick={() => goto('/auth/login')}
 						paddingProp="0.5rem 1rem"
 						bgSubtleColor="var(--primary)"
 						highlightColor="var(--primary)"
@@ -184,9 +183,9 @@
 				{#if user}
 					<AvatarMenu src={user.userPicture} userName={user.name} />
 				{:else}
-					<li class="nav-item justify-center w-full">
+					<li class="nav-item w-full justify-center">
 						<ShinyCta
-							onClick={() => goto("/auth/login")}
+							onClick={() => goto('/auth/login')}
 							paddingProp="0.5rem 1rem"
 							bgSubtleColor="var(--primary)"
 							highlightColor="var(--primary)"
@@ -199,7 +198,7 @@
 		<div class="social-icons">
 			{#each socialIcons as { name, href, src }}
 				<a {href} target="_blank" rel="noopener noreferrer" aria-label={name}>
-					<img {src} alt={name} class="max-w-4 invert-0 dark:invert">
+					<img {src} alt={name} class="max-w-4 invert-0 dark:invert" />
 				</a>
 			{/each}
 		</div>
@@ -207,7 +206,6 @@
 {/if}
 
 <style>
-
 	header {
 		display: flex;
 		justify-content: start;
@@ -216,7 +214,7 @@
 		background-color: transparent;
 		position: fixed;
 		top: 0;
-        left:0;
+		left: 0;
 		z-index: 1000;
 		transition:
 			background-color 0.3s ease,
@@ -225,7 +223,7 @@
 			border 0.3s ease-in-out;
 		backdrop-filter: blur(0);
 		height: 85px;
-        width: 100%;
+		width: 100%;
 		border-bottom: 0.5px solid transparent;
 	}
 
@@ -234,7 +232,7 @@
 		backdrop-filter: blur(20px);
 		-webkit-backdrop-filter: blur(20px);
 		height: 65px;
-		border-bottom: 0.5px solid var(--border)
+		border-bottom: 0.5px solid var(--border);
 	}
 
 	#brand {
@@ -246,6 +244,7 @@
 	.logo {
 		max-width: 100px;
 		height: auto;
+		margin-left: 1.5rem;
 	}
 
 	nav {
@@ -318,7 +317,7 @@
 	.social-icons {
 		display: flex;
 		justify-content: flex-end;
-        align-items: center;
+		align-items: center;
 		gap: 1rem;
 	}
 
