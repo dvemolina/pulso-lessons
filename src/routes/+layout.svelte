@@ -48,7 +48,7 @@
 		left: 0;
 		width: 100%;
 		height: 120dvh;
-		opacity: 0.5;
+		opacity: 0.8;
 		z-index: -3;
 	}
 
@@ -62,9 +62,9 @@
 		position: absolute;
 		top: 0;
 		right: 0;
-		width: 50%;
-		height: 100%;
-		opacity: 0.13;
+		width: 70%;
+		height: 100dvh;
+		opacity: 0.16;
 		z-index: -2;
 		-webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 70%);
 		mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 70%);
@@ -74,7 +74,7 @@
 		content: '';
 		background-image: var(--bg-grain);
 		background-repeat: repeat;
-		background-size: 185px;
+		background-size: 300px;
 		opacity: 0.05;
 		top: 0;
 		left: 0;

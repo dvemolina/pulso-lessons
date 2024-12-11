@@ -2,8 +2,12 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+body {
+    background-color: var(--background);
+}
+
 :root {
-    --background: #000000;
+    --background: #0f0f0f;
     --text: #f3f3f3;
     --border: #f3f3f31d;
     --border-active: #f3f3f3a2;
@@ -16,7 +20,7 @@
 }
 
 .dark {
-    --background: #000000;
+    --background: #090909;
     --text: #eeeeee;
     --border: #f3f3f31d;
     --border-active: #f3f3f3a2;
