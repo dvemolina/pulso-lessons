@@ -6,7 +6,7 @@
 	import '@fontsource-variable/public-sans';
 	import '@fontsource/fira-sans';
 	import { ModeWatcher } from 'mode-watcher';
-	import Header from '$src/components/Header.svelte';
+	import Header from '$src/components/HeaderMinimalist.svelte';
 	let { children } = $props();
 </script>
 
@@ -39,7 +39,8 @@
 	}
 	.greenball::before {
 		content: '';
-		background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuZGV2L3N2Z2pzIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCIgb3BhY2l0eT0iMSI+PGRlZnM+PGZpbHRlciBpZD0iYmJibHVycnktZmlsdGVyIiB4PSItMTAwJSIgeT0iLTEwMCUiIHdpZHRoPSI0MDAlIiBoZWlnaHQ9IjQwMCUiIGZpbHRlclVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgcHJpbWl0aXZlVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBjb2xvci1pbnRlcnBvbGF0aW9uLWZpbHRlcnM9InNSR0IiPgoJPGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iNzgiIHg9IjAlIiB5PSIwJSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgaW49IlNvdXJjZUdyYXBoaWMiIGVkZ2VNb2RlPSJub25lIiByZXN1bHQ9ImJsdXIiPjwvZmVHYXVzc2lhbkJsdXI+PC9maWx0ZXI+PC9kZWZzPjxnIGZpbHRlcj0idXJsKCNiYmJsdXJyeS1maWx0ZXIpIj48ZWxsaXBzZSByeD0iMTg2LjUiIHJ5PSI4OC41IiBjeD0iNjAxLjE0ODI1OTYwNDI1NjUiIGN5PSIyNTEuNzA4NzAyMjEyODkwNTYiIGZpbGw9ImhzbGEoMTUyLCA1MiUsIDI4JSwgMS4wMCkiPjwvZWxsaXBzZT48ZWxsaXBzZSByeD0iMTg2LjUiIHJ5PSI4OC41IiBjeD0iNjE5LjQ2OTMwMDYxODgzNzciIGN5PSIyMzEuNzA2OTIxODMzNjEzOTMiIGZpbGw9ImhzbGEoMTUzLCA5MiUsIDI3JSwgMC42NykiPjwvZWxsaXBzZT48L2c+PC9zdmc+');
+		background: var(--bottom-gradient),
+		var(--greenball);
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position: center;
@@ -48,7 +49,7 @@
 		left: 0;
 		width: 100%;
 		height: 120dvh;
-		opacity: 0.8;
+		opacity: 1;
 		z-index: -3;
 	}
 
@@ -60,27 +61,29 @@
 		background-size: cover;
 		background-position: center left;
 		position: absolute;
-		top: 0;
+		top: 50px;
 		right: 0;
-		width: 70%;
+		width: 60%;
 		height: 100dvh;
-		opacity: 0.16;
+		opacity: 0.2;
 		z-index: -2;
-		-webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 70%);
-		mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 70%);
+		-webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%);
+		mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%);
 	}
 
 	.grain:before {
 		content: '';
-		background-image: var(--bg-grain);
+		background: 
+        var(--bottom-gradient), 
+        var(--bg-grain); /* Grain texture */
 		background-repeat: repeat;
-		background-size: 300px;
-		opacity: 0.05;
+		background-size: 180px, auto;
+		opacity: 0.13;
 		top: 0;
 		left: 0;
-		position: fixed;
+		position: absolute;
 		width: 100%;
-		height: 100%;
-		z-index: -1;
+		height: 120dvh;
+		z-index: -1;	
 	}
 </style>
