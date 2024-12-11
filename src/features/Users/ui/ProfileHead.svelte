@@ -62,6 +62,6 @@
 	</div>
 	<CoolCta>
 		<img src="/svg/calendar.svg" alt="Calendar" class="opacity-90 invert" />
-		<p class="font-fira text-lg font-semibold">Reservame Ahora</p>
+		<p class="font-fira text-lg font-semibold">Resérvame Ahora</p>
 	</CoolCta>
 </div>
