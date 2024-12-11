@@ -102,11 +102,11 @@
 	</div>
 
 	{#if isMobile}
-		<button class="hamburger" onclick={toggleMenu} aria-label="Desplegar Menú">
-			<iconify-icon icon="solar:menu-dots-square-linear"></iconify-icon>
+		<button class="hamburger" onclick={toggleMenu} aria-label="Menu">
+			<img src="/svg/menu-dots.svg" alt="Menu" class="invert-0 dark:invert">
 		</button>
 	{:else}
-		<nav aria-label="Navegación Menú Principal">
+		<nav aria-label="Navegación Menú Principal" class="justify-start">
 			<ul class="nav-menu">
 				{#each navItems as item}
 					<li class="nav-item" class:dropdown={item.dropdown}>
@@ -134,7 +134,7 @@
 			<div class="social-icons">
 				{#each socialIcons as { name, href, src }}
 					<a {href} target="_blank" rel="noopener noreferrer" aria-label={name}>
-						<img {src} alt={name} class="size-6 invert-0 dark:invert">
+						<img {src} alt={name} class="max-w-4 invert-0 dark:invert">
 					</a>
 				{/each}
 			</div>
@@ -184,13 +184,13 @@
 				{#if user}
 					<AvatarMenu src={user.userPicture} userName={user.name} />
 				{:else}
-					<li class="nav-item">
+					<li class="nav-item justify-center w-full">
 						<ShinyCta
 							onClick={() => goto("/auth/login")}
 							paddingProp="0.5rem 1rem"
-							bgSubtleColor="var(--primary-light)"
-							highlightColor="var(--primary-light)"
-							highlightSubtleColor="var(--primary-light)">Acceder</ShinyCta
+							bgSubtleColor="var(--primary)"
+							highlightColor="var(--primary)"
+							highlightSubtleColor="var(--primary)">Acceder</ShinyCta
 						>
 					</li>
 				{/if}
@@ -199,7 +199,7 @@
 		<div class="social-icons">
 			{#each socialIcons as { name, href, src }}
 				<a {href} target="_blank" rel="noopener noreferrer" aria-label={name}>
-					<img {src} alt={name}>
+					<img {src} alt={name} class="max-w-4 invert-0 dark:invert">
 				</a>
 			{/each}
 		</div>
@@ -210,7 +210,7 @@
 
 	header {
 		display: flex;
-		justify-content: space-between;
+		justify-content: start;
 		align-items: center;
 		padding: 1rem 4rem;
 		background-color: transparent;
@@ -220,20 +220,27 @@
 		z-index: 1000;
 		transition:
 			background-color 0.3s ease,
-			backdrop-filter 0.3s ease;
+			backdrop-filter 0.3s ease,
+			height 0.3s ease-in-out,
+			border 0.3s ease-in-out;
 		backdrop-filter: blur(0);
-		height: 75px;
+		height: 85px;
         width: 100%;
+		border-bottom: 0.5px solid transparent;
 	}
 
 	header.isScrolled {
-		background-color: rgba(2, 1, 8, 0.219);
+		background-color: var(--background);
 		backdrop-filter: blur(20px);
 		-webkit-backdrop-filter: blur(20px);
+		height: 65px;
+		border-bottom: 0.5px solid var(--border)
 	}
 
 	#brand {
+		display: flex;
 		flex: 1;
+		justify-content: center;
 	}
 
 	.logo {
@@ -244,7 +251,6 @@
 	nav {
 		flex: 4;
 		display: flex;
-		justify-content: center;
 	}
 
 	.nav-menu {
@@ -337,7 +343,7 @@
 
 	.mobile-menu {
 		position: fixed; /* Changed to fixed */
-		top: 75px; /* Adjust this based on your header height */
+		top: 65px; /* Adjust this based on your header height */
 		left: 0;
 		right: 0;
 		background-color: rgba(2, 1, 8, 0.219);

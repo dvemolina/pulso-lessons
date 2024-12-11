@@ -10,6 +10,7 @@ export default {
 			colors: {
 				background: "var(--background)",
 				text: "var(--text)",
+				textNeutral: "var(--text-neutral)",
 				border: "var(--border)",
 				borderActive: "var(--border-active)",
 				primary: "var(--primary)",

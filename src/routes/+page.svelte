@@ -1,5 +1,5 @@
 <script>
-	import CoolCta from '$src/components/CoolCTA.svelte';
+	
 </script>
 
 <div class="flex flex-col md:flex-row justify-evenly items-center mt-[75px] w-full">
@@ -10,23 +10,26 @@
 				>Instructores</span
 			> <br />de Tu Montaña
 		</h1>
-		<h2 class="text-md font-sans font-medium text-neutral-500 md:text-md lg:text-lg xl:text-xl">
+		<h2 class="text-md font-sans font-medium text-textNeutral  md:text-md lg:text-lg xl:text-2xl">
 			Conecta con Profesionales Locales.<br /> Reserva tus clases de Esquí y Snowboard<br /> en cualquier
 			estación de España
 		</h2>
-		<!--
     
-    <button
-		aria-label="Encuentra Instructores"
-		class="hover:bg-primary hover:scale-105  rounded-lg border-4 bg-transparent border-primary px-5 py-2 font-fira font-medium transition-all ease-in-out"
-	>
-		Encuentra Tu Instructor</button
-	>
-    -->
-		<CoolCta paddingProp="1.1rem 2.3rem" borderRadius="10px" fontWeight="600">Encuentra Tu Instructor</CoolCta>
+		<div class="flex flex-col lg:flex-row gap-4 items-center md:items-end lg:items-center mt-2 ">
+			<button
+				aria-label="Encuentra Instructores"
+				class="hover:bg-primaryActive hover:scale-105 xl:text-xl text-lg px-7 py-3 rounded-md bg-primary xl:px-10 xl:py-4 font-fira font-medium transition-all ease-in-out text-teal-50"
+			>
+				Encuentra Tu Instructor</button
+			>
+			<a href="/instructores" class="text-primary xl:text-xl text-lg font-semibold font-fira hover:text-text">
+				<p>Eres Instructor?</p>
+			</a>
+		</div>
+    
 	</div>
     <div class="cards aspect-w-5 aspect-h-3 flex flex-row h-full">
-        <img src="/heroCards.png" alt="Tarjetas Instructores de Esquí" class="object-cover pt-24 px-12 " />
+        <img src="/heroCards.png" alt="Tarjetas Instructores de Esquí" class="object-cover pt-10 px-8 md:pt-24 md:px-12 " />
     </div>
 </div>
 

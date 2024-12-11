@@ -6,7 +6,7 @@
 	import '@fontsource-variable/public-sans';
 	import '@fontsource/fira-sans';
 	import { ModeWatcher } from 'mode-watcher';
-	import Header from '$src/components/HeaderMinimalist.svelte';
+	import Header from '$src/components/Header.svelte';
 	let { children } = $props();
 </script>
 
@@ -48,7 +48,7 @@
 		top: 0;
 		left: 0;
 		width: 100%;
-		height: 120dvh;
+		height: 130dvh;
 		opacity: 1;
 		z-index: -3;
 	}
@@ -78,7 +78,7 @@
         var(--bg-grain); /* Grain texture */
 		background-repeat: repeat;
 		background-size: 180px, auto;
-		opacity: 0.13;
+		opacity: 0.07;
 		top: 0;
 		left: 0;
 		position: absolute;
