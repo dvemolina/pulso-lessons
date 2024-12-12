@@ -3,7 +3,7 @@
 	import StarScore from '$src/components/StarScore.svelte';
 </script>
 
-<div class="flex flex-col items-center gap-5">
+<div class="flex flex-col items-center h-full gap-5">
     <div class="AVATAR flex flex-col gap-4">
         <div class="size-52 overflow-hidden rounded-full border-4 border-border">
             <img src="/dve.png" alt="Profile" class="object-cover object-center" />

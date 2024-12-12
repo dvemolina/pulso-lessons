@@ -20,7 +20,7 @@
 		bgSubtleColor = 'var(--primary-active)',
 		highlightColor = 'var(--primary-active)',
 		highlightSubtleColor = 'var(--primary-active)',
-		paddingProp = '1rem 2rem',
+		paddingProp = '0.9rem 2rem',
 		borderRadius = '360px',
 		btnWidth = '',
 		fontSize = '1rem',

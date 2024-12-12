@@ -15,7 +15,7 @@
     } = $props()
  </script>
 
- <div class="flex flex-row p-4 rounded-md border border-border gap-6 bg-neutral-400/5">
+ <div class=" h-full flex flex-row p-4 rounded-md border border-border gap-6 bg-neutral-400/5">
     <div class="flex flex-col items-center gap-2">
         <StarScore {score} />
         <div class="border border-boder rounded-full overflow-hidden size-16">
@@ -24,6 +24,6 @@
     </div>
     <div class="flex flex-col">
         <p>{clientName} <span class="ml-2 font-fira font-extralight text-sm text-textNeutral">{bookingDate}</span></p>
-        <p class="text-textNeutral text-sm font-light font-fira">{comment}</p>
+        <p class="text-textNeutral text-sm font-light font-fira mt-1">{comment}</p>
     </div>
  </div>

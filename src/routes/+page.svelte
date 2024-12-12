@@ -16,15 +16,15 @@
 		</h2>
     
 		<div class="flex flex-col lg:flex-row gap-4 items-center md:items-end lg:items-center mt-2 ">
+			<a href="/instructores" class="text-primary xl:text-lg text-lg font-semibold font-fira hover:text-textNeutral hover:border-textNeutral border border-primaryWashed p-3 rounded-sm">
+				<p>Eres Instructor?</p>
+			</a>
 			<button
 				aria-label="Encuentra Instructores"
 				class="hover:bg-primaryActive hover:scale-105 xl:text-xl text-lg px-7 py-3 rounded-md bg-primary xl:px-10 xl:py-4 font-fira font-medium transition-all ease-in-out text-teal-50"
 			>
 				Encuentra Tu Instructor</button
 			>
-			<a href="/instructores" class="text-primary xl:text-xl text-lg font-semibold font-fira hover:text-text">
-				<p>Eres Instructor?</p>
-			</a>
 		</div>
     
 	</div>
