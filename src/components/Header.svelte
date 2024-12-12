@@ -215,7 +215,7 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		z-index: 1000;
+		z-index: 10;
 		transition:
 			background-color 0.3s ease,
 			backdrop-filter 0.3s ease,
@@ -231,7 +231,7 @@
 		background-color: var(--background);
 		backdrop-filter: blur(20px);
 		-webkit-backdrop-filter: blur(20px);
-		height: 65px;
+		height: 60px;
 		border-bottom: 0.5px solid var(--border);
 	}
 
@@ -256,8 +256,9 @@
 		list-style: none;
 		display: flex;
 		gap: 1rem;
-		margin: 0;
+		margin-left: 1rem;
 		padding: 0;
+
 	}
 
 	.nav-item a {
@@ -342,10 +343,10 @@
 
 	.mobile-menu {
 		position: fixed; /* Changed to fixed */
-		top: 65px; /* Adjust this based on your header height */
+		top: 60px; /* Adjust this based on your header height */
 		left: 0;
 		right: 0;
-		background-color: rgba(2, 1, 8, 0.219);
+		background-color: var(--background);
 		backdrop-filter: blur(20px);
 		-webkit-backdrop-filter: blur(20px);
 		z-index: 1000;

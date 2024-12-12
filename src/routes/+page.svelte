@@ -2,7 +2,7 @@
 	
 </script>
 
-<div class="flex flex-col md:flex-row justify-evenly items-center mt-[75px] w-full">
+<div class="flex flex-col md:flex-row justify-evenly items-center mt-[75px] w-full h-full">
 	<div class="flex h-full flex-col items-center md:items-end gap-6 px-4 py-8 text-center md:text-right sm">
 		<h1 class=" mt-24 font-fira text-3xl font-black uppercase sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl">
 			Los Mejores <br /><span
