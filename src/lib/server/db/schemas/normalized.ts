@@ -17,3 +17,4 @@ export const languages = pgTable("languages", {
     languageId: integer("language_id").notNull().references(() => languages.id),
     code: varchar('code', { length: 5 }).notNull() // aa-AA format
   });
+
