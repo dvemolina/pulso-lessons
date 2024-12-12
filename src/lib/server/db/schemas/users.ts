@@ -1,10 +1,10 @@
 import { pgTable, text, integer, timestamp, boolean, varchar } from 'drizzle-orm/pg-core';
-import { countries, countryLanguages, roles } from './normalized';
+import { countries, languages, roles } from './normalized';
 import { timestamps } from '../helpers';
 
 export const users = pgTable('users', {
-	id: integer('id').primaryKey().generatedAlwaysAsIdentity().unique(),
-	role: integer('role').references(() => roles.id).notNull() //Maybe add a Default Role?
+	id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+	role: integer('role').references(() => roles.id).notNull(), //Maybe add a Default Role?
 	name: text('name').notNull(),
 	surname: text('surname').notNull(),
 	email: varchar('email',{ length: 254 }).notNull().unique(),
@@ -17,13 +17,13 @@ export const users = pgTable('users', {
 	qualification: varchar('qualification_file', { length: 255 }),
 	biography: text("biography"),
 	nationality: integer("nationality").references(() => countries.id),
-	iban: varchar("iban", { length: 34 }),
+	iban: varchar("iban", { length: 50 }),
 	...timestamps
 });
 
 export const session = pgTable('session', {
 	id: text('id').primaryKey(),
-	userId: text('user_id')
+	userId: integer('user_id')
 		.notNull()
 		.references(() => users.id),
 	expiresAt: timestamp('expires_at', { withTimezone: true, mode: 'date' }).notNull()
@@ -31,7 +31,7 @@ export const session = pgTable('session', {
 
 export const userLanguages = pgTable("user_languages", {
 	userId: integer("user_id").notNull().references(() => users.id),
-	languageId: integer("language_id").notNull().references(() => countryLanguages.code)
+	languageId: integer("language_id").notNull().references(() => languages.id)
   });
 
 export const userRoles = pgTable('user_roles', {
