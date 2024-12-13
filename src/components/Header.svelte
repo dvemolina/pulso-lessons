@@ -11,12 +11,14 @@
 		user: any;
 	}
 
-	let { data, user }: Props = $props();
+	let { user }: Props = $props();
 
 	let isMobile: boolean | undefined = $state();
 	let openDropdown: string | null = $state(null);
 	let isMenuOpen = $state(false);
 	let isScrolled = $state(false);
+
+	let isRootUrl = $state(false)
 
 	const navItems = [
 		{ name: 'Inicio', href: '/' },
@@ -32,7 +34,7 @@
 		},
 		{
 			name: 'Registrarse',
-			href: '/signup'
+			href: '/auth/signup'
 		}
 	];
 
@@ -58,7 +60,7 @@
 		isMenuOpen = !isMenuOpen;
 		if (isMenuOpen) {
 			isScrolled = true;
-		} else if (window.scrollY === 0) {
+		} else if (window.scrollY === 0 && isRootUrl) {
 			isScrolled = false;
 		}
 	}
@@ -187,7 +189,7 @@
 				{:else}
 					<li class="nav-item w-full justify-center">
 						<ShinyCta
-							onClick={() => goto('/auth/login')}
+							onClick={() => goto('/login')}
 							paddingProp="0.5rem 1rem"
 							bgSubtleColor="var(--primary)"
 							highlightColor="var(--primary)"

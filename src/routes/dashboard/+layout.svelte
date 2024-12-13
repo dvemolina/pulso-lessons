@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import DashboardHeader from '$src/routes/ui/sections/headers/DashboardHeader.svelte';
+	import DashboardHeader from '$src/components/Header.svelte';
 	import { onMount } from 'svelte';
 	import type { LayoutData } from '../$types';
 	import { ScrollArea } from 'bits-ui';
@@ -12,6 +12,8 @@
 
 	let { data, children }: Props = $props();
 	const user = data.user;
+
+	
 
 	let isMobile = $state(false);
 	let sidebarOpen = $state(true);

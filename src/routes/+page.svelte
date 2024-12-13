@@ -2,9 +2,9 @@
 	
 </script>
 
-<div class="flex flex-col md:flex-row justify-center items-center w-full h-full">
-	<div class="flex h-full flex-col justify-center items-center md:items-end gap-6 px-4 py-8 text-center md:text-right sm">
-		<h1 class="font-fira text-[1.95rem] font-black uppercase sm:text-4xl md:text-4xl lg:text-4xl xl:text-5xl 2xl:text-7xl">
+<div class="flex flex-col md:flex-row justify-evenly items-center w-full h-full px-4 py-8">
+	<div class="flex flex-col justify-center items-center md:items-end  gap-6 text-center ">
+		<h1 class="font-fira text-[1.95rem] md:text-right font-black uppercase sm:text-4xl md:text-4xl lg:text-4xl xl:text-5xl 2xl:text-7xl">
 			Los Mejores <br /><span
 				class="font-sans text-4xl text-primary sm:text-5xl  md:text-[2.75rem] lg:text-5xl xl:text-6xl 2xl:text-8xl"
 				>Instructores</span
@@ -28,8 +28,8 @@
 		</div>
     
 	</div>
-    <div class="cards aspect-w-5 aspect-h-3 flex flex-row min-w-[360px] max-w-[650px] 2xl:min-w-[650px] 2xl:max-w-[2500px]">
-        <img src="/heroCards.png" alt="Tarjetas Instructores de Esquí" class="object-coverpx-8 md:px-12 2xl:min-w-[650px] 2xl:max-w-[2500px]" />
+    <div class="cards aspect-w-5 aspect-h-3 flex flex-row items-center justify-center">
+        <img src="/heroCards.png" alt="Tarjetas Instructores de Esquí" class="object-cover px-8 min-w-[360px] max-w-[650px] 2xl:min-w-[650px] 2xl:max-w-[2500px]" />
     </div>
 </div>
 
