@@ -83,7 +83,7 @@ onclick={onClick}
 		overflow: hidden;
 		cursor: pointer;
 		outline-offset: 4px;
-		font-family: inherit;
+		font-family: "Fira Sans";
 		line-height: 1.2;
 		border: 1px solid transparent;
 		color: var(--shiny-cta-fg);

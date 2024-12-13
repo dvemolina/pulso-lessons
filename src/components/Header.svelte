@@ -10,7 +10,7 @@
 		user: any;
 	}
 
-	let { user }: Props = $props();
+	let { data, user }: Props = $props();
 
 	let isMobile: boolean | undefined = $state();
 	let openDropdown: string | null = $state(null);
@@ -31,7 +31,7 @@
 		},
 		{
 			name: 'Registrarse',
-			href: '/auth/signup'
+			href: '/signup'
 		}
 	];
 
@@ -250,6 +250,7 @@
 	nav {
 		flex: 4;
 		display: flex;
+		font-family: "Fira Sans";
 	}
 
 	.nav-menu {

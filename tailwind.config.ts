@@ -9,6 +9,7 @@ export default {
 		extend: {
 			colors: {
 				background: "var(--background)",
+				bgNeutral: "var(--background-neutral)",
 				text: "var(--text)",
 				textNeutral: "var(--text-neutral)",
 				border: "var(--border)",
@@ -26,6 +27,9 @@ export default {
 				code: ['Fira Code', 'Courier New', 'monospace'], 
 				fira: ['Fira Sans', 'Courier New', 'monospace']
 			  },
+			screens: {
+				"2xl": "1795px"
+			}
 		}
 	},
 

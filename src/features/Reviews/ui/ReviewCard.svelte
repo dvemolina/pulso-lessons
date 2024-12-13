@@ -15,15 +15,19 @@
     } = $props()
  </script>
 
- <div class=" h-full flex flex-row p-4 rounded-md border border-border gap-6 bg-neutral-400/5">
+ <div class=" h-full flex flex-col sm:flex-row p-4 rounded-md border border-border sm:gap-6 bg-bgNeutral">
     <div class="flex flex-col items-center gap-2">
         <StarScore {score} />
-        <div class="border border-boder rounded-full overflow-hidden size-16">
+        <div class="border border-boder rounded-full overflow-hidden size-14">
             <img src={clientPicture} alt="Cliente" class="object-cover">
         </div>
     </div>
-    <div class="flex flex-col">
-        <p>{clientName} <span class="ml-2 font-fira font-extralight text-sm text-textNeutral">{bookingDate}</span></p>
+    <div class="flex flex-col items-center sm:items-start">
+        <div class="flex flex-col items-center sm:items-center sm:flex-row sm: sm:gap-4 ">
+            <p>{clientName}</p> 
+            <p class="font-fira font-extralight text-sm text-textNeutral">{bookingDate}</p>
+
+        </div>
         <p class="text-textNeutral text-sm font-light font-fira mt-1">{comment}</p>
     </div>
  </div>
