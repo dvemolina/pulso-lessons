@@ -5,6 +5,7 @@
 	import { fade, slide } from 'svelte/transition';
 	import { goto } from '$app/navigation';
 	import AvatarMenu from './AvatarMenu.svelte';
+	import ModeSwitch from './ModeSwitch.svelte';
 
 	interface Props {
 		user: any;
@@ -151,6 +152,7 @@
 					>
 				</div>
 			{/if}
+			<ModeSwitch/>
 		</div>
 	{/if}
 </header>
@@ -264,16 +266,15 @@
 
 	.nav-item a {
 		text-decoration: none;
-		color: rgb(242, 242, 242);
+		color: var(--text-neutral);
 		font-size: 1rem;
-		opacity: 0.7;
-		transition: opacity 0.3s ease;
+		transition: color 0.3s ease;
 		display: flex;
 		align-items: center;
 	}
 
 	.nav-item a:hover {
-		opacity: 1;
+		color: var(--text)
 	}
 
 	.dropdown {

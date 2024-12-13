@@ -40,7 +40,7 @@
 	<div
 		class="CONTENT flex h-full w-full flex-col gap-7 rounded-md border border-border bg-background p-10 md:w-2/3 xl:w-3/4"
 	>
-		<div class="ABOUT flex h-full w-full flex-col gap-1">
+		<div class="ABOUT flex w-full flex-col gap-1">
 			<h2 class="font-fira text-lg font-semibold text-text">Sobre Mí</h2>
 			<p class="text-md font-sans font-normal text-textNeutral">
 				Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima deleniti suscipit debitis

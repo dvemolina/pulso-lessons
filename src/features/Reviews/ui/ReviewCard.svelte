@@ -15,7 +15,7 @@
     } = $props()
  </script>
 
- <div class=" h-full flex flex-col sm:flex-row p-4 rounded-md border border-border sm:gap-6 bg-bgNeutral">
+ <div class="flex flex-col sm:flex-row p-4 rounded-md border border-border sm:gap-6 bg-bgNeutral">
     <div class="flex flex-col items-center gap-2">
         <StarScore {score} />
         <div class="border border-boder rounded-full overflow-hidden size-14">
