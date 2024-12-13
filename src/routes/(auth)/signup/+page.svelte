@@ -3,15 +3,15 @@
 	import CoolCta from '$src/components/CoolCTA.svelte';
 </script>
 
-<div class="flex flex-col  items-center justify-center gap-5 bg-background border border-border rounded-md px-8 py-11">
 	<p class="self-center mb-2 font-fira text-xl font-semibold text-text">Selecciona Tipo de Cuenta</p>
 	<CoolCta
 		onClick={() => goto('/signup/customer')}
 		paddingProp="1.2rem"
 		btnWidth="18rem"
 		fontWeight="500"
+		
 	>
-		<p class="font-fira text-text">Crear Cuenta de Cliente</p>
+		<p class="font-fira dark:text-text text-background">Crear Cuenta de Cliente</p>
 	</CoolCta>
 	<CoolCta
 		onClick={() => goto('/signup/instructor')}
@@ -25,6 +25,3 @@
 	>
 		<p class="font-fira text-text">Crear Cuenta de Instructor</p>
 	</CoolCta>
-</div>
-
-<form action=""></form>

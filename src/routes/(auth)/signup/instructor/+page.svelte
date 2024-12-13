@@ -3,9 +3,6 @@
 	import { countryPrefix } from '$src/lib/utils';
 </script>
 
-<div
-	class="mt-60 flex flex-col items-center justify-center rounded-lg border border-border bg-background px-6 py-11"
->
 	<form action="" method="post" class="flex flex-col gap-8">
 		<div class="flex flex-col">
 			<p class="mb-5 self-center font-fira text-xl font-semibold text-text">
@@ -56,4 +53,3 @@
 			>
 		</div>
 	</form>
-</div>

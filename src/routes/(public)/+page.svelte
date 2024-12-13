@@ -2,11 +2,11 @@
 	
 </script>
 
-<div class="flex flex-col md:flex-row justify-evenly items-center w-full h-full px-4 py-8">
-	<div class="flex flex-col justify-center items-center md:items-end  gap-6 text-center ">
-		<h1 class="font-fira text-[1.95rem] md:text-right font-black uppercase sm:text-4xl md:text-4xl lg:text-4xl xl:text-5xl 2xl:text-7xl">
+<div class="flex flex-col md:flex-row justify-evenly items-center mt-24 md:mt-0 w-full h-full px-4 gap-6">
+	<div class="headings flex flex-col justify-center items-center md:items-end  gap-6 text-center md:text-right">
+		<h1 class="font-fira text-[1.95rem] font-black uppercase sm:text-4xl md:text-4xl lg:text-4xl xl:text-5xl 2xl:text-7xl">
 			Los Mejores <br /><span
-				class="font-sans text-4xl text-primary sm:text-5xl  md:text-[2.75rem] lg:text-5xl xl:text-6xl 2xl:text-8xl"
+				class="font-sans text-4xl text-primary sm:text-5xl  md:text-[2.5rem] lg:text-5xl xl:text-6xl 2xl:text-8xl"
 				>Instructores</span
 			> <br />de Tu Montaña
 		</h1>
@@ -28,9 +28,9 @@
 		</div>
     
 	</div>
-    <div class="cards aspect-w-5 aspect-h-3 flex flex-row items-center justify-center">
-        <img src="/heroCards.png" alt="Tarjetas Instructores de Esquí" class="object-cover px-8 min-w-[360px] max-w-[650px] 2xl:min-w-[650px] 2xl:max-w-[2500px]" />
+    <div class="cards flex flex-row items-center justify-center max-w-[400px] sm:max-w-[450px] md:max-w-[550px]">
+        <img src="/heroCards.png" alt="Tarjetas Instructores de Esquí" class="object-cover" />
     </div>
 </div>
-
+ 
 

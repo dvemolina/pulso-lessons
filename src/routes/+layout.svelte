@@ -6,23 +6,17 @@
 	import '@fontsource-variable/public-sans';
 	import '@fontsource/fira-sans';
 	import { ModeWatcher } from 'mode-watcher';
-	import Header from '$src/components/Header.svelte';
 	let { children } = $props();
 </script>
 
-
-	<ModeWatcher lightClassNames={['light']} />
-	<ParaglideJS {i18n}>
-		<div class="greenball">
-			<div class="content h-full">
-					<Header />
-					{@render children()}
-			</div>
-		</div>
-	</ParaglideJS>
+<ModeWatcher lightClassNames={['light']} />
+<ParaglideJS {i18n}>
+	<div class="greenball">
+			{@render children()}
+	</div>
+</ParaglideJS>
 
 <style>
-
 	.greenball {
 		position: absolute;
 		height: 100%;
@@ -30,8 +24,7 @@
 	}
 	.greenball::before {
 		content: '';
-		background: var(--bottom-gradient),
-		var(--greenball);
+		background: var(--bottom-gradient), var(--greenball);
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position: center;
@@ -40,10 +33,9 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		opacity: 0.5;
+		opacity: 0.9;
 		z-index: -2;
 	}
-
 
 	/*Grain (Noise Gradient) Mask
 	.greenball::after {
@@ -63,6 +55,4 @@
 		-webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%);
 		mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%);
 	} */
-	
-
 </style>

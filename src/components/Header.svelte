@@ -8,17 +8,16 @@
 	import ModeSwitch from './ModeSwitch.svelte';
 
 	interface Props {
-		user: any;
+		user?: any;
+		isSolid?: boolean;
 	}
 
-	let { user }: Props = $props();
+	let { user, isSolid = false }: Props = $props();
 
 	let isMobile: boolean | undefined = $state();
 	let openDropdown: string | null = $state(null);
 	let isMenuOpen = $state(false);
 	let isScrolled = $state(false);
-
-	let isRootUrl = $state(false)
 
 	const navItems = [
 		{ name: 'Inicio', href: '/' },
@@ -34,7 +33,7 @@
 		},
 		{
 			name: 'Registrarse',
-			href: '/auth/signup'
+			href: '/signup'
 		}
 	];
 
@@ -60,7 +59,7 @@
 		isMenuOpen = !isMenuOpen;
 		if (isMenuOpen) {
 			isScrolled = true;
-		} else if (window.scrollY === 0 && isRootUrl) {
+		} else if (window.scrollY === 0) {
 			isScrolled = false;
 		}
 	}
@@ -96,7 +95,10 @@
 	});
 </script>
 
-<header class:isScrolled>
+<header
+	class:isScrolled
+	class={isSolid ? 'border-b-[0.5px] border-b-border bg-background h-[65px]' : 'border-b-transparent bg-transparent h-[80px]'}
+>
 	<div id="brand">
 		<a href="/">
 			<img class="logo" src="/pulso.png" alt="Pulso" />
@@ -146,7 +148,7 @@
 				<div class="access">
 					<ShinyCta
 						type="button"
-						onClick={() => goto('/auth/login')}
+						onClick={() => goto('/login')}
 						paddingProp="0.5rem 1rem"
 						bgSubtleColor="var(--primary)"
 						highlightColor="var(--primary)"
@@ -154,7 +156,7 @@
 					>
 				</div>
 			{/if}
-			<ModeSwitch/>
+			<ModeSwitch />
 		</div>
 	{/if}
 </header>
@@ -215,7 +217,6 @@
 		justify-content: start;
 		align-items: center;
 		padding: 1rem 4rem;
-		background-color: transparent;
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -226,16 +227,14 @@
 			height 0.3s ease-in-out,
 			border 0.3s ease-in-out;
 		backdrop-filter: blur(0);
-		height: 85px;
 		width: 100%;
-		border-bottom: 0.5px solid transparent;
 	}
 
 	header.isScrolled {
-		background-color: var(--background);
+		background-color: var(--background-neutral);
 		backdrop-filter: blur(20px);
 		-webkit-backdrop-filter: blur(20px);
-		height: 60px;
+		height: 65px;
 		border-bottom: 0.5px solid var(--border);
 	}
 
@@ -254,7 +253,7 @@
 	nav {
 		flex: 4;
 		display: flex;
-		font-family: "Fira Sans";
+		font-family: 'Fira Sans';
 	}
 
 	.nav-menu {
@@ -263,7 +262,6 @@
 		gap: 1rem;
 		margin-left: 1rem;
 		padding: 0;
-
 	}
 
 	.nav-item a {
@@ -276,7 +274,7 @@
 	}
 
 	.nav-item a:hover {
-		color: var(--text)
+		color: var(--text);
 	}
 
 	.dropdown {
@@ -315,8 +313,7 @@
 	.actions {
 		display: flex;
 		flex-direction: row;
-		gap: 2rem;
-		flex: 1;
+		gap: 1rem;
 	}
 
 	.social-icons {

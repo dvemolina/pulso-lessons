@@ -31,14 +31,14 @@
 	];
 </script>
 
-<div class="WRAPPER mt-24 flex h-full w-full flex-col justify-center gap-4 px-4 md:flex-row">
+<div class="WRAPPER mt-[82px] flex w-full flex-col justify-center gap-5 px-4 md:flex-row">
 	<div
-		class="HEAD flex h-full w-full flex-col items-center justify-center gap-3 rounded-md border border-border bg-background p-10 md:w-1/3 xl:w-1/4"
+		class="HEAD flex w-full flex-col items-center justify-center gap-3 rounded-md border border-border bg-background p-10 md:w-1/3 xl:w-1/4"
 	>
 		<ProfileHead />
 	</div>
 	<div
-		class="CONTENT flex h-full w-full flex-col gap-7 rounded-md border border-border bg-background p-10 md:w-2/3 xl:w-3/4"
+		class="CONTENT flex w-full flex-col gap-7 rounded-md border border-border bg-background p-10 md:w-2/3 xl:w-3/4"
 	>
 		<div class="ABOUT flex w-full flex-col gap-1">
 			<h2 class="font-fira text-lg font-semibold text-text">Sobre Mí</h2>
@@ -50,7 +50,7 @@
 				maxime consectetur. Ullam.
 			</p>
 		</div>
-		<div class="REVIEW flex h-full w-full flex-col gap-2">
+		<div class="REVIEW flex w-full flex-col gap-2">
 			<h2 class="font-fira text-lg font-semibold text-text">Mis Valoraciones</h2>
 			{#each reviews as { clientName, clientPicture, bookingDate, score, comment }}
 				<ReviewCard {clientName} {clientPicture} {bookingDate} {score} {comment} />
