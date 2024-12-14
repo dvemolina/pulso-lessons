@@ -1,10 +1,10 @@
 import type { PageServerLoad } from "./$types";
-import { userSignupSchema } from "$src/features/Users/lib/userValidation";
+import { userSignupSchema, type UserSignupData } from "$src/features/Users/lib/userValidation";
 import { message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import { fail, type Actions } from "@sveltejs/kit";
 import { UserService } from "$src/features/Users/lib/UserService";
-import type { InsertUser } from "$src/lib/server/db/schemas/users";
+import type { User } from "$src/lib/server/db/schemas/users";
 
 const userService = new UserService()
 
@@ -30,7 +30,7 @@ export const actions: Actions = {
         delete form.data.phone;
         delete form.data.confirm_password;
 
-        const userData: InsertUser = { ...form.data, phone: formatedPhone, role: 1} 
+        const userData: Omit<User, 'id'> = { ...form.data, phone: formatedPhone, role: 1} 
 
         console.log('The formatted User Data is: ', userData)
 

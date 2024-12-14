@@ -1,12 +1,15 @@
-import {users, type InsertUser} from "$src/lib/server/db/schemas/users";
+import {users, type User} from "$src/lib/server/db/schemas/users";
 import { db } from "$src/lib/server/db";
 import { eq } from "drizzle-orm";
 
+
+
 export class UserRepository {
 
-    async createUser(userData: InsertUser) {
-        console.log('REPOSITORY DATA VALUES: ',  userData)
-        return await db.insert(users).values(userData)
+    async createUser(signupData: Omit<User, 'id'>): Promise<User> {
+        console.log('REPOSITORY DATA VALUES: ',  signupData);
+        const result = await db.insert(users).values(signupData).returning();
+        return result[0]
     }
 
     async findUserByEmail(email: string) {

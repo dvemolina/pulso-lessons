@@ -14,7 +14,7 @@
 		"db:push": "drizzle-kit push",
 		"db:migrate": "drizzle-kit migrate",
 		"db:studio": "drizzle-kit studio",
-		"db:access": "docker exec -it 140fa59a6f59 psql -U root -d local",
+		"db:access": "docker exec -it fac6b065c8a209e41129664737b845111c72f5de8574fea684d4724df05aae50 psql -U root -d pulso_dev",
 		"test": "vitest"
 	},
 	"devDependencies": {
