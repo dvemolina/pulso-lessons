@@ -13,8 +13,18 @@
 	class="flex cursor-pointer flex-row items-center justify-center opacity-75 transition-all hover:opacity-90"
 >
 	{#if $mode === 'light'}
-		<img in:fly={{ y: 10 }} class="size-7 invert-0 dark:invert rounded-full" src="/svg/sun.svg" alt="Light Mode Switch" />
+		<img
+			in:fly={{ y: 10 }}
+			class="size-6 rounded-full invert-0 dark:invert"
+			src="/svg/sun.svg"
+			alt="Light Mode Switch"
+		/>
 	{:else}
-		<img in:fly={{ y: -10 }} class="size-7 invert-0 dark:invert rounded-full" src="/svg/moon.svg" alt="Dark Mode Switch" />
+		<img
+			in:fly={{ y: -10 }}
+			class="size-6 rounded-full invert-0 dark:invert"
+			src="/svg/moon.svg"
+			alt="Dark Mode Switch"
+		/>
 	{/if}
 </button>

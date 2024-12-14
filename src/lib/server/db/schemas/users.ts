@@ -3,7 +3,7 @@ import { countries, languages, roles } from './normalized';
 import { timestamps } from '../helpers';
 
 export const users = pgTable('users', {
-	id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+	id: integer('id').primaryKey().generatedAlwaysAsIdentity({ startWith: 1 }),
 	role: integer('role').references(() => roles.id).notNull(), //Maybe add a Default Role?
 	name: text('name').notNull(),
 	surname: text('surname').notNull(),
@@ -42,4 +42,5 @@ export const userRoles = pgTable('user_roles', {
 
 export type Session = typeof session.$inferSelect;
 
-export type User = typeof users.$inferSelect;
+export type SelectUser = typeof users.$inferSelect;
+export type InsertUser = typeof users.$inferInsert;

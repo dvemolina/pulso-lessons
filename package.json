@@ -14,7 +14,8 @@
 		"db:push": "drizzle-kit push",
 		"db:migrate": "drizzle-kit migrate",
 		"db:studio": "drizzle-kit studio",
-		"db:access": "docker exec -it 140fa59a6f59 psql -U root -d local"
+		"db:access": "docker exec -it 140fa59a6f59 psql -U root -d local",
+		"test": "vitest"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.3",
@@ -38,6 +39,7 @@
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.0.0",
 		"vite": "^6.0.0",
+		"vitest": "^2.1.8",
 		"zod": "^3.24.1"
 	},
 	"dependencies": {
