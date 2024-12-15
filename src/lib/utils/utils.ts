@@ -38,3 +38,4 @@ export const countryPrefix = [
     { value: "+385", label: "+385 - Croatia" },
     { value: "+356", label: "+356 - Malta" },
 ];
+

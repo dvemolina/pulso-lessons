@@ -1,10 +1,10 @@
 import type { PageServerLoad } from "./$types";
-import { userSignupSchema, type UserSignupData } from "$src/features/Users/lib/userValidation";
-import { message, superValidate } from "sveltekit-superforms";
+import { userSignupSchema } from "$src/features/Users/lib/userValidation";
+import { setError, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
-import { fail, type Actions } from "@sveltejs/kit";
+import { fail, redirect, type Actions } from "@sveltejs/kit";
 import { UserService } from "$src/features/Users/lib/UserService";
-import type { User } from "$src/lib/server/db/schemas/users";
+
 
 const userService = new UserService()
 
@@ -23,21 +23,19 @@ export const actions: Actions = {
         }
 
         console.log("FORM SUCCESSFULLY SUBMITTED. DATA is: ", form.data)
+        
+        try {
+            await userService.registerUserWithPassword(form.data);
+            redirect(302, '/signup/success')
 
-        const formatedPhone = `${form.data.country_code}${form.data.phone}`;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (e: any){
+            if (e.message === 'EmailExists') {
+                return setError(form, 'email', 'Este correo ya existe',  {status: 409})
+            }
 
-        delete form.data.country_code;
-        delete form.data.phone;
-        delete form.data.confirm_password;
-
-        const userData: Omit<User, 'id'> = { ...form.data, phone: formatedPhone, role: 1} 
-
-        console.log('The formatted User Data is: ', userData)
-
-        const newUser = await userService.registerUser(userData);
-        console.log('NEW USER CREATED: ', newUser)
-
-        //Service for Checking if Email Exists Already and Creating User = CreateUser
-        return message( form, `Bienvenid@ ${userData.name} ¡Cuenta Creada Exitósamente!`)
+            console.error('Unexpected error: ', e);
+            return fail(500, { form, error: 'Error interno del servidor. Intenta más tarde.' });
+        }
     }
 };

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import CoolCta from '$src/components/CoolCTA.svelte';
-	import { countryPrefix } from '$src/lib/utils';
+	import { countryPrefix } from '$src/lib/utils/utils';
 </script>
 
 	<form action="" method="post" class="flex flex-col gap-8">

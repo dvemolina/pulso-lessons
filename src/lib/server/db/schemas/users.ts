@@ -43,3 +43,4 @@ export const userRoles = pgTable('user_roles', {
 export type Session = typeof session.$inferSelect;
 
 export type User = typeof users.$inferSelect;
+export type InsertUser = typeof users.$inferInsert
