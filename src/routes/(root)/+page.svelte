@@ -2,8 +2,8 @@
 	
 </script>
 
-<div class="flex flex-col md:flex-row justify-evenly items-center mt-24 md:mt-0 w-full h-full px-4 gap-6">
-	<div class="headings flex flex-col justify-center items-center md:items-end  gap-6 text-center md:text-right">
+<div class="flex flex-col md:flex-row justify-evenly items-center mt-24 md:mt-0 w-full h-full px-4">
+	<div class="headings flex flex-col justify-center items-center md:items-start  gap-6 text-center md:text-left">
 		<h1 class="font-fira text-[1.95rem] font-black uppercase sm:text-4xl md:text-4xl lg:text-4xl xl:text-5xl 2xl:text-7xl">
 			Los Mejores <br /><span
 				class="font-sans text-4xl text-primary sm:text-5xl  md:text-[2.5rem] lg:text-5xl xl:text-6xl 2xl:text-8xl"
