@@ -1,7 +1,7 @@
 import type { InsertUser, User } from "$src/lib/server/db/schemas/users";
 import { UserRepository } from "./UserRepository";
 import { hashPassword } from "$src/lib/utils/bcrypt";
-import type { UserSignup } from "./userValidation";
+import type { UserSignup } from "./userValidations";
 import { sendClientSignupMail } from "$src/lib/nodemailer/nodemailer";
 import { redirect } from "@sveltejs/kit";
 
