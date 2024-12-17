@@ -1,3 +1,30 @@
+import type { RequestEvent } from "@sveltejs/kit"
+
+export function handleLoginRedirect(event: RequestEvent, message: string = "Accede a tu cuenta para visitar esta página") {
+    const redirectTo = event.url.pathname + event.url.search;
+    return `/login?redirectTo=${redirectTo}&redirectMessage=${message}`
+}
+
+export function generateTimeOptions(startTime: string, endTime: string, intervalMinutes: number): {label: string, value: string}[] {
+    const options = [];
+    console.log(startTime)
+    let [startHour, startMinute ] = startTime.split(':').map(Number);
+    const [endHour, endMinute] = endTime.split(':').map(Number);
+
+    while (startHour < endHour || (startHour === endHour && startMinute <= endMinute)) {
+        const timeString = `${String(startHour).padStart(2, '0')}:${String(startMinute).padStart(2, '0')}`;
+        options.push({label: timeString, value: timeString})
+
+        startMinute += intervalMinutes;
+        if (startMinute >= 60) {
+            startMinute -= 60;
+            startHour++;
+        }
+    }
+    return options;
+}
+
+
 export const countryPrefix = [
     { value: "+1", label: "+1 - United States" },
     { value: "+44", label: "+44 - United Kingdom" },

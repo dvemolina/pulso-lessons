@@ -15,7 +15,7 @@ export function generateSessionToken() {
 	return token;
 }
 
-export async function createSession(token: string, userId: string) {
+export async function createSession(token: string, userId: number) {
 	const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
 	const session: table.Session = {
 		id: sessionId,
@@ -31,11 +31,11 @@ export async function validateSessionToken(token: string) {
 	const [result] = await db
 		.select({
 			// Adjust user table here to tweak returned data
-			user: { id: table.user.id, username: table.user.username },
+			user: { id: table.users.id, name: table.users.name },
 			session: table.session
 		})
 		.from(table.session)
-		.innerJoin(table.user, eq(table.session.userId, table.user.id))
+		.innerJoin(table.users, eq(table.session.userId, table.users.id))
 		.where(eq(table.session.id, sessionId));
 
 	if (!result) {
@@ -67,15 +67,20 @@ export async function invalidateSession(sessionId: string) {
 	await db.delete(table.session).where(eq(table.session.id, sessionId));
 }
 
-export function setSessionTokenCookie(event: RequestEvent, token: string, expiresAt: Date) {
+export function setSessionTokenCookie(event: RequestEvent, token: string, expiresAt: Date): void {
 	event.cookies.set(sessionCookieName, token, {
+		httpOnly: true,
+		sameSite: "lax",
 		expires: expiresAt,
 		path: '/'
 	});
 }
 
-export function deleteSessionTokenCookie(event: RequestEvent) {
+export function deleteSessionTokenCookie(event: RequestEvent): void {
 	event.cookies.delete(sessionCookieName, {
+		httpOnly: true,
+		sameSite: "lax",
+		maxAge: 0,
 		path: '/'
 	});
 }

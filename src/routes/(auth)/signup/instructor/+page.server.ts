@@ -1,21 +1,26 @@
 import type { PageServerLoad } from "./$types";
 import { setError, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
-import { fail, redirect, type Actions } from "@sveltejs/kit";
+import { fail, type Actions } from "@sveltejs/kit";
 import { UserService } from "$src/features/Users/lib/UserService";
 import { userSignupSchema } from "$src/features/Users/lib/userValidations";
+import { availabilitySchema } from "$src/features/Instructors/lib/instructorValidations";
+import { createSession, generateSessionToken, setSessionTokenCookie } from "$src/lib/server/auth";
+
+
 
 
 const userService = new UserService()
 
 export const load: PageServerLoad = async () => {
-    const form = await superValidate(zod(userSignupSchema));
-    return { form }
+    const signupForm = await superValidate(zod(userSignupSchema));
+    const availabilityForm = await superValidate(zod(availabilitySchema))
+    return { signupForm, availabilityForm }
 };
 
 export const actions: Actions = {
-    default: async ({ request }) => {
-        const form = await superValidate(request, zod(userSignupSchema))
+    signup: async (event) => {
+        const form = await superValidate(event.request, zod(userSignupSchema))
         console.log(form)
 
         if(!form.valid) {
@@ -25,8 +30,14 @@ export const actions: Actions = {
         console.log("FORM SUCCESSFULLY SUBMITTED. DATA is: ", form.data)
         
         try {
-            await userService.registerUserWithPassword(form.data);
-            redirect(302, '/signup/success')
+            const newUser =  await userService.registerUserWithPassword(form.data);
+
+            //CREATE THE SESSION AND SET THE SESSION TOKENS
+            const sessionToken = generateSessionToken();
+	        const session = await createSession(sessionToken, newUser.id);
+	        setSessionTokenCookie(event, sessionToken, session.expiresAt);
+
+            return {form, userId: newUser.id}
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any){
@@ -37,5 +48,5 @@ export const actions: Actions = {
             console.error('Unexpected error: ', e);
             return fail(500, { form, error: 'Error interno del servidor. Intenta más tarde.' });
         }
-    }
+    },
 };

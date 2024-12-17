@@ -3,7 +3,6 @@ import { UserRepository } from "./UserRepository";
 import { hashPassword } from "$src/lib/utils/bcrypt";
 import type { UserSignup } from "./userValidations";
 import { sendClientSignupMail } from "$src/lib/nodemailer/nodemailer";
-import { redirect } from "@sveltejs/kit";
 
 
 export class UserService {
@@ -37,10 +36,8 @@ export class UserService {
                 await sendClientSignupMail(createdUser.name, createdUser.email)
             }
 
-            //CREATE THE SESSION
-            //SET THE COOKIES
-            
-            redirect(302, "/auth/signup/success") 
+            return createdUser
+        
         } catch (error) {
             console.error('Something went wrong when Creating the User', error)
             throw new Error('Algo falló intentando crear la cuenta de Usuario')

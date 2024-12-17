@@ -16,5 +16,9 @@ export const userSignupSchema = z.object({
     path: ["phone"]
 })
 
+export const userLoginSchema = z.object({
+    email: z.string().nonempty('Introduce un Email').email('Email inválido'),
+    password: z.string().min(8, "Mínimo 8 caracteres")
+})
 
 export type UserSignup = z.infer<typeof userSignupSchema>

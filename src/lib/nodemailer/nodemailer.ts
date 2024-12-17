@@ -76,7 +76,7 @@ function prepareEmail(fileName: string, placeholders: { placeholder: string | Re
 
 function getEmailTemplate (fileName: string) {
   
-  const emailTemplatePath = path.resolve(`src/lib/utils/mail/templates/${fileName}.html`);
+  const emailTemplatePath = path.resolve(`src/lib/nodemailer/templates/${fileName}.html`);
   const emailTemplate = fs.readFileSync(emailTemplatePath, 'utf-8');
   return emailTemplate
 }
