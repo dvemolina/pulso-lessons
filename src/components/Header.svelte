@@ -1,5 +1,5 @@
 <script lang="ts">
-	//import AvatarMenu from '$src/features/users/ui/avatar/AvatarMenu.svelte';
+	
 	import ShinyCta from '$src/components/CoolCTA.svelte';
 	import { onMount } from 'svelte';
 	import { fade, slide } from 'svelte/transition';

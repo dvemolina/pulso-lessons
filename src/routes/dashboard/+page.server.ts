@@ -17,7 +17,6 @@ export const load: PageServerLoad = async (event) => {
         throw redirect(302, redirectTo)
     }
 
-    const userName = user.name
 
-    return {userName: userName}
+    return {user}
 };

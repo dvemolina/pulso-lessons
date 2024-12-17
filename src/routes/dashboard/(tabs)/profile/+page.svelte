@@ -1,6 +1,6 @@
 <script>
-	import ShinyCta from '$src/components/elements/buttons/ShinyCTA.svelte';
-	import InstructorDetails from '$src/features/professionals/instructors/ui/profile-edit/InstructorDetails.svelte';
+	import CoolCTA from '$src/components/CoolCTA.svelte';
+	import InstructorDetails from '$src/features/instructors/ui/profile-edit/InstructorDetails.svelte';
 	import PersonalDetails from '$src/features/users/ui/profile-edit/PersonalDetails.svelte';
 </script>
 
@@ -11,12 +11,12 @@
 	<div class="section mb-10 flex flex-col rounded-lg border-2 border-neutral-gray px-8 pb-8 pt-6">
 		<h3 class="mb-8 border-b border-b-neutral-gray text-lg-typo">Detalles Personales - Usuario</h3>
 		<PersonalDetails />
-		<ShinyCta
+		<CoolCTA
 			type="button"
 			paddingProp="1rem 1.5rem"
 			bgSubtleColor="var(--primary)"
 			highlightColor="var(--primary)"
-			highlightSubtleColor="var(--primary)">Guardar Datos Usuario</ShinyCta
+			highlightSubtleColor="var(--primary)">Guardar Datos Usuario</CoolCTA
 		>
 	</div>
 

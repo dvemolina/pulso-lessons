@@ -1,19 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import DashboardHeader from '$src/components/Header.svelte';
+	import DashboardHeader from '$src/components/DashboardHeader.svelte';
 	import { onMount } from 'svelte';
-	import type { LayoutData } from '../$types';
 	import { ScrollArea } from 'bits-ui';
 
-	interface Props {
-		data: LayoutData;
-		children?: import('svelte').Snippet;
-	}
-
-	let { data, children }: Props = $props();
-	const user = data.user;
-
-	
+	let { data, children } = $props();
 
 	let isMobile = $state(false);
 	let sidebarOpen = $state(true);
@@ -21,32 +12,32 @@
 	const navItems = [
 		{
 			href: '/dashboard',
-			icon: 'pixelarticons:home',
+			icon: '/svg/home.svg',
 			placeholder: 'Inicio'
 		},
 		{
 			href: '/dashboard/profile',
-			icon: 'pixelarticons:user',
+			icon: '/svg/user.svg',
 			placeholder: 'Perfil'
 		},
 		{
 			href: '/dashboard/services',
-			icon: 'pixelarticons:ac',
+			icon: '/svg/snowflake.svg',
 			placeholder: 'Servicios'
 		},
 		{
 			href: '/dashboard/availability',
-			icon: 'pixelarticons:calendar-month',
+			icon: '/svg/calendar.svg',
 			placeholder: 'Disponibilidad'
 		},
 		{
 			href: '/dashboard/bookings',
-			icon: 'pixelarticons:briefcase-search-1',
+			icon: '/svg/briefcase.svg',
 			placeholder: 'Reservas'
 		},
 		{
-			href: '/auth/logout',
-			icon: 'pixelarticons:close-box',
+			href: '/logout',
+			icon: '/svg/close.svg',
 			placeholder: 'Cerrar Sesión'
 		}
 	];
@@ -76,9 +67,9 @@
 	let activeRoute = $derived($page.url.pathname);
 </script>
 
-<div class="fixed flex h-full w-full flex-col bg-neutral-dark text-neutral-light">
-	<!-- Header -->
-	<DashboardHeader {user} />
+<div class="bg-neutral-dark text-neutral-light fixed flex h-full w-full flex-col">
+	<!-- DashboardHeader -->
+	<DashboardHeader user={data.user} />
 	<div class="flex h-full w-full flex-row overflow-hidden">
 		<!-- Sidebar -->
 		{#if sidebarOpen || !isMobile}
@@ -87,7 +78,7 @@
 				style="width: {isMobile && sidebarOpen ? '100vw' : sidebarOpen ? '16rem' : '4rem'};"
 			>
 				<aside
-					class="relative h-full w-full space-y-6 border-r-[1px] border-r-neutral-light-inactive bg-neutral-dark py-7 text-neutral-light transition-all duration-100 ease-in-out"
+					class="border-r-neutral-light-inactive bg-neutral-dark text-neutral-light relative h-full w-full space-y-6 border-r-[1px] py-7 transition-all duration-100 ease-in-out"
 				>
 					<!-- Navigation Links -->
 					<nav class="px-2">
@@ -110,7 +101,7 @@
 										? 'bg-neutral-light-inactive text-neutral-dark'
 										: 'hover:bg-neutral-light hover:text-neutral-dark'}"
 							>
-								<iconify-icon class="icon" {icon}></iconify-icon>
+								<img src={icon} alt={placeholder} class="">
 								{#if sidebarOpen || isMobile}
 									<span>{placeholder}</span>
 								{/if}
@@ -121,7 +112,7 @@
 						<button
 							aria-label="Sidebar"
 							onclick={toggleSidebar}
-							class="bg-tansparent absolute bottom-7 right-4 flex items-center justify-center rounded p-1 text-neutral-light transition-all duration-100 hover:bg-neutral-light hover:text-neutral-dark"
+							class="bg-tansparent text-neutral-light hover:bg-neutral-light hover:text-neutral-dark absolute bottom-7 right-4 flex items-center justify-center rounded p-1 transition-all duration-100"
 						>
 							<iconify-icon class="icon" icon="pixelarticons:forwardburger"></iconify-icon>
 						</button>
@@ -130,7 +121,7 @@
 						<button
 							aria-label="Sidebar"
 							onclick={toggleSidebar}
-							class="bg-tansparent absolute bottom-7 right-4 flex items-center justify-center rounded p-1 text-neutral-light transition-all duration-100 hover:bg-neutral-light hover:text-neutral-dark"
+							class="bg-tansparent text-neutral-light hover:bg-neutral-light hover:text-neutral-dark absolute bottom-7 right-4 flex items-center justify-center rounded p-1 transition-all duration-100"
 						>
 							<iconify-icon class="icon" icon="pixelarticons:backburger"></iconify-icon>
 						</button>
@@ -139,7 +130,7 @@
 						<button
 							aria-label="Sidebar"
 							onclick={toggleSidebar}
-							class="bg-tansparent absolute right-4 flex items-center justify-center rounded p-1 text-neutral-light transition-all duration-200 hover:bg-neutral-light hover:text-neutral-dark"
+							class="bg-tansparent text-neutral-light hover:bg-neutral-light hover:text-neutral-dark absolute right-4 flex items-center justify-center rounded p-1 transition-all duration-200"
 						>
 							<iconify-icon class="icon" icon="pixelarticons:backburger"></iconify-icon>
 						</button>
@@ -160,21 +151,21 @@
 					onclick={toggleSidebar}
 					class="flex w-fit flex-row content-center items-center pb-3"
 				>
-					<iconify-icon icon="pixelarticons:menu" width="1.5rem"></iconify-icon>
+					<img src="/svg/menu-dots.svg" alt="Menu" class="invert-0 dark:invert"/>
 					MENU
 				</button>
 			{/if}
 			<div class="min-h-[100px] w-full flex-grow">
 				<ScrollArea.Root class="relative h-full">
 					<ScrollArea.Viewport class="h-full w-full {isMobile ? 'px-2' : 'px-10'}">
-							{@render children?.()}
+						{@render children?.()}
 					</ScrollArea.Viewport>
 					<ScrollArea.Scrollbar
 						orientation="vertical"
-						class="hover:bg-dark-10 flex h-full w-2.5 touch-none select-none rounded-full border-x border-x-black bg-neutral-gray p-px transition-all hover:w-3"
+						class="hover:bg-dark-10 bg-neutral-gray flex h-full w-2.5 touch-none select-none rounded-full border-x border-x-black p-px transition-all hover:w-3"
 					>
 						<ScrollArea.Thumb
-							class="relative flex-1 rounded-full bg-neutral-light opacity-30 transition-opacity hover:opacity-100"
+							class="bg-neutral-light relative flex-1 rounded-full opacity-30 transition-opacity hover:opacity-100"
 						/>
 					</ScrollArea.Scrollbar>
 					<ScrollArea.Corner />

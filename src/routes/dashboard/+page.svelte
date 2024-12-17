@@ -4,7 +4,7 @@
   }
 
   let { data }: Props = $props();
-    const userName = data.userName
+    const userName = data.user.name
 </script>
   
   <h1 class="font-fira font-bold text-xl-typo mb-4">¿Cómo estás {userName}?</h1>
