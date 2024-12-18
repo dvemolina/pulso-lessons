@@ -21,7 +21,7 @@
 <LinkPreview.Root openDelay={0}>
 	<LinkPreview.Trigger href="/dashboard">
 		<Avatar.Root class="border-2 border-border hover:border-borderActive rounded-full overflow-hidden size-10 flex flex-row justify-center items-center">
-			<Avatar.Image src={src} alt="Imagen Perfil {userName}" class="size-10"/>
+			<Avatar.Image src={src} alt="Imagen Perfil {userName}" class="object-cover object-center"/>
 			<Avatar.Fallback><p class="avatar-fallback">{userInitial || '+'}</p></Avatar.Fallback>
 		</Avatar.Root>
 	</LinkPreview.Trigger>

@@ -74,6 +74,7 @@
 		padding-bottom: 0.5rem;
 		padding-left: 0.75rem;
         border-width: 1px;
+		width: 100%;
 	}
 
 	option {
@@ -112,8 +113,8 @@
 	--primary: #3d8865;
 	--primary-washed: #3d88657b;
 	--primary-active: #005f3a;
-	--secondary: #fbd17d;
-	--secondary-active: #f9bc40;
+	--secondary: #554526;
+	--secondary-active: #614306;
 	--secondary-washed: #fbd17d81;
 	--error: #f02d3a;
 	--bg-grain: none;

@@ -33,6 +33,7 @@ export const userProfileSchema = z.object({
     email: z.string().nonempty('Introduce un Email').email('Email inválido'),
     country_code: z.string().optional(),
     phone_number: z.number().optional().transform((phone)=> phone?.toString()),
+    profileImage: z.string().optional()
 });
 
 export type UserSignup = z.infer<typeof userSignupSchema>

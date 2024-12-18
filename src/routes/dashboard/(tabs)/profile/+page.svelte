@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import CoolCTA from '$src/components/CoolCTA.svelte';
 	import ContentBox from '$src/components/ContentBox.svelte';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
@@ -10,13 +10,28 @@
 	import { countryPrefix } from '$src/lib/utils/utils';
 
 	let { data } = $props();
+
 	const userProfileForm = superForm(data.form, {
 		validators: zodClient(userProfileSchema)
 	});
+	const { form: userProfileData, enhance: userProfileEnhance } = userProfileForm;
 
 	const countryPrefixes = countryPrefix
 
-	const { form: userProfileData, enhance: userProfileEnhance } = userProfileForm;
+	let fileInputRef;
+	function triggerFileInput() {
+		fileInputRef.click()
+	}
+
+	function handleFileChange(file: File | undefined | null) {
+		if(file) {
+			const reader = new FileReader();
+			reader.onload = () => {
+				$userProfileData.profileImage = reader.result 
+			};
+			reader.readAsDataURL(file)
+		}
+	}
 </script>
 
 <h1 class="mb-4 font-fira text-2xl font-semibold">Perfil</h1>
@@ -28,24 +43,40 @@
 		method="POST"
 		use:userProfileEnhance
 		class="flex-col flex w-full justify-center gap-8"
+
 	>
 	<fieldset class="flex flex-col gap-4 w-full">
 		<div class="formgroup">
-			<FormField form={userProfileForm} name="name" description="Visible en tu perfil, comentarios y valoraciones">
-				<CustomControl label="Nombre">
-					{#snippet children({props})}
-					<input {...props} type="text" bind:value={$userProfileData.name} class="w-full" placeholder="Nombre"/>
-					{/snippet}
-				</CustomControl>
-				<Description>Visible en Perfil y Valoraciones</Description>
-			</FormField>
-			<FormField form={userProfileForm} name="surname">
-				<CustomControl label="Apellido/s">
-					{#snippet children({props})}
-					<input {...props} type="text" bind:value={$userProfileData.surname} class="w-full" placeholder="Apellido/s"/>
-					{/snippet}
-				</CustomControl>
-			</FormField>
+			<div class="flex flex-col gap-2 justify-center items-center w-full">
+				<div style="background-image: url({$userProfileData.profileImage});" class="flex flex-col border-2 border-border bg-cover bg-center rounded-full overflow-hidden size-28 sm:size-32 md:size-36 lg:size-40 xl:size-44"></div>
+				<FormField form={userProfileForm} name="profileImage">
+					<CustomControl hiddenLabel={true} label="Imagen de Perfil">
+						{#snippet children({props})}
+							<input type="file" hidden {...props} bind:this={fileInputRef} onchange={(e) => handleFileChange(e.currentTarget.files[0])}>
+							<div class="w-full flex flex-row justify-center mt-2">
+								<CoolCTA {...props} onClick={triggerFileInput} paddingProp="0.5rem 1rem" btnWidth="200px" bgColor="--secondary-washed" bgSubtleColor="var(--secondary-washed)" highlightColor="var(--secondary-washed)" highlightSubtleColor="var(--secondary-washed)">Cambiar Imagen</CoolCTA>
+							</div>
+						{/snippet}
+					</CustomControl>
+				</FormField>
+			</div>
+			<div class="flex flex-col gap-4 w-full justify-center">
+				<FormField form={userProfileForm} name="name" description="Visible en tu perfil, comentarios y valoraciones">
+					<CustomControl label="Nombre">
+						{#snippet children({props})}
+						<input {...props} type="text" bind:value={$userProfileData.name} class="w-full" placeholder="Nombre"/>
+						{/snippet}
+					</CustomControl>
+					<Description>Visible en Perfil y Valoraciones</Description>
+				</FormField>
+				<FormField form={userProfileForm} name="surname">
+					<CustomControl label="Apellido/s">
+						{#snippet children({props})}
+						<input {...props} type="text" bind:value={$userProfileData.surname} class="w-full" placeholder="Apellido/s"/>
+						{/snippet}
+					</CustomControl>
+				</FormField>
+			</div>
 		</div>
 		<div class="formgroup">
 			<FormField form={userProfileForm} name="country_code">
