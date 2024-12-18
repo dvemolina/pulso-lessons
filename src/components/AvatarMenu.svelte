@@ -25,7 +25,7 @@
 			<Avatar.Fallback><p class="avatar-fallback">{userInitial || '+'}</p></Avatar.Fallback>
 		</Avatar.Root>
 	</LinkPreview.Trigger>
-	<LinkPreview.Content sideOffset={8} class="z-10 bg-background border-2 border-border rounded-md" >
+	<LinkPreview.Content sideOffset={8} class="z-20 bg-background border-2 border-border rounded-md" >
 		<ul class="link-list" transition:fade={{ duration: 300 }}>
 			{#each linkList as { href, label }}
 				<li class="list-item">

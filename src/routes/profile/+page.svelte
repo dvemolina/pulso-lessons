@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ReviewCard from '$src/features/Reviews/ui/ReviewCard.svelte';
-	import ProfileHead from '$src/features/Users/ui/ProfileHead.svelte';
+	import ProfileHead from '$src/features/Instructors/components/ProfileHead.svelte';
 	import type { Review } from '$src/features/Reviews/reviewType';
 
 	let reviews: Review[] = [

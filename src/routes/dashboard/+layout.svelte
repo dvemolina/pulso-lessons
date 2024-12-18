@@ -67,7 +67,7 @@
 	let activeRoute = $derived($page.url.pathname);
 </script>
 
-<div class="bg-neutral-dark text-neutral-light fixed flex h-full w-full flex-col">
+<div class="fixed flex h-full w-full flex-col">
 	<!-- DashboardHeader -->
 	<DashboardHeader user={data.user} />
 	<div class="flex h-full w-full flex-row overflow-hidden">
@@ -78,7 +78,7 @@
 				style="width: {isMobile && sidebarOpen ? '100vw' : sidebarOpen ? '16rem' : '4rem'};"
 			>
 				<aside
-					class="border-r-neutral-light-inactive bg-neutral-dark text-neutral-light relative h-full w-full space-y-6 border-r-[1px] py-7 transition-all duration-100 ease-in-out"
+					class="relative h-full w-full space-y-6 border-r-2 border-r-border bg-background py-7 text-text transition-all duration-100 ease-in-out"
 				>
 					<!-- Navigation Links -->
 					<nav class="px-2">
@@ -90,18 +90,18 @@
 									}
 								}}
 								{href}
-								class="flex flex-row {sidebarOpen
+								class="flex flex-row font-fira {sidebarOpen
 									? 'justify-start'
-									: 'justify-center'} items-center gap-3 rounded px-4 py-2.5 transition-all duration-100
+									: 'justify-center'} items-center gap-3 rounded px-2 py-2.5 transition-all duration-100
 									{href === '/dashboard'
 									? activeRoute === href
-										? 'bg-neutral-light-inactive text-neutral-dark'
-										: 'hover:bg-neutral-light hover:text-neutral-dark'
+										? 'bg-primaryWashed'
+										: 'hover:bg-primaryWashed hover:opacity-100 text-text opacity-80'
 									: activeRoute.startsWith(href) && activeRoute !== '/dashboard'
-										? 'bg-neutral-light-inactive text-neutral-dark'
-										: 'hover:bg-neutral-light hover:text-neutral-dark'}"
+										? 'bg-primaryWashed'
+										: 'hover:bg-primaryWashed hover:opacity-100 text-text opacity-80'}"
 							>
-								<img src={icon} alt={placeholder} class="">
+								<img src={icon} alt={placeholder} class="invert-0 dark:invert w-5" />
 								{#if sidebarOpen || isMobile}
 									<span>{placeholder}</span>
 								{/if}
@@ -140,7 +140,7 @@
 		{/if}
 		<!-- Main content area -->
 		<main
-			class="flex h-full w-full flex-col bg-transparent {isMobile
+			class="flex h-full w-full flex-col dark:bg-neutral-900/70  bg-transparent {isMobile
 				? 'p-5'
 				: 'p-10'} transition-all duration-100 ease-in-out
 				{isMobile && sidebarOpen ? 'hidden' : 'flex'}
@@ -151,7 +151,7 @@
 					onclick={toggleSidebar}
 					class="flex w-fit flex-row content-center items-center pb-3"
 				>
-					<img src="/svg/menu-dots.svg" alt="Menu" class="invert-0 dark:invert"/>
+					<img src="/svg/menu-dots.svg" alt="Menu" class="invert-0 dark:invert" />
 					MENU
 				</button>
 			{/if}
@@ -162,10 +162,10 @@
 					</ScrollArea.Viewport>
 					<ScrollArea.Scrollbar
 						orientation="vertical"
-						class="hover:bg-dark-10 bg-neutral-gray flex h-full w-2.5 touch-none select-none rounded-full border-x border-x-black p-px transition-all hover:w-3"
+						class="hover:cursor-pointer hover:bg-bgNeutral bg-transparent flex h-full w-2 touch-none select-none rounded-full border-x border-x-border transition-all hover:w-2.5"
 					>
 						<ScrollArea.Thumb
-							class="bg-neutral-light relative flex-1 rounded-full opacity-30 transition-opacity hover:opacity-100"
+							class="bg-textNeutral relative flex-1 rounded-full opacity-30 transition-opacity hover:opacity-100"
 						/>
 					</ScrollArea.Scrollbar>
 					<ScrollArea.Corner />
@@ -174,15 +174,3 @@
 		</main>
 	</div>
 </div>
-
-<!-- Styles -->
-<style>
-	:global(body) {
-		margin: 0;
-		padding: 0;
-	}
-
-	.icon {
-		font-size: 1.5rem;
-	}
-</style>

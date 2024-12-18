@@ -1,7 +1,6 @@
 <script lang="ts">
-	
-	import CreateServiceCard from '$src/features/services/ui/service-card/CreateServiceCard.svelte';
-    import ServiceCard from '$src/features/services/ui/service-card/ServiceCard.svelte';
+	import ContentBox from "$src/components/ContentBox.svelte";
+
 	
     const services = [];
     interface Props {
@@ -11,22 +10,25 @@
     let { serviceId }: Props = $props();
 </script>
 
-<h1 class="text-xl-typo mb-6">Servicios</h1>
-<h2 class="text-lg-typo text-neutral-light">Servicio Básico</h2>
-<h3 class="text-md text-neutral-light-inactive mb-4">Este servicio se puede modificar pero no eliminar.</h3>
+<h1 class="text-2xl font-fira font-semibold mb-6 text-text">Servicios</h1>
+<p class="mb-8 text-textNeutral text-lg font-sans">Crea y modifica tus servicios profesionales</p>
 
-<div class="basic-service mb-14">
-    <ServiceCard type="edit" {serviceId}/>
-</div>
+<ContentBox>
+    <h2 class="text-xl text-text font-sans border-b border-border">Servicio Básico</h2>
+    <h3 class="text-md text-textNeutral mb-4 font-sans">Este servicio se puede modificar pero no eliminar.</h3>
+</ContentBox>
+    
 
-<h2 class="text-lg-typo text-neutral-light">Servicios Profesionales</h2>
-<h3 class="text-md text-neutral-light-inactive mb-4">Crea, modifica y gestiona el tipo de servicio que quieras.</h3>
+<ContentBox>
 
-<div class="services">
-    {#each services as service}
+    <h2 class="text-xl text-text font-sans border-b border-border">Servicios Profesionales</h2>
+    <h3 class="text-md text-textNeutral mb-4 font-sans">Crea y gestiona el tipo de servicio que quieras.</h3>
+    
+    <div class="services">
+        {#each services as service}
         
-    {/each}
-
-    <CreateServiceCard />
-
-</div>
+        {/each}
+        
+    </div>
+    
+</ContentBox>

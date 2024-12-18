@@ -8,13 +8,18 @@ export class UserRepository {
 
     async createUser(signupData: InsertUser): Promise<User> {
         const result = await db.insert(users).values(signupData).returning();
-        return result[0]
+        return result[0];
     }
 
     async findUserByEmail(email: string) {
         const result =  await db.query.users.findFirst({
             where: eq(users.email, email)
-        })
-        return result
+        });
+        return result;
+    }
+
+    async getUserById(userId: number): Promise<User> {
+        const result = await db.select().from(users).where(eq(users.id, userId));
+        return result[0];
     }
 }

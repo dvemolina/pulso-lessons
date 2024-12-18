@@ -12,36 +12,40 @@ export class UserService {
         const emailExists = await this.userRepository.findUserByEmail(signupData.email);
       
         if(emailExists) {
-           throw new Error('EmailExists')
+           throw new Error('EmailExists');
         }
 
         if (signupData.phone && signupData.country_code) {
-            const formattedPhone = `${signupData.country_code}${signupData.phone}`;
-            signupData.phone = formattedPhone
+            const formattedPhone = `${signupData.country_code}-${signupData.phone}`;
+            signupData.phone = formattedPhone;
         }
         const hashedPassword = await hashPassword(signupData.password);
 
-        signupData.password = hashedPassword
+        signupData.password = hashedPassword;
 
-        delete signupData.country_code
-        delete signupData.confirm_password
+        delete signupData.country_code;
+        delete signupData.confirm_password;
 
-        const userData: InsertUser = {...signupData, role: 1}
+        const userData: InsertUser = {...signupData, role: 1};
 
         try {
-            const createdUser = await this.userRepository.createUser(userData)
-            console.log('User Created Successfully: ', createdUser)
+            const createdUser = await this.userRepository.createUser(userData);
+            console.log('User Created Successfully: ', createdUser);
 
             if (createdUser) {
-                await sendClientSignupMail(createdUser.name, createdUser.email)
+                await sendClientSignupMail(createdUser.name, createdUser.email);
             }
 
-            return createdUser
+            return createdUser;
         
         } catch (error) {
-            console.error('Something went wrong when Creating the User', error)
-            throw new Error('Algo falló intentando crear la cuenta de Usuario')
+            console.error('Something went wrong when Creating the User', error);
+            throw new Error('Algo falló intentando crear la cuenta de Usuario');
         }  
+    }
+
+    async getUserById(userId: number): Promise<User> {
+        return await this.userRepository.getUserById(userId);
     }
 
 }

@@ -1,35 +1,89 @@
 <script>
 	import CoolCTA from '$src/components/CoolCTA.svelte';
-	import InstructorDetails from '$src/features/instructors/ui/profile-edit/InstructorDetails.svelte';
-	import PersonalDetails from '$src/features/users/ui/profile-edit/PersonalDetails.svelte';
+	import ContentBox from '$src/components/ContentBox.svelte';
+	import SuperDebug, { superForm } from 'sveltekit-superforms';
+	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { userProfileSchema } from '$src/features/Users/lib/userValidations';
+	import { Field, Control, Label, Description, FieldErrors } from 'formsnap';
+	import CustomControl from '$src/components/CustomControl.svelte';
+	import FormField from '$src/components/FormField.svelte';
+	import { countryPrefix } from '$src/lib/utils/utils';
+
+	let { data } = $props();
+	const userProfileForm = superForm(data.form, {
+		validators: zodClient(userProfileSchema)
+	});
+
+	const countryPrefixes = countryPrefix
+
+	const { form: userProfileData, enhance: userProfileEnhance } = userProfileForm;
 </script>
 
-<form action="" method="post">
-	<h1 class="mb-4 text-xl-typo">Perfil</h1>
-	<h2 class="mb-8 px-2 text-neutral-light-inactive text-lg-typo">Modifica tus Datos y Detalles.</h2>
+<h1 class="mb-4 font-fira text-2xl font-semibold">Perfil</h1>
+<h2 class="mb-8 font-sans text-lg text-textNeutral">Modifica tus Datos y Detalles.</h2>
+<ContentBox shadow={true}>
+	<h3 class="mb-8 border-b border-b-border font-fira text-xl font-normal">Detalles Personales</h3>
+	<form
+		action="?/userProfile"
+		method="POST"
+		use:userProfileEnhance
+		class="flex-col flex w-full justify-center gap-8"
+	>
+	<fieldset class="flex flex-col gap-4 w-full">
+		<div class="formgroup">
+			<FormField form={userProfileForm} name="name" description="Visible en tu perfil, comentarios y valoraciones">
+				<CustomControl label="Nombre">
+					{#snippet children({props})}
+					<input {...props} type="text" bind:value={$userProfileData.name} class="w-full" placeholder="Nombre"/>
+					{/snippet}
+				</CustomControl>
+				<Description>Visible en Perfil y Valoraciones</Description>
+			</FormField>
+			<FormField form={userProfileForm} name="surname">
+				<CustomControl label="Apellido/s">
+					{#snippet children({props})}
+					<input {...props} type="text" bind:value={$userProfileData.surname} class="w-full" placeholder="Apellido/s"/>
+					{/snippet}
+				</CustomControl>
+			</FormField>
+		</div>
+		<div class="formgroup">
+			<FormField form={userProfileForm} name="country_code">
+				<CustomControl label="Prefijo Internacional">
+					{#snippet children({props})}
+					<select {...props} bind:value={$userProfileData.country_code} class="w-full">
+						<option value="">Prefijo Internacional</option>
+						{#each countryPrefixes as { value, label }}
+						<option {value} aria-label={label}>{label}</option>
+						{/each}
+					</select>
+					{/snippet}
+				</CustomControl>
+			</FormField>
+			<FormField form={userProfileForm} name="phone_number">
+				<CustomControl label="Teléfono">
+					{#snippet children({props})}
+					<input {...props} type="number" bind:value={$userProfileData.phone_number} class="w-full" placeholder="Teléfono"/>
+					{/snippet}
+				</CustomControl>
+			</FormField>
+		</div>
+		<FormField form={userProfileForm} name="email">
+			<CustomControl label="Email">
+				{#snippet children({props})}
+				<input {...props} type="email" bind:value={$userProfileData.email} class="w-full" placeholder="Correo Electrónico"/>
+				{/snippet}
+			</CustomControl>
+		</FormField>
+	</fieldset>
 
-	<div class="section mb-10 flex flex-col rounded-lg border-2 border-neutral-gray px-8 pb-8 pt-6">
-		<h3 class="mb-8 border-b border-b-neutral-gray text-lg-typo">Detalles Personales - Usuario</h3>
-		<PersonalDetails />
-		<CoolCTA
-			type="button"
-			paddingProp="1rem 1.5rem"
-			bgSubtleColor="var(--primary)"
-			highlightColor="var(--primary)"
-			highlightSubtleColor="var(--primary)">Guardar Datos Usuario</CoolCTA
-		>
-	</div>
+		<CoolCTA type="submit" paddingProp="1rem 1.5rem">Guardar Datos Usuario</CoolCTA>
+	</form>
+</ContentBox>
 
-	<div class="section mb-10 flex flex-col rounded-lg border-2 border-neutral-gray px-8 pt-6">
-		<h3 class="mb-8 border-b border-b-neutral-gray text-lg-typo">
-			Detalles Profesionales - Instructor
-		</h3>
-		<InstructorDetails />
-	</div>
-</form>
-
-<style>
-	.section {
-		box-shadow: 1px 1px 7px 2px rgba(0, 0, 0, 0.444);
-	}
-</style>
+<ContentBox>
+	<h3 class="mb-8 border-b border-b-border font-fira text-xl font-semibold">
+		Detalles Profesionales - Instructor
+	</h3>
+	<form action="" method="POST"></form>
+</ContentBox>

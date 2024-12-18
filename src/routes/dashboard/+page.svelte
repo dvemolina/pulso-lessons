@@ -5,33 +5,25 @@
 
   let { data }: Props = $props();
     const userName = data.user.name
+
+  const homeCards = [
+    {text: "Visualiza y edita tu información personal y profesional", title:"Perfil", icon:"/svg/user.svg", href:"/dashboard/profile"},
+    {text: "Visualiza y controla tus reserva sy clientes", title:"Reservas", icon:"/svg/calendar.svg", href:"/dashboard/bookings"},
+    {text: "Visualiza y modifica tu lecciones y servicios", title:"Servicios", icon:"/svg/briefcase.svg", href:"/dashboard/services"}
+  ]
 </script>
   
-  <h1 class="font-fira font-bold text-xl-typo mb-4">¿Cómo estás {userName}?</h1>
-  <h2 class="font-actor font-normal text-md-typo text-neutral-light-inactive mb-6">Revisa y completa los siguientes apartados</h2>
+  <h1 class="font-fira font-bold text-2xl mb-4">¿Cómo estás {userName}?</h1>
+  <h2 class="font-sans font-normal text-xl text-textNeutral mb-6">Revisa y completa los siguientes apartados</h2>
+
   
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <a href="/dashboard/profile" class="block p-6 bg-transparent text-neutral-light-inactive border border-neutral-light-inactive rounded-lg shadow hover:shadow-md hover:border-neutral-light hover:text-neutral-light transition-all duration-100">
-      <iconify-icon class="icon" icon="pixelarticons:user"></iconify-icon>
-      <h3 class="text-lg-typo mb-2">Perfil</h3>
-      <p class="text-sm-typo">Visualiza y edita tu información personal y profesional</p>
+    {#each homeCards as {text, title, icon, href}}
+    <a {href} class="block p-6 bg-background text-textNeutral border border-border rounded-lg shadow hover:shadow-md hover:border-borderActive hover:text-text transition-all duration-100">
+      <div class="opacity-85 hove:opacity-100"></div>
+      <img src={icon} alt={title} class="invert-0 dark:invert">
+      <h3 class="text-xl text-text mb-2">{title}</h3>
+      <p class="text-md">{text}</p>
     </a>
-    
-    <a href="/dashboard/bookings" class="block p-6 bg-transparent text-neutral-light-inactive border border-neutral-light-inactive rounded-lg shadow hover:shadow-md hover:border-neutral-light hover:text-neutral-light transition-all duration-100">
-      <iconify-icon class="icon" icon="pixelarticons:calendar-month"></iconify-icon>
-      <h3 class="text-lg-typo mb-2">Reservas</h3>
-      <p class="text-sm-typo">Visualiza y controla tus reservas y clientes</p>
-    </a>
-    
-    <a href="/dashboard/services" class="block p-6 bg-transparent text-neutral-light-inactive border border-neutral-light-inactive rounded-lg shadow hover:shadow-md hover:border-neutral-light hover:text-neutral-light transition-all duration-100">
-      <iconify-icon class="icon" icon="pixelarticons:ac"></iconify-icon>
-      <h3 class="text-lg-typo mb-2">Servicios</h3>
-      <p class="text-sm-typo">Crea y maneja tus servicios profesionales</p>
-    </a>
+    {/each}
   </div>
-
-  <style>
-    .icon {
-      font-size: 2rem;
-    }
-  </style>

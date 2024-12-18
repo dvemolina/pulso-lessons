@@ -24,6 +24,22 @@ export function generateTimeOptions(startTime: string, endTime: string, interval
     return options;
 }
 
+export function parsePhoneNumber(phoneString: string): {prefix: string, number: number} {
+    // Use a regular expression to extract the prefix and the number
+    const match = phoneString.match(/^(\+\d+)-(\d+)$/);
+
+    if (!match) {
+        throw new Error("Invalid phone number format");
+    }
+
+    const [, prefix, numberString] = match;
+
+    return {
+        prefix,
+        number: parseInt(numberString, 10) // Convert the number to an integer
+    };
+}
+
 
 export const countryPrefix = [
     { value: "+1", label: "+1 - United States" },
