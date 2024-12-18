@@ -4,14 +4,15 @@ import { zod } from "sveltekit-superforms/adapters";
 import type { Actions, PageServerLoad } from "./$types";
 import { UserService } from "$src/features/Users/lib/UserService";
 import { error, redirect } from "@sveltejs/kit";
-import { handleLoginRedirect, parsePhoneNumber } from "$src/lib/utils/utils";
+import { expiredSessionRedirect, parsePhoneNumber } from "$src/lib/utils/utils";
 
 const userService = new UserService();
 export const load: PageServerLoad = async (event) => {
     const activeUser = event.locals.user
+    const session = event.locals.session
     
-    if(!activeUser) {
-        redirect(403, handleLoginRedirect(event, 'La sesión ha caducado. Accede para visitar tu Dashboard'))
+    if(!activeUser || !session) {
+        redirect(403, expiredSessionRedirect(event, 'La sesión ha caducado. Accede para visitar tu Dashboard'))
     }
     const userId = activeUser.id;
 

@@ -9,12 +9,6 @@ export class UserService {
     private userRepository = new UserRepository()
 
     async registerUserWithPassword(signupData: UserSignup): Promise<User> {
-        const emailExists = await this.userRepository.findUserByEmail(signupData.email);
-      
-        if(emailExists) {
-           throw new Error('EmailExists');
-        }
-
         if (signupData.phone && signupData.country_code) {
             const formattedPhone = `${signupData.country_code}-${signupData.phone}`;
             signupData.phone = formattedPhone;
@@ -42,6 +36,11 @@ export class UserService {
             console.error('Something went wrong when Creating the User', error);
             throw new Error('Algo falló intentando crear la cuenta de Usuario');
         }  
+    }
+
+    async getUserByEmail(email: string): Promise<User> {
+        return await this.userRepository.findUserByEmail(email);
+    
     }
 
     async getUserById(userId: number): Promise<User> {

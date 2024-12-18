@@ -1,6 +1,6 @@
 import type { RequestEvent } from "@sveltejs/kit"
 
-export function handleLoginRedirect(event: RequestEvent, message: string = "Accede a tu cuenta para visitar esta página") {
+export function expiredSessionRedirect(event: RequestEvent, message: string = "Accede a tu cuenta para visitar esta página") {
     const redirectTo = event.url.pathname + event.url.search;
     return `/login?redirectTo=${redirectTo}&redirectMessage=${message}`
 }

@@ -27,7 +27,10 @@ export const actions: Actions = {
             return fail(400, { form })
         }
 
-        console.log("FORM SUCCESSFULLY SUBMITTED. DATA is: ", form.data)
+        const emailExists = await userService.getUserByEmail(form.data.email);
+        if(emailExists) {
+            return setError(form, 'email', 'Este correo ya existe', {status: 409})
+        }
         
         try {
             const newUser =  await userService.registerUserWithPassword(form.data);
@@ -39,13 +42,8 @@ export const actions: Actions = {
 
             return {form, userId: newUser.id}
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (e: any){
-            if (e.message === 'EmailExists') {
-                return setError(form, 'email', 'Este correo ya existe',  {status: 409})
-            }
-
-            console.error('Unexpected error: ', e);
+        } catch (error: unknown){
+            console.error('Unexpected error: ', error);
             return fail(500, { form, error: 'Error interno del servidor. Intenta más tarde.' });
         }
     },

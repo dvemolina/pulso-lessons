@@ -12,10 +12,8 @@ export class UserRepository {
     }
 
     async findUserByEmail(email: string) {
-        const result =  await db.query.users.findFirst({
-            where: eq(users.email, email)
-        });
-        return result;
+        const result =  await db.select().from(users).where(eq(users.email, email))
+        return result[0];
     }
 
     async getUserById(userId: number): Promise<User> {
