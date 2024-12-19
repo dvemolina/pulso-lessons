@@ -30,6 +30,8 @@
 				$userProfileData.profileImage = reader.result 
 			};
 			reader.readAsDataURL(file)
+
+			console.log('Reader Result:',reader.result)
 		}
 	}
 </script>
