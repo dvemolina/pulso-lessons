@@ -143,7 +143,7 @@
 				{/each}
 			</div>
 			{#if user}
-				<AvatarMenu userName={user.name} src={user.userPicture} />
+				<AvatarMenu userName={user.name} src={user.profileImage} />
 			{:else}
 				<div class="access">
 					<ShinyCta
@@ -187,7 +187,7 @@
 				{/each}
 
 				{#if user}
-					<AvatarMenu src={user.userPicture} userName={user.name} />
+					<AvatarMenu src={user.profileImage} userName={user.name} />
 				{:else}
 					<li class="nav-item w-full justify-center">
 						<ShinyCta

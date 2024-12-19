@@ -5,8 +5,11 @@ import type { Actions, PageServerLoad } from "./$types";
 import { UserService } from "$src/features/Users/lib/UserService";
 import { error, redirect } from "@sveltejs/kit";
 import { expiredSessionRedirect, parsePhoneNumber } from "$src/lib/utils/utils";
+import { StorageService } from "$src/lib/utils/cloudflareR2";
 
 const userService = new UserService();
+const storageService = new StorageService()
+
 export const load: PageServerLoad = async (event) => {
     const activeUser = event.locals.user
     const session = event.locals.session
@@ -31,15 +34,49 @@ export const load: PageServerLoad = async (event) => {
 
     return { form }
 }
+
 export const actions: Actions = {
     userProfile: async ({ request }) => {
-        const form = await superValidate(request, zod(userProfileSchema));
-        if(!form.valid) {
-            console.log('Form is invalid')
-            return fail(400, form)
+        const formData = await request.formData();
+        console.log('Raw form data received:', Object.fromEntries(formData));
+
+        // Clone the form data and handle the file
+        const clonedFormData = new FormData();
+        for (const [key, value] of formData.entries()) {
+            if (key === 'profileImage' && value instanceof File) {
+                // Convert File to buffer and then to base64
+                const arrayBuffer = await value.arrayBuffer();
+                const buffer = Buffer.from(arrayBuffer);
+                const base64 = `data:${value.type};base64,${buffer.toString('base64')}`;
+                clonedFormData.append(key, base64);
+            } else {
+                clonedFormData.append(key, value);
+            }
         }
 
-        console.log('The form is correct: ', form.data)
-        return { form }
+        const form = await superValidate(clonedFormData, zod(userProfileSchema));
+        
+        if (!form.valid) {
+            console.log('Validation errors:', form.errors);
+            return fail(400, { form });
+        }
+
+        try {
+            if (form.data.profileImage && form.data.profileImage.startsWith('data:image')) {
+                const imageUrl = await storageService.uploadImage(
+                    form.data.profileImage,
+                    `profile-${Date.now()}.jpg`
+                );
+                form.data.profileImage = imageUrl;
+            }
+
+            console.log('Final form data to save:', form.data);
+            // await userService.updateUser(form.data);
+
+            return { form };
+        } catch (error) {
+            console.error('Error processing profile update:', error);
+            return fail(500, { form });
+        }
     }
 };
