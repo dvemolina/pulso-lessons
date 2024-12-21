@@ -70,17 +70,12 @@ export const actions: Actions = {
 
                 // Process image
                 const arrayBuffer = await file.arrayBuffer();
-                const buffer = Buffer.from(arrayBuffer);
-                const compressedImage = await sharp(buffer)
-                    .rotate()
-                    .resize(300, 300, { fit: "cover" })
-                    .webp({ quality: 50 })
-                    .toBuffer();
-
+                const imageBuffer = Buffer.from(arrayBuffer);
+                
                 // Upload to R2
                 const fileName = `${currentUser.id}-${currentUser.name}-profile.webp`;
                 imageUrl = await storageService.uploadImage(
-                    compressedImage,
+                    imageBuffer,
                     fileName
                 );
 

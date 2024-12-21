@@ -1,5 +1,6 @@
 import { env } from '$env/dynamic/private';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import sharp from 'sharp';
 
 
 export class StorageService {
@@ -17,14 +18,18 @@ export class StorageService {
     }
 
     async uploadImage(imageBuffer: Buffer, fileName: string): Promise<string> {
-        console.log("Bucket Name:", env.R2_BUCKET_NAME);
+        const compressedBuffer = await sharp(imageBuffer)
+                            .rotate()
+                            .resize(300, 300, { fit: "cover" })
+                            .webp({ quality: 50 })
+                            .toBuffer();
     
         try {
             await this.s3Client.send(
                 new PutObjectCommand({
                     Bucket: env.R2_BUCKET_NAME,
                     Key: fileName,
-                    Body: imageBuffer,
+                    Body: compressedBuffer,
                     ContentType: "image/webp"
                 })
             );
