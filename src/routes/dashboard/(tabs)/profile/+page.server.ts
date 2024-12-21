@@ -9,9 +9,14 @@ import { StorageService } from "$src/lib/utils/cloudflareR2";
 
 const userService = new UserService();
 const storageService = new StorageService()
+let activeUser :{
+    id: number,
+    name: string,
+    profileImage: string | null,
+} | null | undefined = $state();
 
 export const load: PageServerLoad = async (event) => {
-    const activeUser = event.locals.user
+    activeUser = event.locals.user
     const session = event.locals.session
     
     if(!activeUser || !session) {
@@ -62,11 +67,14 @@ export const actions: Actions = {
         }
 
         try {
+            
             if (form.data.profileImage && form.data.profileImage.startsWith('data:image')) {
                 const imageUrl = await storageService.uploadImage(
                     form.data.profileImage,
-                    `profile-${Date.now()}.jpg`
+                    activeUser.id,
+                    activeUser.name
                 );
+
                 form.data.profileImage = imageUrl;
             }
 

@@ -15,14 +15,12 @@ export class StorageService {
         });
     }
 
-    async uploadImage(base64Image: string, fileName: string): Promise<string> {
+    async uploadImage(base64Image: string, userId: number, userName: string): Promise<string> {
         // Remove the data URL prefix and convert to buffer
         const base64Data = base64Image.replace(/^data:image\/\w+;base64,/, '');
         const imageBuffer = Buffer.from(base64Data, 'base64');
-
-        // Generate a unique filename with timestamp
-        const timestamp = Date.now();
-        const uniqueFileName = `${timestamp}-${fileName}`;
+        
+        const uniqueFileName = `${userId}-${userName}-profile`;
 
         console.log("Bucket Name:", env.R2_BUCKET_NAME);
 
