@@ -68,10 +68,11 @@ function handleFileChange(file: File | undefined | null) {
 			<div class="formgroup">
 				<div class="flex w-full flex-col items-center justify-center gap-2">
 					<div
-						style="background-image: url({ previewUrl || $userProfileData.profileImage});"
-						class="flex size-28 flex-col overflow-hidden rounded-full border-2 border-border bg-cover bg-center sm:size-32 md:size-36 lg:size-40 xl:size-44"
-					></div>
-					<FormField form={userProfileForm} name="profileImage">
+						class="flex size-28 flex-col overflow-hidden rounded-full border-2 border-border sm:size-32 md:size-36 lg:size-40 xl:size-44"
+					>
+					<img src={previewUrl || $userProfileData.profileImage} alt="Imagen de Usuario {data.user.name}" class="object-cover object-center">
+				</div>
+					<FormField form={userProfileForm} name="profileImage" >
 						<CustomControl hiddenLabel={true} label="Imagen de Perfil">
 							{#snippet children({ props })}
 								<input

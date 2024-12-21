@@ -82,3 +82,19 @@ export const countryPrefix = [
     { value: "+356", label: "+356 - Malta" },
 ];
 
+export function compareFormData<T>(currentData: T, formData: FormData, schema: Record<keyof T, string>): Partial<T> {
+    let updatedFields: Partial<T> = {};
+
+    // Loop through the schema keys (field names)
+    for (const key in schema) {
+        const formValue = formData.get(key);
+        const currentValue = currentData[key];
+
+        // Only update if the field has changed
+        if (formValue && formValue !== currentValue) {
+            updatedFields[key] = formValue;
+        }
+    }
+
+    return updatedFields;
+}
