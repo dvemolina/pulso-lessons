@@ -152,7 +152,7 @@
 						paddingProp="0.5rem 1rem"
 						bgSubtleColor="var(--primary)"
 						highlightColor="var(--primary)"
-						highlightSubtleColor="var(--primary)">Acceder</ShinyCta
+						highlightSubtleColor="var(--primary)"><p class="text-text">Acceder</p></ShinyCta
 					>
 				</div>
 			{/if}

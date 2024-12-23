@@ -8,23 +8,19 @@
 		paddingProp?: string;
 		borderRadius?: string;
 		btnWidth?: string;
-		fontSize?: string;
-		fontWeight?: string;
 		type?: "button" | "submit" | "reset";
 		onClick?: any,
 		children?: import('svelte').Snippet;
 	}
 
 	let {
-		bgColor = "#012216",
+		bgColor = "var(--background)",
 		bgSubtleColor = 'var(--primary-active)',
 		highlightColor = 'var(--primary-active)',
 		highlightSubtleColor = 'var(--primary-active)',
 		paddingProp = '0.9rem 2rem',
 		borderRadius = '360px',
 		btnWidth = '',
-		fontSize = '1rem',
-		fontWeight = '500',
 		type = "submit",
 		onClick,
 		children
@@ -36,7 +32,7 @@
 onclick={onClick}
 	type={type}
 	class="shiny-cta"
-	style="--shiny-cta-bg: {bgColor}; --shiny-cta-bg-subtle: {bgSubtleColor}; --shiny-cta-highlight: {highlightColor}; --shiny-cta-highlight-subtle: {highlightSubtleColor}; padding: {paddingProp}; border-radius: {borderRadius}; width: {btnWidth}; font-size: {fontSize}; font-weight: {fontWeight};"
+	style="--shiny-cta-bg: {bgColor}; --shiny-cta-bg-subtle: {bgSubtleColor}; --shiny-cta-highlight: {highlightColor}; --shiny-cta-highlight-subtle: {highlightSubtleColor}; padding: {paddingProp}; border-radius: {borderRadius}; width: {btnWidth};"
 	>
 	<span>
 		{@render children?.()}
@@ -64,7 +60,7 @@ onclick={onClick}
 
 	@property --gradient-percent {
 		syntax: '<percentage>';
-		initial-value: 0%;
+		initial-value: 50%;
 		inherits: false;
 	}
 
@@ -85,7 +81,7 @@ onclick={onClick}
 		outline-offset: 4px;
 		font-family: "Fira Sans";
 		line-height: 1.2;
-		border: 1px solid transparent;
+		border: 0.5px solid var(--shiny-cta-highlight-subtle);
 		color: var(--shiny-cta-fg);
 		background:
 			linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,

@@ -5,7 +5,7 @@
 
 <div class="flex flex-col items-center h-full gap-5">
     <div class="AVATAR flex flex-col gap-4">
-        <div class="size-52 overflow-hidden rounded-full border-4 border-border">
+        <div class="size-52 overflow-hidden rounded-full border-[2px] border-border">
             <img src="/dve.png" alt="Profile" class="object-cover object-center" />
         </div>
         <div class="flex flex-row items-center justify-center gap-3">
@@ -71,8 +71,8 @@
             </div>
         </div>
     </div>
-    <CoolCta btnWidth="100%">
-        <img src="/svg/calendar.svg" alt="Calendar" class="opacity-90 invert" />
-        <p class="font-fira text-lg font-semibold">Resérvame</p>
+    <CoolCta btnWidth="100%" borderRadius="7px">
+        <img src="/svg/calendar.svg" alt="Calendar" class="opacity-90 invert-0 dark:invert" />
+        <p class="font-fira text-lg font-semibold text-text">Resérvame</p>
     </CoolCta>
 </div>
