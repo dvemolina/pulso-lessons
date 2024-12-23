@@ -6,7 +6,6 @@ import { UserService } from "$src/features/Users/lib/UserService";
 import { error, redirect } from "@sveltejs/kit";
 import { compareFormData, expiredSessionRedirect, parsePhoneNumber } from "$src/lib/utils/utils";
 import { StorageService } from "$src/lib/utils/cloudflareR2";
-import sharp from "sharp";
 
 const userService = new UserService();
 const storageService = new StorageService()
@@ -16,7 +15,7 @@ export const load: PageServerLoad = async (event) => {
     const session = event.locals.session
     
     if(!user || !session) {
-        redirect(403, expiredSessionRedirect(event, 'La sesión ha caducado. Accede para visitar tu Dashboard'))
+        redirect(403, expiredSessionRedirect(event, 'La sesión ha caducado. Accede para modificar tu Perfil'))
     }
     const userId = user.id;
 
@@ -101,12 +100,7 @@ export const actions: Actions = {
         }
 
         // Get changed fields
-        const updatedFields = Object.entries(newForm.data).reduce((acc, [key, value]) => {
-            if (value !== initialForm.data[key]) {
-                acc[key] = value;
-            }
-            return acc;
-        }, {} as Record<string, unknown>);
+        const updatedFields = compareFormData(initialForm.data, newForm.data)
 
         // Remove profileImage from updatedFields if it's empty string or unchanged
         if (updatedFields.profileImage === '' || updatedFields.profileImage === currentUser.profileImage) {

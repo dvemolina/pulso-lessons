@@ -15,6 +15,13 @@
       "when": 1734148502855,
       "tag": "0001_late_masked_marvel",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1734972540551,
+      "tag": "0002_wise_talkback",
+      "breakpoints": true
     }
   ]
 }
