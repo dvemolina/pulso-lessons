@@ -47,4 +47,8 @@ export class UserService {
         return await this.userRepository.getUserById(userId);
     }
 
+    async updateUserProfile(userId: number, updatedFields: Record<string, never>) {
+        return await this.userRepository.updateUser(userId, updatedFields);
+    }
+
 }

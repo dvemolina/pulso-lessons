@@ -1,7 +1,7 @@
 import { fail, superValidate } from "sveltekit-superforms";
 import type { PageServerLoad } from "./$types";
 import { compareFormData, expiredSessionRedirect } from "$src/lib/utils/utils";
-import { availabilitySchema } from "$src/features/Instructors/lib/instructorValidations";
+import { availabilitySchema } from "$src/features/Availability/lib/availabilityValidation";
 import { zod } from "sveltekit-superforms/adapters";
 import { AvailabilityService } from "$src/features/Availability/lib/AvailabilityService";
 import { redirect, type Actions } from "@sveltejs/kit";
@@ -34,6 +34,7 @@ export const actions: Actions = {
         redirect(403, expiredSessionRedirect(event, 'La sesión ha caducado. Accede para modificar tu Disponibilidad'))
     }
     const currentAvailability = await availabilityService.getAvailabilityByUserId(user.id);
+    console.log('EXISTING AVAILABILITY: ', currentAvailability)
     const initialForm = await superValidate(currentAvailability, zod(availabilitySchema));
 
     const form  = await superValidate(event.request, zod(availabilitySchema));
@@ -41,8 +42,13 @@ export const actions: Actions = {
         return fail(400, { form })
     }
 
+    if(!currentAvailability) {
+        const availabilityData = {...form.data, userId: user.id}
+        console.log('AVAILABILITY TO SAVE: ', form.data)
+        const createdAvailability = await availabilityService.createAvailability(availabilityData);
+        return { createdAvailability }
+    }
     const updatedAvailability = compareFormData(initialForm.data, form.data);
-
     console.log('UPDATED AVAILABILITY: ', updatedAvailability)
     return { form }
 }

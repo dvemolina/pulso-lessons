@@ -15,3 +15,4 @@ export const availability = pgTable('availability', {
 })
 
 export type Availability = typeof availability.$inferSelect;
+export type InsertAvailability = typeof availability.$inferInsert;

@@ -3,10 +3,7 @@
 	import CoolCTA from '$src/components/CoolCTA.svelte';
 	import CustomControl from '$src/components/CustomControl.svelte';
 	import FormField from '$src/components/FormField.svelte';
-	import {
-		availabilitySchema,
-		weekDays
-	} from '$src/features/Availability/lib/availabilityValidation.js';
+	import { availabilitySchema, weekDays } from '$src/features/Availability/lib/availabilityValidation.js';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { generateTimeOptions } from '$src/lib/utils/utils.js';
@@ -26,16 +23,17 @@
 
 	//Populate dayStartOptions on component mount
 	onMount(() => {
-		if ($form.day_start) {
-			dayEndOptions = generateTimeOptions($form.day_start, '23:45', 60);
+		if ($form.dayStart) {
+			dayStartOptions = generateTimeOptions('00:00', '23:45', 15);
+			dayEndOptions = generateTimeOptions($form.dayStart, '23:45', 60);
 		} else {
 			dayStartOptions = generateTimeOptions('00:00', '23:45', 15);
 		}
 	});
 
 	$effect(() => {
-		if ($form.day_start) {
-			dayEndOptions = generateTimeOptions($form.day_start, '23:45', 60);
+		if ($form.dayStart) {
+			dayEndOptions = generateTimeOptions($form.dayStart, '23:45', 60);
 		}
 	});
 </script>
@@ -54,25 +52,25 @@
 	>
 		<fieldset class="flex w-full flex-col gap-4">
 			<div class="formgroup">
-				<FormField form={availabilityForm} name="season_start">
+				<FormField form={availabilityForm} name="seasonStart">
 					<CustomControl label="Fecha Inicio Temporada">
 						{#snippet children({ props })}
 							<input
 								type="date"
 								{...props}
-								bind:value={$form.season_start}
+								bind:value={$form.seasonStart}
 								placeholder="Inicio Temporada"
 							/>
 						{/snippet}
 					</CustomControl>
 				</FormField>
-				<FormField form={availabilityForm} name="season_end">
+				<FormField form={availabilityForm} name="seasonEnd">
 					<CustomControl label="Fecha Final Temporada">
 						{#snippet children({ props })}
 							<input
 								type="date"
 								{...props}
-								bind:value={$form.season_end}
+								bind:value={$form.seasonEnd}
 								placeholder="Final Temporada"
 							/>
 						{/snippet}
@@ -80,10 +78,10 @@
 				</FormField>
 			</div>
 			<div class="formgroup">
-				<FormField form={availabilityForm} name="day_start">
+				<FormField form={availabilityForm} name="dayStart">
 					<CustomControl label="Hora Inicio Jornada">
 						{#snippet children({ props })}
-							<select {...props} bind:value={$form.day_start}>
+							<select {...props} bind:value={$form.dayStart}>
 								<option value="">Selecciona Hora</option>
 								{#each dayStartOptions as { label, value }}
 									<option {value}>{label}</option>
@@ -92,10 +90,10 @@
 						{/snippet}
 					</CustomControl>
 				</FormField>
-				<FormField form={availabilityForm} name="day_end">
+				<FormField form={availabilityForm} name="dayEnd">
 					<CustomControl label="Hora Final Jornada">
 						{#snippet children({ props })}
-							<select {...props} bind:value={$form.day_end}>
+							<select {...props} bind:value={$form.dayEnd}>
 								<option value="">Selecciona Hora</option>
 								{#each dayEndOptions as { label, value }}
 									<option {value}>{label}</option>
@@ -105,7 +103,7 @@
 					</CustomControl>
 				</FormField>
 			</div>
-			<Fieldset form={availabilityForm} name="week_days" class="flex flex-col gap-4">
+			<Fieldset form={availabilityForm} name="weekDays" class="flex flex-col gap-4">
 				<Legend>Disponibilidad Semanal</Legend>
 				<Description
 					>Estarás disponible los días de la semana que selecciones en el horario escogido</Description
@@ -118,7 +116,7 @@
 									<input
 										type="checkbox"
 										{...props}
-										bind:group={$form.week_days}
+										bind:group={$form.weekDays}
 										{value}
 										class="size-7 sm:size-10 rounded-sm border border-border bg-bgNeutral"
 									/>
