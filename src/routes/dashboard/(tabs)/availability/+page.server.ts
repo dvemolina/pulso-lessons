@@ -45,11 +45,14 @@ export const actions: Actions = {
     if(!currentAvailability) {
         const availabilityData = {...form.data, userId: user.id}
         console.log('AVAILABILITY TO SAVE: ', form.data)
-        const createdAvailability = await availabilityService.createAvailability(availabilityData);
-        return { createdAvailability }
+        await availabilityService.createAvailability(availabilityData);
+        return { form }
     }
     const updatedAvailability = compareFormData(initialForm.data, form.data);
     console.log('UPDATED AVAILABILITY: ', updatedAvailability)
+    
+    const newAvailability = await availabilityService.updateAvailability(currentAvailability.id, updatedAvailability)
+    console.log('The Availability has been Updated to: ', newAvailability)
     return { form }
 }
 };

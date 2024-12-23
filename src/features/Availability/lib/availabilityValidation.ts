@@ -15,7 +15,7 @@ export const availabilitySchema = z.object({
     seasonEnd: z.string().nonempty('Selecciona fecha finalización de tu temporada'),
     dayStart: z.string().nonempty('Selecciona el inicio de tu jornada'),
     dayEnd: z.string().nonempty('Selecciona el final de tu jornada'),
-    weekDays: z.number().array().min(1).max(7).nonempty('Selecciona a que días aplicar tu horario'),
+    weekDays: z.array(z.number()).min(1).max(7).nonempty('Selecciona a que días aplicar tu horario'),
 }).refine(
     (data) => new Date(data.seasonEnd) > new Date(data.seasonStart),
     {

@@ -85,11 +85,31 @@ export const countryPrefix = [
 export function compareFormData<T>(initialData: T, newData: T): Partial<T> {
     return Object.entries(newData).reduce((acc, [key, value]) => {
         const initialValue = initialData[key as keyof T];
-        if (value !== initialValue) {
+
+        // Check if both values are arrays, and if so, perform a deep comparison
+        if (Array.isArray(value) && Array.isArray(initialValue)) {
+            if (!arraysAreEqual(initialValue, value)) {
+                acc[key as keyof T] = value;
+            }
+        } else if (value !== initialValue) {
             acc[key as keyof T] = value;
         }
+
         return acc;
     }, {} as Partial<T>);
 }
+
+// Deep comparison function for arrays. Can be extended for other types of deep comparison if necessary
+export function arraysAreEqual(arr1: never[], arr2: never[]): boolean {
+    if (arr1.length !== arr2.length) return false;
+
+    for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+// This function can be extended for other types of deep comparison if necessary
 
 

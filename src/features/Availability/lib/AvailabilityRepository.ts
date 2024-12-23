@@ -15,11 +15,10 @@ export class AvailabilityRepository {
         const result = await db.insert(availability).values(availabilityData).returning()
         return result[0]
     }
-    async updateAvailabilityById(availabilityId:number, updatedFields: Record<string, never>) {
-        if (Object.keys(updatedFields).length === 0) {
+    async updateAvailabilityById(availabilityId:number, updatedAvailability: Record<string, never>) {
+        if (Object.keys(updatedAvailability).length === 0) {
             return null;
         }
-        const updatedAvailability = {...updatedFields, updatedAt: new Date()}
         const result = await db.update(availability).set(updatedAvailability).where(eq(availability.id, availabilityId)).returning();
         return result[0];
     }

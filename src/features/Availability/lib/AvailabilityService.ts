@@ -14,6 +14,7 @@ export class AvailabilityService {
     }
 
     async updateAvailability(availabilityId: number, updatedFields: Record<string, never>) {
-        return await this.availabilityRepository.updateAvailabilityById(availabilityId, updatedFields);
+        const availability = {...updatedFields, createdAt: new Date()}
+        return await this.availabilityRepository.updateAvailabilityById(availabilityId, availability);
     }
 }
