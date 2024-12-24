@@ -33,11 +33,11 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		opacity: 0.6;
+		opacity: 0.8;
 		z-index: -2;
 	}
 
-	/*Grain (Noise Gradient) Mask
+	
 	.greenball::after {
 		
 		content: '';
@@ -50,9 +50,9 @@
 		right: 0;
 		width: 100%;
 		height: 100dvh;
-		opacity: 0.10;
+		opacity: 0.05;
 		z-index: -2;
 		-webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%);
 		mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%);
-	} */
+	} 
 </style>

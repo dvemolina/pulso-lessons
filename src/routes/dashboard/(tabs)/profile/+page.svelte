@@ -17,6 +17,10 @@
 			console.log('Form submission data:', Object.fromEntries(formData));
 		}
 	});
+
+	const instructorProfileForm = superForm(data.form, {
+		validators: zodClient(instructorProfileSchema)
+	})
 	const { form: userProfileData, enhance: userProfileEnhance } = userProfileForm;
 
 	const countryPrefixes = countryPrefix;
@@ -183,5 +187,13 @@ function handleFileChange(file: File | undefined | null) {
 	<h3 class="mb-8 border-b border-b-border font-fira text-xl font-semibold">
 		Detalles Profesionales - Instructor
 	</h3>
-	<form action="" method="POST"></form>
+	<form action="?/instructorProfileForm" method="POST">
+		<fieldset class="flex w-full flex-col gap-4">
+			<div class="formgroup">
+				<FormField >
+
+				</FormField>
+			</div>
+		</fieldset>
+	</form>
 </ContentBox>

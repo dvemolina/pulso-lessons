@@ -33,7 +33,8 @@ export const userProfileSchema = z.object({
     email: z.string().nonempty('Introduce un Email').email('Email inválido'),
     country_code: z.string().optional(),
     phone_number: z.number().optional(),
-    profileImage: z.string().optional()
+    profileImage: z.string().optional(),
+    
 }).refine((data) => data.phone_number !== null || data.country_code !== null, {
     message: "Introduce Código y Teléfono",
     path: ["phone"]

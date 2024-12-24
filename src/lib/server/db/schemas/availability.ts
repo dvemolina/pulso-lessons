@@ -1,6 +1,6 @@
 import { integer, pgTable, varchar } from "drizzle-orm/pg-core";
 import { users } from "./users";
-import { timestamps } from "../helpers";
+import { timestamps } from "./helpers";
 
 
 export const availability = pgTable('availability', {

@@ -1,6 +1,6 @@
 import { pgTable, text, integer, timestamp, boolean, varchar } from 'drizzle-orm/pg-core';
-import { countries, languages, roles } from './normalized';
-import { timestamps } from '../helpers';
+import { countries, languages, resorts, roles, sports } from './normalized';
+import { timestamps } from './helpers';
 
 export const users = pgTable('users', {
 	id: integer('id').generatedAlwaysAsIdentity({ name: "users_id_sequence", startWith: 1, increment: 1, minValue: 1,  cache: 1 }).primaryKey(),
@@ -18,6 +18,7 @@ export const users = pgTable('users', {
 	biography: text("biography"),
 	nationality: integer("nationality").references(() => countries.id),
 	iban: varchar("iban", { length: 50 }),
+	resortId: integer('resort').references(() => resorts.id),
 	...timestamps
 });
 
@@ -40,7 +41,11 @@ export const userRoles = pgTable('user_roles', {
 	assignedAt: timestamp('assigned_at').defaultNow(),  // Timestamp when the role was assigned
 })
 
-export type Session = typeof session.$inferSelect;
+export const userSports = pgTable('user_sports', {
+	userId: integer('user_id').notNull().references(() => users.id),
+	sportId: integer('sports_id').notNull().references(() => sports.id)
+})
 
+export type Session = typeof session.$inferSelect;
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert
