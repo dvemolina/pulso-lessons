@@ -110,8 +110,9 @@ export const actions: Actions = {
             delete updatedFields.profileImage;
         }
 
+        //I NEED TO GET THE DATA BACK TO CREATE A FORM AND PASS IT TO PERSIST THE DATA IN THE FRONTEND
         await userService.updateUserProfile(user.id, updatedFields);
-
+        
         return { newForm };
     }
 };

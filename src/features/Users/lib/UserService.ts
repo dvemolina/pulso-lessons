@@ -54,7 +54,7 @@ export class UserService {
                     }
         
         const { sports, ...userFields } = updatedFields;
-    
+        
         // Update basic user fields
         if (Object.keys(userFields).length > 0) {
             await this.userRepository.updateUser(userId, userFields);
