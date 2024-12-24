@@ -10,7 +10,7 @@
     let { serviceId }: Props = $props();
 </script>
 
-<h1 class="text-2xl font-fira font-semibold mb-6 text-text">Servicios</h1>
+<h1 class="text-2xl font-fira font-semibold mb-4 text-text">Servicios</h1>
 <p class="mb-8 text-textNeutral text-lg font-sans">Crea y modifica tus servicios profesionales</p>
 
 <ContentBox>

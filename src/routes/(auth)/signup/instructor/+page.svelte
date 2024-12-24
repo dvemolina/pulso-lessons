@@ -31,7 +31,7 @@
 		<div class="flex flex-col">
 			<p class="mb-5 self-center text-center font-fira text-xl font-semibold text-text">
 				Rellena Tus Datos. <br />
-				<span class="text-lg font-normal underline"
+				<span class="text-lg font-normal text-textNeutral underline"
 					>Prepara tu titulación en PDF,<br /> te la pediremos al final.</span
 				>
 			</p>

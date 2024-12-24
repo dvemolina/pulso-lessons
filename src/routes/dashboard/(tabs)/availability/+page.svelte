@@ -38,12 +38,12 @@
 	});
 </script>
 
-<h1 class="mb-4 font-fira text-2xl text-text">Disponibilidad</h1>
-<h2 class="mb-8 px-2 font-sans text-xl text-textNeutral">
+<h1 class="mb-4 font-fira text-2xl font-semibold text-text">Disponibilidad</h1>
+<h2 class="mb-8 font-sans text-lg text-textNeutral">
 	Modifica tu Temporada y Disponibilidad.
 </h2>
 <ContentBox>
-	<h3 class="mb-8 border-b border-border text-xl">Temporada - Disponibilidad General</h3>
+	<h3 class="mb-8 border-b border-border font-fira font-normal text-xl">Temporada - Disponibilidad General</h3>
 	<form
 		action="?/generalAvailability"
 		method="POST"
@@ -137,7 +137,6 @@
 			highlightSubtleColor="var(--primary)">Guardar Datos Temporada</CoolCTA
 		>
 	</form>
-	<SuperDebug data={$form}/>
 </ContentBox>
 <ContentBox>
 	<h3 class="mb-8 border-b border-b-border text-xl">Cierres - Disponibilidad específica</h3>

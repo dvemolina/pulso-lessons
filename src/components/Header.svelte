@@ -21,7 +21,7 @@
 
 	const navItems = [
 		{ name: 'Inicio', href: '/' },
-		{ name: 'Pulso', href: '/pulso' },
+		{ name: 'Pulso', href: '/lessons' },
 		{
 			name: 'Nosotros',
 			href: '/about',

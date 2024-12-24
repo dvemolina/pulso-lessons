@@ -49,7 +49,6 @@ function handleFileChange(file: File | undefined | null) {
 <h2 class="mb-8 font-sans text-lg text-textNeutral">Modifica tus Datos y Detalles.</h2>
 <ContentBox shadow={true}>
 	<h3 class="mb-8 border-b border-b-border font-fira text-xl font-normal">Detalles Personales</h3>
-	<SuperDebug data={$userProfileData} />
 	<form
 		action="?/userProfile"
 		method="POST"
@@ -90,10 +89,10 @@ function handleFileChange(file: File | undefined | null) {
 										onClick={triggerFileInput}
 										paddingProp="0.5rem 1rem"
 										btnWidth="200px"
-										bgColor="--secondary-washed"
+										bgColor="var(--cta-secondary)"
 										bgSubtleColor="var(--secondary-washed)"
 										highlightColor="var(--secondary-washed)"
-										highlightSubtleColor="var(--secondary-washed)">{isImageLoading ? 'Cambiando...' : 'Cambiar Imagen'}</CoolCTA
+										highlightSubtleColor="var(--secondary-washed)"><p class="text-text">{isImageLoading ? 'Cambiando...' : 'Cambiar Imagen'}</p> </CoolCTA
 									>
 								</div>
 							{/snippet}
@@ -176,7 +175,7 @@ function handleFileChange(file: File | undefined | null) {
 			</FormField>
 		</fieldset>
 
-		<CoolCTA type="submit" paddingProp="1rem 1.5rem">Guardar Datos Usuario</CoolCTA>
+		<CoolCTA type="submit" paddingProp="1rem 1.5rem"><p class="text-text">Guardar Datos Usuario</p></CoolCTA>
 	</form>
 </ContentBox>
 

@@ -14,7 +14,7 @@
 	}
 
 	let {
-		bgColor = "var(--background)",
+		bgColor = "var(--cta-primary)",
 		bgSubtleColor = 'var(--primary-active)',
 		highlightColor = 'var(--primary-active)',
 		highlightSubtleColor = 'var(--primary-active)',
@@ -83,17 +83,7 @@ onclick={onClick}
 		line-height: 1.2;
 		border: 0.5px solid var(--shiny-cta-highlight-subtle);
 		color: var(--shiny-cta-fg);
-		background:
-			linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,
-			conic-gradient(
-					from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
-					transparent,
-					var(--shiny-cta-highlight) var(--gradient-percent),
-					var(--gradient-shine) calc(var(--gradient-percent) * 2),
-					var(--shiny-cta-highlight) calc(var(--gradient-percent) * 3),
-					transparent calc(var(--gradient-percent) * 4)
-				)
-				border-box;
+		background:var(--shiny-cta-bg);
 		box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
 		height: fit-content;
 	}

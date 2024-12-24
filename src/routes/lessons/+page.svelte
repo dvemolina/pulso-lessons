@@ -1,5 +1,5 @@
 <script>
-	import InstructorCard from '$src/features/Instructors/components/instructor-card-2/InstructorCard.svelte';
+	import InstructorCard from '$src/features/Instructors/components/instructor-card-3/InstructorCard.svelte';
 </script>
 
 <div class="wrapper">

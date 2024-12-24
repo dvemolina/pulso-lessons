@@ -5,6 +5,7 @@ import { availabilitySchema } from "$src/features/Availability/lib/availabilityV
 import { zod } from "sveltekit-superforms/adapters";
 import { AvailabilityService } from "$src/features/Availability/lib/AvailabilityService";
 import { redirect, type Actions } from "@sveltejs/kit";
+import type { Availability } from "$src/lib/server/db/schemas/availability";
 
 const availabilityService = new AvailabilityService()
 
@@ -17,7 +18,7 @@ export const load: PageServerLoad = async (event) => {
     }
 
     const userId = user?.id;
-    const userAvailability = await availabilityService.getAvailabilityByUserId(userId)
+    const userAvailability: Availability = await availabilityService.getAvailabilityByUserId(userId)
     
     const form = await superValidate(userAvailability, zod(availabilitySchema))
     
@@ -35,6 +36,7 @@ export const actions: Actions = {
     }
     const currentAvailability = await availabilityService.getAvailabilityByUserId(user.id);
     console.log('EXISTING AVAILABILITY: ', currentAvailability)
+    
     const initialForm = await superValidate(currentAvailability, zod(availabilitySchema));
 
     const form  = await superValidate(event.request, zod(availabilitySchema));

@@ -5,8 +5,8 @@
 
 </script>
 
-<div class="instructor-card flex flex-col items-center justify-center p-2">
-    <div class="flex flex-col items-center gap-1">
+<div class="instructor-card flex flex-col items-center p-2">
+    <div class="flex flex-col items-center justify-center gap-2">
         <div class="AVATAR flex flex-col gap-1">
             <div class="size-40 overflow-hidden rounded-full border-[2px] border-border">
                 <img src="/dve.png" alt="Profile" class="object-cover object-center" />
@@ -16,8 +16,8 @@
                 <StarScore />
             </div>
         </div>
-        <div class="MIDDLEWRAP flex flex-col sm:flex-row md:flex-col items-center justify-center gap-2">
-            <div class="DETAILS flex flex-col justify-center gap-1 text-md">
+        <div class="MIDDLEWRAP flex flex-row  items-center justify-center gap-2">
+            <div class="DETAILS flex flex-col justify-center gap-1 text-sm">
                 <div class="flex flex-row items-center gap-2 rounded-md border border-border">
                     <div class="border-r border-border bg-neutral-400/5 p-1">
                         <img
@@ -49,21 +49,23 @@
                 <p class="text-sm text-textNeutral">Desde:</p>
                 <div class="flex w-full flex-row items-center justify-center gap-2">
                     <div
-                        class="flex flex-col items-center gap-1 rounded-md border border-border bg-neutral-400/5 p-1.5"
+                        class="flex flex-col items-center gap-1 rounded-md border border-border bg-neutral-400/5 px-3 py-1"
                     >
                         <p class="border-b border-border font-fira text-xl font-semibold">
                             75 <span class="text-sm text-textNeutral">EUR</span>
                         </p>
                         <p class="text-sm text-textNeutral">1 Hora</p>
                     </div>
-                    <div
+                    <!--
+                        <div
                         class="flex flex-col items-center gap-1 rounded-md border border-border bg-neutral-400/5 p-1.5"
-                    >
+                        >
                         <p class="border-b border-border font-fira text-xl font-semibold">
                             430 <span class="text-sm text-textNeutral">EUR</span>
                         </p>
                         <p class="text-sm text-textNeutral">Día Entero</p>
                     </div>
+                    -->
                 </div>
             </div>
         </div>

@@ -4,7 +4,6 @@ import { zod } from "sveltekit-superforms/adapters";
 import { fail, type Actions } from "@sveltejs/kit";
 import { UserService } from "$src/features/Users/lib/UserService";
 import { userSignupSchema } from "$src/features/Users/lib/userValidations";
-import { availabilitySchema } from "$src/features/Instructors/lib/instructorValidations";
 import { createSession, generateSessionToken, setSessionTokenCookie } from "$src/lib/server/auth";
 
 
@@ -14,8 +13,7 @@ const userService = new UserService()
 
 export const load: PageServerLoad = async () => {
     const signupForm = await superValidate(zod(userSignupSchema));
-    const availabilityForm = await superValidate(zod(availabilitySchema))
-    return { signupForm, availabilityForm }
+    return { signupForm }
 };
 
 export const actions: Actions = {
