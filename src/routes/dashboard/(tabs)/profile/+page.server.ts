@@ -107,11 +107,8 @@ export const actions: Actions = {
             delete updatedFields.profileImage;
         }
 
-        console.log('Final Updated Fields:', updatedFields);
+        await userService.updateUserProfile(user.id, updatedFields);
 
-        // Here you would update the user in the database with updatedFields
-        // await userService.updateUser(user.id, updatedFields);
-
-        return { form: newForm };
+        return { newForm };
     },
 };

@@ -12,10 +12,6 @@ export class UserRepository {
     }
     
     async updateUser(userId: number, updatedFields: Record<string, never>) {
-        if(Object.keys(updatedFields).length === 0) {
-            return null
-        }
-
         const result = await db.update(users).set(updatedFields).where(eq(users.id, userId)).returning();
         return result[0];
     }

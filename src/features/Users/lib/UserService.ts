@@ -48,6 +48,10 @@ export class UserService {
     }
 
     async updateUserProfile(userId: number, updatedFields: Record<string, never>) {
+        if(Object.keys(updatedFields).length === 0) {
+            return null
+        }
+        
         return await this.userRepository.updateUser(userId, updatedFields);
     }
 
