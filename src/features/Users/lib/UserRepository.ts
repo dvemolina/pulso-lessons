@@ -1,4 +1,4 @@
-import {users, type InsertUser, type User} from "$src/lib/server/db/schemas/users";
+import {users, userSports, type InsertUser, type User} from "$src/lib/server/db/schemas/users";
 import { db } from "$src/lib/server/db";
 import { eq } from "drizzle-orm";
 
@@ -21,9 +21,38 @@ export class UserRepository {
         return result[0];
     }
 
-    async getUserById(userId: number): Promise<User> {
-        const result = await db.select().from(users).where(eq(users.id, userId));
-        return result[0];
+    async updateUserSports(userId: number, sports: number[]) {
+        // Delete existing sports for the user
+        await db.delete(userSports).where(eq(userSports.userId, userId));
+    
+        // Insert new sports
+        if (sports.length > 0) {
+            const newSports = sports.map((sportId) => ({
+                userId: userId,
+                sportId: sportId,
+            }));
+    
+            await db.insert(userSports).values(newSports);
+        }
+    }
+
+    async getUserById(userId: number) {
+        const user = await db.select().from(users).where(eq(users.id, userId));
+        const sports = await db
+            .select()
+            .from(userSports)
+            .where(eq(userSports.userId, userId));
+    
+        return { ...user[0], sports: sports.map((s) => s.sportId) };
+    }
+
+    async getUserSports(userId: number) {
+        const sports = await db
+            .select()
+            .from(userSports)
+            .where(eq(userSports.userId, userId));
+    
+        return sports.map((s) => s.sportId) ;
     }
 
 }

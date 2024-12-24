@@ -44,15 +44,27 @@ export class UserService {
     }
 
     async getUserById(userId: number): Promise<User> {
-        return await this.userRepository.getUserById(userId);
+
+        return await this.userRepository.getUserById(userId); 
     }
 
     async updateUserProfile(userId: number, updatedFields: Record<string, never>) {
         if(Object.keys(updatedFields).length === 0) {
-            return null
-        }
+                        return null
+                    }
         
-        return await this.userRepository.updateUser(userId, updatedFields);
-    }
-
+        const { sports, ...userFields } = updatedFields;
+    
+        // Update basic user fields
+        if (Object.keys(userFields).length > 0) {
+            await this.userRepository.updateUser(userId, userFields);
+        }
+    
+        // Update sports if provided
+        if (Array.isArray(sports)) {
+            await this.userRepository.updateUserSports(userId, sports);
+        }
+    
+        return true;
+    }   
 }

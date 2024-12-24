@@ -4,7 +4,7 @@ import { timestamps } from './helpers';
 
 export const users = pgTable('users', {
 	id: integer('id').generatedAlwaysAsIdentity({ name: "users_id_sequence", startWith: 1, increment: 1, minValue: 1,  cache: 1 }).primaryKey(),
-	role: integer('role').references(() => roles.id).notNull(), //Maybe add a Default Role?
+	roleId: integer('role_id').references(() => roles.id).notNull(), //Maybe add a Default Role?
 	name: text('name').notNull(),
 	surname: text('surname').notNull(),
 	email: varchar('email',{ length: 254 }).notNull().unique(),
@@ -18,7 +18,7 @@ export const users = pgTable('users', {
 	biography: text("biography"),
 	nationality: integer("nationality").references(() => countries.id),
 	iban: varchar("iban", { length: 50 }),
-	resortId: integer('resort').references(() => resorts.id),
+	resortId: integer('resort_id').references(() => resorts.id),
 	...timestamps
 });
 
