@@ -4,7 +4,7 @@
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { userProfileSchema } from '$src/features/Users/lib/userValidations';
-	import { Field, Control, Label, Description, FieldErrors, Legend, Fieldset } from 'formsnap';
+	import { Control, Label, Description, FieldErrors, Legend, Fieldset } from 'formsnap';
 	import CustomControl from '$src/components/CustomControl.svelte';
 	import FormField from '$src/components/FormField.svelte';
 	import { countryPrefix } from '$src/lib/utils/utils';
@@ -12,10 +12,7 @@
 	let { data } = $props();
 
 	const userProfileForm = superForm(data.userForm, {
-		validators: zodClient(userProfileSchema),
-		onSubmit: ({ formData }) => {
-			console.log('Form submission data:', Object.fromEntries(formData));
-		}
+		validators: zodClient(userProfileSchema)
 	});
 
 	const { form: userProfileData, enhance: userProfileEnhance } = userProfileForm;

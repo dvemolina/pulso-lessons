@@ -11,7 +11,7 @@ import { getAllCountries, getAllSkiResorts, getAllSports } from "$src/lib/server
 const userService = new UserService();
 const storageService = new StorageService()
 
-export const load: PageServerLoad = async (event) => {
+export const load: PageServerLoad = async (event) => {  
     const user = event.locals.user
     const session = event.locals.session
     
@@ -32,9 +32,11 @@ export const load: PageServerLoad = async (event) => {
 
     const userData = {...dbUser, phone_number: parsedPhone?.number, country_code: parsedPhone?.prefix}
     const userForm = await superValidate(userData, zod(userProfileSchema))
+
     const countries = await getAllCountries();
     const resorts = await getAllSkiResorts();
     const sports = await getAllSports();
+
     return { userForm, user, countries, resorts, sports}
 }
 
@@ -43,6 +45,7 @@ export const actions: Actions = {
         const user = event.locals.user
         const currentUser = await userService.getUserById(user.id)
         const formData = await event.request.formData();
+        const form = await superValidate(formData, zod(userProfileSchema));
 
         // Get the initial form
         let parsedPhone;
@@ -65,7 +68,7 @@ export const actions: Actions = {
                 // Validate image type
                 if (!file.type.startsWith("image/")) {
                     return fail(400, { 
-                        form: initialForm,
+                        form,
                         message: "Solo se aceptan imágenes" 
                     });
                 }
@@ -86,24 +89,23 @@ export const actions: Actions = {
             } catch (error) {
                 console.error("Error processing image:", error);
                 return fail(500, { 
-                    form: initialForm,
+                    form,
                     message: "Error al procesar la imagen." 
                 });
             }
         } else {
             // If no new file, use the existing URL
-            formData.set('profileImage', currentUser.profileImage || '');
+            form.data.profileImage = currentUser.profileImage || ''
         }
 
-        // Now validate the form with processed data
-        const newForm = await superValidate(formData, zod(userProfileSchema));
 
-        if (!newForm.valid) {
-            return fail(400, { form: newForm });
+        if (!form.valid) {
+            return fail(400, { form });
         }
 
+        console.log('THE FORM SENT IS: ', form)
         // Get changed fields
-        const updatedFields = compareFormData(initialForm.data, newForm.data)
+        const updatedFields = compareFormData(initialForm.data, form.data)
 
         // Remove profileImage from updatedFields if it's empty string or unchanged
         if (updatedFields.profileImage === '' || updatedFields.profileImage === currentUser.profileImage) {
@@ -112,7 +114,7 @@ export const actions: Actions = {
 
         //I NEED TO GET THE DATA BACK TO CREATE A FORM AND PASS IT TO PERSIST THE DATA IN THE FRONTEND
         await userService.updateUserProfile(user.id, updatedFields);
-        
-        return { newForm };
+        console.log('USER UPDATED, RETURNING THIS FORM: ', form)
+        return { form };
     }
 };
