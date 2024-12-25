@@ -20,7 +20,7 @@ export class UserService {
         delete signupData.country_code;
         delete signupData.confirm_password;
 
-        const userData: InsertUser = {...signupData, role: 1};
+        const userData: InsertUser = {...signupData, roleId: 1};
 
         try {
             const createdUser = await this.userRepository.createUser(userData);

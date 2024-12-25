@@ -19,7 +19,7 @@ export function generateDailySlots(dayStart: string, dayEnd: string): { slotStar
     return slots;
 }
 
-export function generateAllSlots(availability: {seasonStart: string, seasonEnd: string, dayStart: string, dayEnd: string, weekDays: number[];}) {
+export function generateAvailabilitySlots(availability: {seasonStart: string, seasonEnd: string, dayStart: string, dayEnd: string, weekDays: number[];}) {
     const { seasonStart, seasonEnd, dayStart, dayEnd, weekDays } = availability;
 
     // Generate all dates within the season range

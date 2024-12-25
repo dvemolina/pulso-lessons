@@ -1,6 +1,6 @@
 import type { Availability, InsertAvailability } from "$src/lib/server/db/schemas/availability";
 import { AvailabilityRepository } from "./AvailabilityRepository";
-import { generateAllSlots, prepareSlotsToInsert } from "./utils";
+import { generateAvailabilitySlots, prepareSlotsToInsert } from "./utils";
 
 
 export class AvailabilityService {
@@ -10,15 +10,21 @@ export class AvailabilityService {
         return await this.availabilityRepository.getAvailabilityByUserId(userId);
     }
 
-    async createAvailability(availabilityData: InsertAvailability): Promise<Availability> {
-        return await this.availabilityRepository.insertAvailability(availabilityData);
+    async createAvailability(availabilityData: InsertAvailability): Promise<number> {
+        const availability = await this.availabilityRepository.insertAvailability(availabilityData);
+        const slots = generateAvailabilitySlots(availability);
+        
+        return await this.createAvailabilitySlots(availability.id, slots);
     }
 
-    async updateAvailability(availabilityId: number, updatedFields: Record<string, never>) {
-        const availability = {...updatedFields, updatedAt: new Date()}
-        return await this.availabilityRepository.updateAvailabilityById(availabilityId, availability);
+    async updateAvailability(availabilityId: number, updatedFields: Record<string, unknown>): Promise<{kept: number, added: number, deleted: number}> {
+        const updates = {...updatedFields, updatedAt: new Date()}
+        const newAvailability =  await this.availabilityRepository.updateAvailabilityById(availabilityId, updates);
+         
+        const result = await this.updateAvailabilitySlots(availabilityId, newAvailability)
+        return result
+       
     }
-
     async createAvailabilitySlots(availabilityId: number, slots: { date: string; slotStart: string; slotEnd: string }[]) {
         
         const slotsToInsert = slots.map(slot => ({
@@ -37,12 +43,12 @@ export class AvailabilityService {
         const existingSlots = await this.availabilityRepository.getAvailabilitySlots(availabilityId)
     
         // Generate new slots
-        const newSlots = await generateAllSlots(newAvailability);
+        const newSlots = await generateAvailabilitySlots(newAvailability);
     
         // Separate into slots to keep, add, or delete
         const slotsToKeep = existingSlots.filter(slot =>
             newSlots.some(newSlot =>
-                slot.date === newSlot.date && slot.slotStart === newSlot.slotStart && slot.statusId !== 2 // Status "2" = booked
+                slot.date === newSlot.date && slot.slotStart === newSlot.slotStart && slot.statusId !== 2 && slot.statusId !== 3 // Do not delete booked/busy slots
             )
         );
     
@@ -52,12 +58,12 @@ export class AvailabilityService {
     
         const slotsToDelete = existingSlots.filter(slot =>
             !newSlots.some(newSlot => slot.date === newSlot.date && slot.slotStart === newSlot.slotStart) &&
-            slot.statusId !== 2 // Do not delete booked slots
+            slot.statusId !== 2 && slot.statusId !== 3 // Do not delete booked/busy slots
         );
     
         // Delete old slots (excluding booked)
         await this.availabilityRepository.deleteSpecificAvailabilitySlots(availabilityId, slotsToDelete)
-        //Prepare slots to insert
+        // Prepare slots to insert
         const slotsToInsert = prepareSlotsToInsert(availabilityId, slotsToAdd)
         // Insert slots
         await this.availabilityRepository.insertAvailabilitySlots(slotsToInsert)

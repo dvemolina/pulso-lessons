@@ -1,4 +1,4 @@
-import { generateAllSlots, generateDailySlots, prepareSlotsToInsert } from "$src/features/Availability/lib/utils";
+import { generateAvailabilitySlots, generateDailySlots, prepareSlotsToInsert } from "$src/features/Availability/lib/utils";
 import { describe, it, expect } from "vitest";
 
 
@@ -25,7 +25,7 @@ describe("Slots Generation Functions", () => {
       weekDays: [1, 3, 5], // Monday, Wednesday, Friday
     };
 
-    const slots = generateAllSlots(availability);
+    const slots = generateAvailabilitySlots(availability);
 
     // Check a subset of the results to ensure they are correct
     expect(slots).toContainEqual({

@@ -15,7 +15,7 @@ export const availability = pgTable('availability', {
 })
 
 export const availabilitySlots = pgTable("availability_slots", {
-    id: integer("id").primaryKey().generatedAlwaysAsIdentity({
+    id: integer("id").generatedAlwaysAsIdentity({
         startWith: 1, 
         increment: 1
     }),

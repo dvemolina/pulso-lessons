@@ -15,7 +15,7 @@ export class AvailabilityRepository {
         const result = await db.insert(availability).values(availabilityData).returning()
         return result[0]
     }
-    async updateAvailabilityById(availabilityId:number, updatedAvailability: Record<string, never>) {
+    async updateAvailabilityById(availabilityId:number, updatedAvailability: Record<string, unknown>) {
         if (Object.keys(updatedAvailability).length === 0) {
             return null;
         }
