@@ -112,18 +112,18 @@
 						<button
 							aria-label="Sidebar"
 							onclick={toggleSidebar}
-							class="bg-tansparent text-neutral-light hover:bg-neutral-light hover:text-neutral-dark absolute bottom-7 right-4 flex items-center justify-center rounded p-1 transition-all duration-100"
+							class="absolute bottom-7 right-4 flex items-center justify-center rounded p-1 transition-all duration-100"
 						>
-							<iconify-icon class="icon" icon="pixelarticons:forwardburger"></iconify-icon>
+							<img src="/svg/forwardburger.svg" alt="Abrir Barra Lateral" class="invert-0 dark:invert">
 						</button>
 					{/if}
 					{#if !isMobile && sidebarOpen}
 						<button
 							aria-label="Sidebar"
 							onclick={toggleSidebar}
-							class="bg-tansparent text-neutral-light hover:bg-neutral-light hover:text-neutral-dark absolute bottom-7 right-4 flex items-center justify-center rounded p-1 transition-all duration-100"
+							class=" absolute bottom-7 right-4 flex items-center justify-center rounded p-1 transition-all duration-100"
 						>
-							<iconify-icon class="icon" icon="pixelarticons:backburger"></iconify-icon>
+						<img src="/svg/backburger.svg" alt="Abrir Barra Lateral" class="invert-0 dark:invert">
 						</button>
 					{/if}
 					{#if isMobile && sidebarOpen}
@@ -132,7 +132,7 @@
 							onclick={toggleSidebar}
 							class="bg-tansparent text-neutral-light hover:bg-neutral-light hover:text-neutral-dark absolute right-4 flex items-center justify-center rounded p-1 transition-all duration-200"
 						>
-							<iconify-icon class="icon" icon="pixelarticons:backburger"></iconify-icon>
+							<img src="/svg/backburger.svg" alt="Abrir Barra Lateral" class="invert-0 dark:invert">
 						</button>
 					{/if}
 				</aside>
@@ -151,8 +151,7 @@
 					onclick={toggleSidebar}
 					class="flex w-fit flex-row content-center items-center pb-3"
 				>
-					<img src="/svg/menu-dots.svg" alt="Menu" class="invert-0 dark:invert" />
-					MENU
+					<img src="/svg/menu-dots.svg" alt="Menu" class="invert-0 dark:invert"/>
 				</button>
 			{/if}
 			<div class="min-h-[100px] w-full flex-grow">

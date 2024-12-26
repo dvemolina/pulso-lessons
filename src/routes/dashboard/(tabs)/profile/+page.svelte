@@ -265,4 +265,3 @@
 		>
 	</ContentBox>
 </form>
-<SuperDebug data={$userProfileData}/>

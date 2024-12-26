@@ -71,6 +71,13 @@
       "when": 1735187137744,
       "tag": "0009_nostalgic_shadowcat",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1735192000299,
+      "tag": "0010_watery_chat",
+      "breakpoints": true
     }
   ]
 }

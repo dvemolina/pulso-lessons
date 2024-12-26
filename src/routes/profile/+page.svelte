@@ -3,6 +3,8 @@
 	import ProfileHead from '$src/features/Instructors/components/ProfileHead.svelte';
 	import type { Review } from '$src/features/Reviews/reviewType';
 
+	let { data } = $props();
+
 	let reviews: Review[] = [
 		{
 			clientName: 'Carlos L',
@@ -35,7 +37,7 @@
 	<div
 		class="HEAD flex w-full flex-col items-center justify-center gap-3 rounded-md border border-border bg-background p-10 md:w-1/3 xl:w-1/4"
 	>
-		<ProfileHead />
+		<ProfileHead profileImage={data.user?.profileImage}/>
 	</div>
 	<div
 		class="CONTENT flex w-full flex-col gap-7 rounded-md border border-border bg-background p-10 md:w-2/3 xl:w-3/4"

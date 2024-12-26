@@ -14,7 +14,8 @@ export const countries = pgTable("countries", {
 
 export const currencies = pgTable("currencies", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity({ name: 'currencies_id_sequence', startWith: 1, increment: 1 }),
-  currency: varchar('currency', { length: 50 }).notNull()
+  currency: varchar('currency', { length: 50 }).notNull(),
+  code: varchar('code', {length: 3}).notNull().unique()
 })
 
 export const roles = pgTable('roles', {
@@ -35,12 +36,12 @@ export const sports = pgTable('sports', {
 
 export const skillLevels = pgTable('skill_levels', {
   id: integer('id').primaryKey().generatedAlwaysAsIdentity({ name: 'skill_levels_id_sequence', startWith: 1, increment: 1 }),
-  skill_level: varchar('skill_level').notNull().unique()
+  skillLevel: varchar('skill_level').notNull().unique()
 })
 
 export const ageGroups = pgTable('age_groups', {
   id: integer('id').primaryKey().generatedAlwaysAsIdentity({ name: 'age_groups_id_sequence', startWith: 1, increment: 1 }),
-  age_group: varchar('age_group').notNull().unique()
+  ageGroup: varchar('age_group').notNull().unique()
 })
 
 export const pricingMultipliers = pgTable('pricing_multipliers', {

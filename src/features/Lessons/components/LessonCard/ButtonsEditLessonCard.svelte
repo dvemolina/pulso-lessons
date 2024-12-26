@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import CoolCTA from '$src/components/CoolCTA.svelte';
 
 	function stopClickPropagation(event: Event) {
@@ -22,6 +23,7 @@
 			highlightColor="var(--primary)"
 			bgSubtleColor="var(--primary)"
 			highlightSubtleColor="var(--primary)"
+			onClick={goto(`/dashboard/services/${lessonId}`)}
 		>
 			Editar
 		</CoolCTA>

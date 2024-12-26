@@ -1,12 +1,14 @@
 <script lang="ts">
 	import CoolCta from '$src/components/CoolCTA.svelte';
 	import StarScore from '$src/components/StarScore.svelte';
+
+    let { profileImage } = $props()
 </script>
 
 <div class="flex flex-col items-center h-full gap-5">
     <div class="AVATAR flex flex-col gap-4">
         <div class="size-52 overflow-hidden rounded-full border-[2px] border-border">
-            <img src="/dve.png" alt="Profile" class="object-cover object-center" />
+            <img src={profileImage} alt="Profile" class="object-cover object-center" />
         </div>
         <div class="flex flex-row items-center justify-center gap-3">
             <h1 class="font-sans text-3xl font-bold">Dave M.</h1>
