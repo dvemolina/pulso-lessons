@@ -5,19 +5,20 @@
 	import DataLessonCard from "./DataLessonCard.svelte";
 
 	interface Props {
+		profileImage: string,
 		lessonId: any,
 		type: "edit" | null | undefined,
 	}
 
-	let { lessonId, type }: Props = $props();
+	let { lessonId, profileImage, type }: Props = $props();
 	
 </script>
 
-<div class="card rounded-lg w-[250px] overflow-hidden  ease-in-out">
+<div class="card rounded-lg w-[250px] sm:w-[265px] overflow-hidden  ease-in-out">
 	<div class="avatar-section">
-		<AvatarLessonCard />
+		<AvatarLessonCard {profileImage}/>
 	</div>
-	<div class="content-section rounded-b-lg border-l border-r border-b border-neutral-gray">
+	<div class="content-section rounded-b-lg border-l border-r border-b border-border">
 		<DataLessonCard />
 		{#if type === "edit"}
 			<ButtonsEditLessonCard {lessonId}/>

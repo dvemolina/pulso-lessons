@@ -1,0 +1,1 @@
+ALTER TABLE "slot_status" ALTER COLUMN "id" ADD GENERATED ALWAYS AS IDENTITY (sequence name "slot_status_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 32767 START WITH 1 CACHE 1);--> statement-breakpoint

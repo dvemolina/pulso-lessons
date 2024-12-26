@@ -37,16 +37,11 @@ export class UserRepository {
     }
 
     async getUserById(userId: number) {
-        const user = await db.select().from(users).where(eq(users.id, userId));
-        const sports = await db
-            .select()
-            .from(userSports)
-            .where(eq(userSports.userId, userId));
-    
-        return { ...user[0], sports: sports.map((s) => s.sportId) };
+        const result = await db.select().from(users).where(eq(users.id, userId));
+        return result[0]
     }
 
-    async getUserSports(userId: number) {
+    async getUserSports(userId: number): Promise<number[]> {
         const sports = await db
             .select()
             .from(userSports)

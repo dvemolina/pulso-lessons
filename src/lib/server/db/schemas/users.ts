@@ -10,7 +10,7 @@ export const users = pgTable('users', {
 	email: varchar('email',{ length: 254 }).notNull().unique(),
 	phone: varchar('phone',{ length: 19 }),
 	password: varchar('password', {length: 255}),
-	profileImage: varchar('profile_image', {length: 255}).default('/favicon.png'),
+	profileImage: varchar('profile_image', {length: 255}).default('/favicon.png').notNull(),
 	age: integer('age'),
 	isActive: boolean("is_active").notNull().default(true),
 	isVerified: boolean('is_verified').notNull().default(false),

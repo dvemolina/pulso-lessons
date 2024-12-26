@@ -1,4 +1,4 @@
-import type { InsertUser, User } from "$src/lib/server/db/schemas/users";
+import type { InsertUser} from "$src/lib/server/db/schemas/users";
 import { UserRepository } from "./UserRepository";
 import { hashPassword } from "$src/lib/utils/bcrypt";
 import type { UserSignup } from "./userValidations";
@@ -8,7 +8,7 @@ import { sendClientSignupMail } from "$src/lib/nodemailer/nodemailer";
 export class UserService {
     private userRepository = new UserRepository()
 
-    async registerUserWithPassword(signupData: UserSignup): Promise<User> {
+    async registerUserWithPassword(signupData: UserSignup) {
         if (signupData.phone && signupData.country_code) {
             const formattedPhone = `${signupData.country_code}-${signupData.phone}`;
             signupData.phone = formattedPhone;
@@ -38,14 +38,15 @@ export class UserService {
         }  
     }
 
-    async getUserByEmail(email: string): Promise<User> {
+    async getUserByEmail(email: string) {
         return await this.userRepository.findUserByEmail(email);
-    
     }
 
-    async getUserById(userId: number): Promise<User> {
+    async getUserById(userId: number) {
+        const user = await this.userRepository.getUserById(userId); 
+        const sports = await this.userRepository.getUserSports(userId)
 
-        return await this.userRepository.getUserById(userId); 
+        return { ...user, sports };
     }
 
     async updateUserProfile(userId: number, updatedFields: Record<string, never>) {

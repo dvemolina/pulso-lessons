@@ -1,23 +1,23 @@
 <script lang="ts">
 
     interface Props {
-        avatarImageUrl?: string;
+        profileImage: string;
         sport?: string;
     }
 
-    let { avatarImageUrl = "/img/Jordi.jpg", sport = "/img/skier-icon-pixel.png" }: Props = $props();
+    let { profileImage = "/pulso.png", sport = "Ski" }: Props = $props();
 </script>
 
 
-<div class="avatar-section relative flex justify-center items-center w-ful h-[150px] overflow-hidden bg-[url('/img/tracks.jpg')] bg-cover bg-black bg-opacity-70 bg-blend-overlay">
-    <div class="sport-badge absolute left-1 top-1 border w-fit border-neutral-light-inactive rounded-lg p-1 shadow-md bg-gray-500 bg-opacity-20">
-        <img class="max-w-[30px]" src={sport} alt="Deporte">
+<div style="background-image: url('/tracks.jpg');" class="avatar-section relative flex justify-center items-center w-full h-[165px] overflow-hidden bg-cover bg-black bg-opacity-70 bg-blend-overlay">
+    <div class="absolute left-1 top-1 border w-fit border-border text-sm rounded-lg p-0.5 px-1.5 shadow-md bg-gray-500 bg-opacity-50 text-white">
+        {sport}
     </div>
-    <div class="discount-badge absolute -right-8 top-3 rotate-45 border-white bg-orange-200 w-28 text-center text-black shadow-md">
-        <p>-20%</p>
+    <div class="absolute -right-8 top-3 rotate-45 border-border bg-orange-200 w-28 text-center text-text shadow-md">
+        <p class="text-black">-20%</p>
     </div>
-    <div class="avatar shadow-md border-black max-w-[100px] rounded-full max-h-[110px] overflow-hidden">
-        <img src={avatarImageUrl} alt="Instructor Avatar">
+    <div class="avatar shadow-md border-border size-28 rounded-full  overflow-hidden">
+        <img src={profileImage} alt="Instructor Avatar">
     </div>
 </div>
 

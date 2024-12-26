@@ -14,7 +14,7 @@
 </script>
 
 <div class="buttons-element">
-	<button class="button" onclick={stopClickPropagation}> 
+
 		<CoolCTA
 			btnWidth="100%"
 			paddingProp="0.5rem 1.5rem"					
@@ -25,7 +25,7 @@
 		>
 			Editar
 		</CoolCTA>
-	</button>
+	
 </div>
 
 <style>

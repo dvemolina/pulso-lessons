@@ -4,9 +4,9 @@
 
 <div class="flex flex-col md:flex-row justify-evenly items-center mt-24 md:mt-0 w-full h-full px-4 gap-8 lg:gap-0">
 	<div class="headings flex flex-col justify-center items-center md:items-start  gap-6 text-center md:text-left">
-		<h1 class="font-fira text-[1.95rem] font-black uppercase sm:text-4xl md:text-4xl lg:text-4xl xl:text-5xl 2xl:text-7xl text-text">
+		<h1 class="font-fira leading-tight sm:leading-tight md:leading-tight lg:leading-tight xl:leading-tight text-[1.95rem] font-black uppercase sm:text-4xl md:text-4xl lg:text-4xl xl:text-5xl 2xl:text-7xl text-text">
 			Los Mejores <br /><span
-				class="font-sans text-4xl text-primary sm:text-5xl  md:text-[2.5rem] lg:text-5xl xl:text-6xl 2xl:text-8xl"
+				class="font-sans text-[2.5rem] text-primary sm:text-5xl md:text-[2.5rem] lg:text-5xl xl:text-6xl 2xl:text-8xl"
 				>Instructores</span
 			> <br />de Tu Montaña
 		</h1>

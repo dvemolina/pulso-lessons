@@ -6,15 +6,15 @@
 	}
 
 	interface Props {
-		serviceId: any;
+		lessonId: any;
 	}
 
-	let { serviceId }: Props = $props();
+	let { lessonId }: Props = $props();
 	
 </script>
 
 <div class="buttons-element">
-	<button class="button" onclick={stopClickPropagation}>
+	
 		<CoolCTA
 			btnWidth="100%"
 			paddingProp="0.5rem 1.5rem"					
@@ -25,8 +25,7 @@
 		>
 			Detalles
 		</CoolCTA>
-	</button>
-	<button class="button" onclick={stopClickPropagation}>
+	
 		<CoolCTA
 			btnWidth="100%"
 			paddingProp="0.5rem 1.5rem"
@@ -34,7 +33,6 @@
 		>
 			Reservar
 		</CoolCTA>
-	</button>
 </div>
 
 <style>
