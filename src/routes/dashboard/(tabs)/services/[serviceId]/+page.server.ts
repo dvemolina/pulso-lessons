@@ -1,7 +1,7 @@
-import { redirect } from "@sveltejs/kit";
+import { redirect, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import { expiredSessionRedirect } from "$src/lib/utils/utils";
-import { superValidate } from "sveltekit-superforms";
+import { fail, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import { getAllAgeGroups, getAllSkillLevels, getAllSkiResorts, getAllSports } from "$src/lib/server/db/querys";
 import { lessonBasicsSchema } from "$src/features/Lessons/lib/lessonValidations";
@@ -23,4 +23,14 @@ export const load: PageServerLoad = async (event) => {
     const ageGroups = await getAllAgeGroups();
 
     return { lessonBasicsForm, resorts, sports, skillLevels, ageGroups }
+};
+
+export const actions: Actions = {
+    lessonBasics: async (event) => {
+        const form = await superValidate(event.request, zod(lessonBasicsSchema));
+        
+        if(!form.valid) {
+            return fail(400, { form })
+        }
+    }
 };
