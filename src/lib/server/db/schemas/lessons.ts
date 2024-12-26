@@ -9,7 +9,7 @@ export const lessons = pgTable('lessons', {
     title: text('title').notNull(),
     description: text('description').notNull(),
     resortId: integer('resort_id').references(() => resorts.id, {onDelete: 'cascade'}),
-    sportId: integer('sport_id').references(() => sports.id),
+    sports: integer('sport_id').references(() => sports.id),
     timeUnit: varchar('time_unit').notNull(),
     minTimeUnit: integer('min_time_unit').notNull(),
     maxTimeUnit: integer('max_time_unit'),

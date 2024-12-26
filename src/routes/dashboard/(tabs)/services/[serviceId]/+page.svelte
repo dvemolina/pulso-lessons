@@ -55,7 +55,7 @@
 					</CustomControl>
 					<Description>Indica la Estación en la que está disponible el Servicio</Description>	
 				</FormField>
-                <Fieldset form={lessonBasicsForm} name="sportId" class="flex flex-col gap-4">
+                <Fieldset form={lessonBasicsForm} name="sports" class="flex flex-col gap-4">
                     <Legend>Selecciona Deporte</Legend>
                     <Description>Puedes seleccionar más de uno. En el futuro incluiremos modalidades de cada deporte</Description>
                     <div class="flex flex-row items-center justify-start gap-4">
@@ -66,7 +66,7 @@
                                 <input
                                 type="checkbox"
                                 {...props}
-                                bind:group={$lessonBasicsData.sportId}
+                                bind:group={$lessonBasicsData.sports}
                                 value={id}
                                 class="size-7 sm:size-10 rounded-full border border-border bg-bgNeutral"
                                 />
