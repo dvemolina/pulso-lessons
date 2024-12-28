@@ -28,7 +28,7 @@
 <h1 class="mb-4 font-fira text-2xl font-semibold">Titulo del Servicio <span class="text-textNeutral">ID: 91862</span></h1>
 <h2 class="mb-8 font-sans text-lg text-textNeutral">Modifica las características y condiciones del servicio </h2>
 
-<form action="" method="POST" class="flex w-full flex-col justify-center gap-3" use:lessonBasicsEnhance>
+<form action="?/lessonBasics" method="POST" class="flex w-full flex-col justify-center gap-3" use:lessonBasicsEnhance>
     <ContentBox shadow={true}>
         <h3 class="mb-8 border-b border-b-border font-fira text-xl font-normal">Detalles Generales</h3>
         <fieldset class="flex w-full flex-col gap-4">

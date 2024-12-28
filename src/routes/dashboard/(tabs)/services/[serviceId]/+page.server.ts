@@ -27,7 +27,7 @@ export const load: PageServerLoad = async (event) => {
 };
 
 export const actions: Actions = {
-    default: async (event) => {
+    lessonBasics: async (event) => {
         const form = await superValidate(event.request, zod(lessonBasicsSchema));
         
         if(!form.valid) {

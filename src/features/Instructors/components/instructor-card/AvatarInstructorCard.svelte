@@ -1,23 +1,18 @@
 <script lang="ts">
-	interface Props {
-		instructorId?: string;
-	}
-
-	let { instructorId = '32' }: Props = $props();
+	
 </script>
 
 <div class="avatar-element">
 	<div class="avatar-grid">
 		<div class="avatar-left">
 			<div class="avatar-sports">
-				<img src="/img/skier-icon-pixel.png" alt="" />
-				<img src="/img/snowboarder-icon-pixel.png" alt="" />
+				<p>Ski, Snowboard</p>
 			</div>
 		</div>
 		<div class="avatar-right">
 			<div class="avatar-id">
 				<img class="id-logo" src="/favicon.png" alt="" />
-				<p class="id-number">P-0{instructorId}</p>
+				<p class="id-number"></p>
 			</div>
 		</div>
 	</div>
@@ -26,16 +21,15 @@
 <style>
 	.avatar-element {
 		width: 100%;
-        position: relative;
-        overflow: hidden;
+		position: relative;
+		overflow: hidden;
 	}
 
 	.avatar-grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		padding: 0.35rem;
-		grid-template-areas:
-			'sports id'
+		grid-template-areas: 'sports id';
 	}
 
 	.avatar-sports {
@@ -52,9 +46,6 @@
 		backdrop-filter: blur(20px);
 	}
 
-	.avatar-sports img {
-		max-width: 36px;
-	}
 	.avatar-id {
 		grid-area: id;
 		display: flex;
@@ -67,7 +58,6 @@
 		background-color: rgba(255, 255, 255, 0.416);
 		backdrop-filter: blur(20px);
 		gap: 0.3rem;
-		
 	}
 	.id-logo {
 		max-width: 1rem;
@@ -77,6 +67,4 @@
 		font-size: 0.9rem;
 		color: black;
 	}
-
-
 </style>

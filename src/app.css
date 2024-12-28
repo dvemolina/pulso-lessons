@@ -14,8 +14,8 @@
         var(--bottom-gradient), 
         var(--bg-grain); /* Grain texture */
 		background-repeat: repeat;
-		background-size: auto, 280px;
-		opacity: 0.07;
+		background-size: auto, 285px;
+		opacity: 0.05;
 		top: 0;
 		left: 0;
 		position: absolute;

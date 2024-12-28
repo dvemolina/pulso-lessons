@@ -76,7 +76,7 @@
 		<div class="flex flex-row items-end gap-2 pb-1">
 			<CoolCta
 				type="button"
-				onClick={goto(`/profile/${instructorId}`)}
+				onClick={goto(`/profile/${data.user.id}`)}
 				paddingProp="0.5rem 1rem"
 				borderRadius="7px"
 				bgSubtleColor="var(--secondary-washed)"
