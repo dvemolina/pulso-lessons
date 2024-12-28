@@ -6,6 +6,7 @@
 	import LessonsHeader from '$src/components/LessonsHeader.svelte';
 	import { searchSchema } from '$src/features/Finder/searchValidations';
 	import InstructorCard from '$src/features/Instructors/components/instructor-card-3/InstructorCard.svelte';
+	import { fade } from 'svelte/transition';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 
@@ -13,14 +14,22 @@
 	let { data } = $props();
 
 	const searchForm = superForm(data.form, {
-		validators: zodClient(searchSchema)
+		validators: zodClient(searchSchema),
+		resetForm: false,
+		taintedMessage: null,
+		onResult: ({result}) => {
+		// Handle any client-side logic after successful search
+			if (result.type === 'success') {
+        	// You could dispatch custom events, update stores, etc.
+			}
+	}
 	});
 
 	const { form, enhance } = searchForm;
 </script>
 
 {#if !hasSearched}
-<div class="flex flex-col items-center justify-center w-full h-full">
+<div class="flex flex-col items-center justify-center w-full h-full" transition:fade>
 	<a href="/">
 		<img src="/pulso.png" alt="Inicio Pulso" class="w-24">
 	</a>
@@ -86,14 +95,14 @@
 								</CustomControl>
 							</FormField>
 						</div>
-				<FormField form={searchForm} name="persons">
-					<CustomControl label="Nº de Personas">
+				<FormField form={searchForm} name="students">
+					<CustomControl label="Nº de Alumnos">
 						{#snippet children({ props })}
 						<input
 						type="number"
 						min="1"
 						{...props}
-						bind:value={$form.persons}
+						bind:value={$form.students}
 						placeholder="Fecha Final"
 						/>
 						{/snippet}
@@ -103,10 +112,11 @@
 			<CoolCta>Buscar</CoolCta>
 		</form>
 	</ContentBox>
-	<SuperDebug data={$form}/>
 </div>
 {:else if hasSearched}
-<LessonsHeader user={data.user} />
+<header transition:fade>
+	<LessonsHeader user={data.user}/>
+</header>
 	<div class="wrapper">
 		<InstructorCard />
 	</div>

@@ -21,6 +21,8 @@ export const actions: Actions = {
             return fail(400, { form })
         }
 
+        form.data.hasSearched = true;
+
         //Implement the Search functionality
 
         console.log('Validation passed. The submitted data is: ', form.data)

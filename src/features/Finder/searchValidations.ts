@@ -5,8 +5,8 @@ export const searchSchema = z.object({
     startDate: z.string().nonempty('Selecciona fecha de Inicio'),
     endDate: z.string().nonempty('Selecciona fecha final'),
     resort: z.number().min(1, 'Selecciona un Centro de Esquí'),
-    persons: z.number().min(1, 'Selecciona al menos una persona').default(1),
-    hasSearched: z.boolean().default(false)
+    students: z.number().min(1, 'Selecciona al menos una persona').default(1),
+    hasSearched: z.boolean().default(false),
 }).refine(
     (data) => new Date(data.endDate) >= new Date(data.startDate),
     {
