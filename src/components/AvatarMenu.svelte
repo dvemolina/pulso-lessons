@@ -2,26 +2,22 @@
 	import { Avatar } from 'bits-ui';
 	import { LinkPreview } from 'bits-ui';
 	import { fade } from 'svelte/transition';
-	interface Props {
-		src: any;
-		userName: any;
-	}
-
-	let { src, userName }: Props = $props();
+	
+	let { user } = $props();
 
 	const linkList = [
-		{ href: '/profile', label: 'Mi Perfil' },
+		{ href: `/profile/${user?.id}`, label: 'Mi Perfil' },
 		{ href: '/dashboard', label: 'Panel Control' },
 		{ href: '/logout', label: 'Desconectar' }
 	];
 
-	let userInitial = $derived(userName.charAt(0));
+	let userInitial = $derived(user?.name.charAt(0));
 </script>
 
 <LinkPreview.Root openDelay={0}>
 	<LinkPreview.Trigger href="/dashboard">
 		<Avatar.Root class="border-2 border-border hover:border-borderActive rounded-full overflow-hidden size-10 flex flex-row justify-center items-center">
-			<Avatar.Image src={src} alt="Imagen Perfil {userName}" class="object-cover object-center"/>
+			<Avatar.Image src={user.profileImage} alt="Imagen Perfil {user.name}" class="object-cover object-center"/>
 			<Avatar.Fallback><p class="avatar-fallback">{userInitial || '+'}</p></Avatar.Fallback>
 		</Avatar.Root>
 	</LinkPreview.Trigger>

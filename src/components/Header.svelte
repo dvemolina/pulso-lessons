@@ -143,7 +143,7 @@
 				{/each}
 			</div>
 			{#if user}
-				<AvatarMenu userName={user.name} src={user.profileImage} />
+				<AvatarMenu {user} />
 			{:else}
 				<div class="access">
 					<ShinyCta

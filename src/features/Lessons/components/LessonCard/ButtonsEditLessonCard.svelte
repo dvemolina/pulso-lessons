@@ -41,13 +41,4 @@
 		padding: 0.5rem 0.7rem;
 		gap: 0.5rem;
 	}
-
-	.button {
-		width: 100%;
-		opacity: 0.9;
-	}
-	.button:hover,
-	.button:focus {
-		opacity: 1;
-	}
 </style>

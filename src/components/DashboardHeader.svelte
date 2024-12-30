@@ -16,7 +16,7 @@
 		<img class="max-w-[90px]" src="/pulso.png" alt="Pulso de Nieve" />
 	</a>
 <div class="flex flex-row gap-4">
-	<AvatarMenu userName={user.name} src={user.profileImage} />
+	<AvatarMenu {user} />
 	<ModeSwitch/>
 </div>
 </header>

@@ -37,7 +37,7 @@
 	<div
 		class="HEAD flex w-full flex-col items-center justify-center gap-3 rounded-md border border-border bg-background p-10 md:w-1/3 xl:w-1/4"
 	>
-		<ProfileHead profileImage={data.user?.profileImage}/>
+		<ProfileHead profileData={data.profileData}/>
 	</div>
 	<div
 		class="CONTENT flex w-full flex-col gap-7 rounded-md border border-border bg-background p-10 md:w-2/3 xl:w-3/4"
