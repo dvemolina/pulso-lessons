@@ -12,10 +12,15 @@
         {value: "hour", label: "Hora"},
         {value: "day", label: "Día"}
     ]
+	const pricingMode = [
+		{value: 1, label: "Precio Fijo"},
+		{value: 2, label: "Precio x UT"},
+		{value: 3, label: "Precio x Alumno"}
+	]
 
-	let step = $state(2);
-	const lastStep = 5;
+	let step = $state(3);
 	let userId = $state();
+	let userName = $state(data.user?.name);
 
 	const {
 		form: signupForm,
@@ -27,21 +32,24 @@
 		onUpdate({ form, result }) {
 			if (form.valid && result.data.userId) {
 				userId = result.data.userId;
+				userName = result.data.userName;
 				step = 2;
-				console.log(`The userId has been changed to: ${userId} and the Step is now ${step}`);
+				console.log(`The userId has been changed to: ${userId}, and the Step is now ${step}`);
 			}
 		}
 	});
 
 	const lessonBasicsForm = superForm(data.lessonBasicsForm, {
 		onUpdate({ form, result }) {
-			if (form.valid && result.data.userId) {
+			if (form.valid && result.type === "success") {
+				console.log('THE USER ON SUBMIT IS: ', userName)
 				step = 3;
 				console.log(`The Lesson Basics has been created. The Step is now ${step}`);
 			}
 		}
 	});
 	const { form: lessonBasicsData, enhance: lessonBasicsEnhance } = lessonBasicsForm;
+
 </script>
 
 	{#if step === 1}
@@ -178,6 +186,8 @@
 			<span class="text-lg font-normal text-textNeutral">Se pueden modificar más tarde en tu Dashboard</span>
 		</p>
 		<form action="?/lessonBasics" method="post" class="flex flex-col gap-10" use:lessonBasicsEnhance>
+			<input type="hidden" name="title" value="Clase con {userName}">
+			<input type="hidden" name="description" value="Aprende con seguridad y garantía de éxito, de la mano de un profesional experimentado como {userName}">
 			<fieldset class="flex w-full flex-col gap-4">
 				<h3 class="mb-2 border-b border-b-border font-fira text-xl font-normal">General</h3>
 				<FormField form={lessonBasicsForm} name="resortId">
@@ -188,7 +198,6 @@
 							bind:value={$lessonBasicsData.resortId}
 							placeholder="Selecciona Centro"
 							>
-							<option value="0">Selecciona Centro</option>
 							{#each data.resorts as { id, resort }}
 							<option value={id} aria-label={resort}>{resort}</option>
 							{/each}
@@ -232,7 +241,6 @@
 						<CustomControl label="Unidad de Tiempo (UT)" >
 							{#snippet children({ props })}
 							<select {...props} bind:value={$lessonBasicsData.timeUnit} placeholder="Selecciona Tipo Unidad de Tiempo">
-								<option value="">Selecciona Unidad de Tiempo</option>
 								{#each timeUnits as { value, label }}
 								<option value={value} aria-label={label}>{label}</option>
 								{/each}
@@ -270,7 +278,7 @@
 					<FormField form={lessonBasicsForm} name="maxStudents">
 						<CustomControl label="Cantidad Máxima de Alumnos">
 							{#snippet children({ props })}
-							<input type="number" min=0 {...props} bind:value={$lessonBasicsData.minTimeUnit} placeholder="Introduce Máximo de Alumnos">
+							<input type="number" min=0 {...props} bind:value={$lessonBasicsData.maxStudents} placeholder="Introduce Máximo de Alumnos">
 							{/snippet}
 						</CustomControl>
 					</FormField>
@@ -307,8 +315,8 @@
 							{#snippet children({ props })}
 							<select {...props} bind:value={$lessonBasicsData.minAgeGroupId} placeholder="Selecciona Grupo de Edad">
 								<option value="">Selecciona Grupo de Edad</option>
-								{#each data.skillLevels as { id, skillLevel }}
-								<option value={id} aria-label={skillLevel}>{skillLevel}</option>
+								{#each data.ageGroups as { id, ageGroup, minAge, maxAge }}
+								<option value={id} aria-label={ageGroup}>{ageGroup} ({minAge} - {maxAge})</option>
 								{/each}
 							</select>
 							{/snippet}
@@ -319,8 +327,8 @@
 							{#snippet children({ props })}
 							<select {...props} bind:value={$lessonBasicsData.maxAgeGroupId} placeholder="Selecciona Grupo de Edad">
 								<option value="">Selecciona Grupo de Edad</option>
-								{#each data.ageGroups as { id, ageGroup }}
-								<option value={id} aria-label={ageGroup}>{ageGroup}</option>
+								{#each data.ageGroups as { id, ageGroup, minAge, maxAge }}
+								<option value={id} aria-label={ageGroup}>{ageGroup} ({minAge} - {maxAge})</option>
 								{/each}
 							</select>
 							{/snippet}
@@ -331,12 +339,11 @@
 			<fieldset class="flex w-full flex-col gap-4">
 				<h3 class="mb-5 border-b border-b-border font-fira text-xl font-normal">Precio Base</h3>
 				<div class="formgroup">
-					<FormField form={lessonBasicsForm} name="pricingMultiplierId">
-						<CustomControl label="Tipo de Multiplicador de Precio">
+					<FormField form={lessonBasicsForm} name="pricingModeId">
+						<CustomControl label="Modalidad de precio">
 							{#snippet children({ props })}
-							<select {...props} bind:value={$lessonBasicsData.pricingMultiplierId} placeholder="Selecciona Tipo de Multiplicador">
-								<option value="">Selecciona Multiplicador</option>
-								{#each timeUnits as { value, label }}
+							<select {...props} bind:value={$lessonBasicsData.pricingModeId} placeholder="Selecciona Modalidad de Precio">
+								{#each pricingMode as { value, label }}
 								<option value={value} aria-label={label}>{label}</option>
 								{/each}
 							</select>
@@ -346,10 +353,9 @@
 					<FormField form={lessonBasicsForm} name="currencyId">
 						<CustomControl label="Divisa Principal">
 							{#snippet children({ props })}
-							<select {...props} bind:value={$lessonBasicsData.pricingMultiplierId} placeholder="Selecciona la Divisa">
-								<option value="">Selecciona Divisa Principal</option>
-								{#each data.currencies as { id, currency }}
-								<option value={id} aria-label={currency}>{currency}</option>
+							<select {...props} bind:value={$lessonBasicsData.currencyId} placeholder="Selecciona la Divisa">
+								{#each data.currencies as { id, code, currency }}
+								<option value={id} aria-label={currency}>{code} - {currency}</option>
 								{/each}
 							</select>
 							{/snippet}
@@ -366,6 +372,11 @@
 			</fieldset>
 		<CoolCta type="submit">Siguiente</CoolCta>
 	</form>
+	{:else if step === 3 } 
+	<p class="mb-5 self-center text-center font-fira text-xl font-semibold text-text">
+		Sube tu Titulación Profesional <br />
+		<span class="text-lg font-normal text-textNeutral">Nuestro equipo la comprobará para poder aceptar tu solicitud</span>
+	</p>
 	{/if}
 	
 	<style>

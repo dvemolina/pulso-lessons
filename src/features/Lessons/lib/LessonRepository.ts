@@ -14,6 +14,11 @@ export class LessonRepository {
         return result[0]
     }
 
+    async updateLesson(lessonId: number, updatedLessonData: InsertLessonBasics) {
+        const result = await db.update(lessons).set(updatedLessonData).where(eq(lessons.id, lessonId)).returning();
+        return result[0]
+    }
+
     async updateLessonSports(lessonId: number, sports: number[]) {
         // Delete existing sports for the lesson
         await db.delete(lessonSports).where(eq(lessonSports.lessonId, lessonId));

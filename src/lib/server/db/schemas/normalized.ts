@@ -41,11 +41,13 @@ export const skillLevels = pgTable('skill_levels', {
 
 export const ageGroups = pgTable('age_groups', {
   id: integer('id').primaryKey().generatedAlwaysAsIdentity({ name: 'age_groups_id_sequence', startWith: 1, increment: 1 }),
-  ageGroup: varchar('age_group').notNull().unique()
+  ageGroup: varchar('age_group').notNull().unique(),
+  minAge: integer('min_age'),
+  maxAge: integer('max_age')
 })
 
-export const pricingMultipliers = pgTable('pricing_multipliers', {
-  id: integer('id').primaryKey().generatedAlwaysAsIdentity({ name: 'pricing_multipliers_id_sequence', startWith: 1, increment: 1 }),
-  pricingMode: varchar('pricing_multiplier').notNull().unique()
+export const pricingModes = pgTable('pricing_modes', {
+  id: integer('id').primaryKey().generatedAlwaysAsIdentity({ name: 'pricing_modes_id_sequence', startWith: 1, increment: 1 }),
+  pricingMode: varchar('pricing_mode').notNull().unique()
 })
 
