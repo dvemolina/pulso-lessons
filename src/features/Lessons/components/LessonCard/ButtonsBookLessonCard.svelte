@@ -4,6 +4,9 @@
 	function stopClickPropagation(event: Event) {
 		event.stopPropagation();
 	}
+	interface Props {
+		lessonId: number;
+	}
 
 	let { lessonId } = $props();
 	

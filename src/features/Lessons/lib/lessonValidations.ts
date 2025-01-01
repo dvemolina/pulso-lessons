@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const lessonBasicsSchema = z.object({
+    id: z.number().optional(),
     userId: z.number(),
     isBaseLesson: z.boolean(),
     title: z.string().nonempty('Añade Título del Servicio'),

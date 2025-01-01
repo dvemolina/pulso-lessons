@@ -29,3 +29,4 @@ export const lessonSports = pgTable('lesson_sports', {
 })
 
 export type InsertLessonBasics = typeof lessons.$inferInsert;
+export type Lesson = typeof lessons.$inferSelect;

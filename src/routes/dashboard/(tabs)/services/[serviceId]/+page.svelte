@@ -25,7 +25,7 @@
     <img src="/svg/arrow-left.svg" alt="Volver" class="invert-0 dark:invert">
     <p>Volver</p>
 </a>
-<h1 class="mb-4 font-fira text-2xl font-semibold">Titulo del Servicio <span class="text-textNeutral">ID: 91862</span></h1>
+<h1 class="mb-4 font-fira text-2xl font-semibold">{$lessonBasicsData.title} <span class="text-textNeutral">ID: {$lessonBasicsData.id}</span></h1>
 <h2 class="mb-8 font-sans text-lg text-textNeutral">Modifica las características y condiciones del servicio </h2>
 
 <form action="?/lessonBasics" method="POST" class="flex w-full flex-col justify-center gap-3" use:lessonBasicsEnhance>
@@ -134,7 +134,7 @@
                 <FormField form={lessonBasicsForm} name="maxStudents">
                     <CustomControl label="Cantidad Máxima de Alumnos">
                         {#snippet children({ props })}
-                            <input type="number" min=0 {...props} bind:value={$lessonBasicsData.minTimeUnit} placeholder="Introduce Máximo de Alumnos">
+                            <input type="number" min=0 {...props} bind:value={$lessonBasicsData.maxStudents} placeholder="Introduce Máximo de Alumnos">
                         {/snippet}
                     </CustomControl>
                 </FormField>
@@ -171,8 +171,8 @@
 						{#snippet children({ props })}
 						<select {...props} bind:value={$lessonBasicsData.minAgeGroupId} placeholder="Selecciona Grupo de Edad">
 							<option value="">Selecciona Grupo de Edad</option>
-							{#each data.skillLevels as { id, skillLevel }}
-							<option value={id} aria-label={skillLevel}>{skillLevel}</option>
+							{#each data.ageGroups as { id, ageGroup }}
+							<option value={id} aria-label={ageGroup}>{ageGroup}</option>
 							{/each}
 						</select>
 						{/snippet}
@@ -197,11 +197,10 @@
         <fieldset class="flex w-full flex-col gap-4">
             <h3 class="mb-8 border-b border-b-border font-fira text-xl font-normal">Precio Base</h3>
             <div class="formgroup">
-                <FormField form={lessonBasicsForm} name="pricingMultiplierId">
+                <FormField form={lessonBasicsForm} name="pricingModeId">
                     <CustomControl label="Tipo de Multiplicador de Precio">
                         {#snippet children({ props })}
-                        <select {...props} bind:value={$lessonBasicsData.pricingMultiplierId} placeholder="Selecciona Tipo de Multiplicador">
-                            <option value="">Selecciona Multiplicador</option>
+                        <select {...props} bind:value={$lessonBasicsData.pricingModeId} placeholder="Selecciona Modo de Precio">
                             {#each timeUnits as { value, label }}
                             <option value={value} aria-label={label}>{label}</option>
                             {/each}
@@ -212,7 +211,7 @@
                 <FormField form={lessonBasicsForm} name="currencyId">
                     <CustomControl label="Divisa Principal">
                         {#snippet children({ props })}
-                        <select {...props} bind:value={$lessonBasicsData.pricingMultiplierId} placeholder="Selecciona la Divisa">
+                        <select {...props} bind:value={$lessonBasicsData.currencyId} placeholder="Selecciona la Divisa">
                             <option value="">Selecciona Divisa Principal</option>
                             {#each data.currencies as { id, currency }}
                             <option value={id} aria-label={currency}>{currency}</option>

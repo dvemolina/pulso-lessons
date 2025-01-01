@@ -14,6 +14,11 @@ export class LessonRepository {
         return result[0]
     }
 
+    async getLessonsByUserId(userId: number) {
+        const result = await db.select().from(lessons).where(eq(lessons.userId, userId));
+        return result
+    }
+
     async updateLesson(lessonId: number, updatedLessonData: InsertLessonBasics) {
         const result = await db.update(lessons).set(updatedLessonData).where(eq(lessons.id, lessonId)).returning();
         return result[0]

@@ -48,4 +48,9 @@ export class LessonService {
 
         return { ...lesson, sports };
     }
+
+    async getUserLessons(userId: number) {
+        const lessons = await this.lessonRepository.getLessonsByUserId(userId)
+        return lessons
+    }
 }

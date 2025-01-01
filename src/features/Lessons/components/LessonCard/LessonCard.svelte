@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Lesson } from "$src/lib/server/db/schemas/lessons";
 	import AvatarLessonCard from "./AvatarLessonCard.svelte";
 	import ButtonsBookLessonCard from "./ButtonsBookLessonCard.svelte";
 	import ButtonsEditLessonCard from "./ButtonsEditLessonCard.svelte";
@@ -6,11 +7,11 @@
 
 	interface Props {
 		profileImage: string,
-		lessonId: any,
+		lessonData: Lesson,
 		type: "edit" | null | undefined,
 	}
 
-	let { lessonId, profileImage, type }: Props = $props();
+	let { lessonData, profileImage, type }: Props = $props();
 	
 </script>
 
@@ -19,11 +20,11 @@
 		<AvatarLessonCard {profileImage}/>
 	</div>
 	<div class="content-section rounded-b-lg border-l border-r border-b border-border">
-		<DataLessonCard />
+		<DataLessonCard {lessonData}/>
 		{#if type === "edit"}
-			<ButtonsEditLessonCard {lessonId}/>
+			<ButtonsEditLessonCard lessonId={lessonData.id}/>
 		{:else}
-			<ButtonsBookLessonCard {lessonId}/>
+			<ButtonsBookLessonCard lessonId={lessonData.id}/>
 		{/if}
 	</div>
 </div>

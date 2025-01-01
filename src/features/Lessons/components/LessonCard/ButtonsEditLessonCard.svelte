@@ -7,7 +7,7 @@
 	}
 
 	interface Props {
-		lessonId: any;
+		lessonId: number;
 	}
 
 	let { lessonId }: Props = $props();

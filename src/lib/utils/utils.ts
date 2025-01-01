@@ -1,9 +1,16 @@
 import type { RequestEvent } from "@sveltejs/kit"
 
 export function expiredSessionRedirectUrl(event: RequestEvent, message: string = "Accede a tu cuenta para visitar esta página") {
-    const redirectTo = event.url.pathname + event.url.search;
-    return `/login?redirectTo=${redirectTo}&redirectMessage=${message}`
+    try {
+        const redirectTo = encodeURIComponent(event.url.pathname + event.url.search);
+        const redirectMessage = encodeURIComponent(message);
+        return `/login?redirectTo=${redirectTo}&redirectMessage=${redirectMessage}`;
+    } catch (error) {
+        console.error("Error generating redirect URL", { event, message, error });
+        return "/login"; // Fallback URL
+    }
 }
+
 
 export function generateTimeOptions(startTime: string, endTime: string, intervalMinutes: number): {label: string, value: string}[] {
     const options = [];

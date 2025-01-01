@@ -8,8 +8,8 @@
 
   const homeCards = [
     {text: "Visualiza y edita tu información personal y profesional", title:"Perfil", icon:"/svg/user.svg", href:"/dashboard/profile"},
-    {text: "Visualiza y controla tus reserva sy clientes", title:"Reservas", icon:"/svg/calendar.svg", href:"/dashboard/bookings"},
-    {text: "Visualiza y modifica tu lecciones y servicios", title:"Servicios", icon:"/svg/briefcase.svg", href:"/dashboard/services"}
+    {text: "Visualiza y modifica tu lecciones y servicios", title:"Servicios", icon:"/svg/briefcase.svg", href:"/dashboard/services"},
+    {text: "Visualiza y controla tus reservas y clientes", title:"Reservas", icon:"/svg/calendar.svg", href:"/dashboard/bookings"},
   ]
 </script>
   
