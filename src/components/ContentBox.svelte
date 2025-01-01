@@ -11,6 +11,6 @@ let { shadow = true, children } = $props()
 
 </script>
 
-<div class="{shadow === true ? 'shadowbox' : ''} mb-10 flex flex-col rounded-lg border-2 border-border px-8 pb-8 pt-6 bg-background">
+<div class="{shadow === true ? 'shadowbox' : ''} mt-5 mb-5 flex flex-col rounded-lg border-2 border-border px-8 pb-8 pt-6 bg-background">
 {@render children?.()}
 </div>

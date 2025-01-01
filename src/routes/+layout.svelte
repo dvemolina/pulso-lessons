@@ -9,18 +9,18 @@
 	let { children } = $props();
 </script>
 
-<ModeWatcher lightClassNames={['light']} />
-<ParaglideJS {i18n}>
-	<div class="greenball">
+<div class="greenball">
+		<ModeWatcher lightClassNames={['light']} />
+		<ParaglideJS {i18n}>
 			{@render children()}
+		</ParaglideJS>
 	</div>
-</ParaglideJS>
 
 <style>
 	.greenball {
-		position: absolute;
-		height: 100%;
+		position: relative;
 		width: 100%;
+		height: 100%;
 	}
 	.greenball::before {
 		content: '';

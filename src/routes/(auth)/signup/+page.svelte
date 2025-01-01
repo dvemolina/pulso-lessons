@@ -11,7 +11,6 @@
 	onClick={() => goto('/signup/instructor')}
 	paddingProp="1.2rem"
 	btnWidth="18rem"
-	bgColor=""
 	bgSubtleColor="var(--secondary-washed)"
 	highlightColor="var(--secondary-washed)"
 	highlightSubtleColor="var(--secondary-washed)"

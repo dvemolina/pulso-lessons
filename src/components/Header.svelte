@@ -8,7 +8,7 @@
 	import ModeSwitch from './ModeSwitch.svelte';
 
 	interface Props {
-		user?: any;
+		user: any;
 		isSolid?: boolean;
 	}
 
@@ -57,6 +57,7 @@
 
 	function toggleMenu() {
 		isMenuOpen = !isMenuOpen;
+		console.log('Menu Should Open. isMenuOpen state: ', isMenuOpen)
 		if (isMenuOpen) {
 			isScrolled = true;
 		} else if (window.scrollY === 0) {
@@ -187,7 +188,7 @@
 				{/each}
 
 				{#if user}
-					<AvatarMenu src={user.profileImage} userName={user.name} />
+					<AvatarMenu user={user} />
 				{:else}
 					<li class="nav-item w-full justify-center">
 						<ShinyCta

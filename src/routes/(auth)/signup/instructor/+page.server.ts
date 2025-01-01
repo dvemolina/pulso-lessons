@@ -5,6 +5,8 @@ import { fail, type Actions } from "@sveltejs/kit";
 import { UserService } from "$src/features/Users/lib/UserService";
 import { userSignupSchema } from "$src/features/Users/lib/userValidations";
 import { createSession, generateSessionToken, setSessionTokenCookie } from "$src/lib/server/auth";
+import { lessonBasicsSchema } from "$src/features/Lessons/lib/lessonValidations";
+import { getAllAgeGroups, getAllCurrencies, getAllSkillLevels, getAllSkiResorts, getAllSports } from "$src/lib/server/db/querys";
 
 
 
@@ -12,8 +14,15 @@ import { createSession, generateSessionToken, setSessionTokenCookie } from "$src
 const userService = new UserService()
 
 export const load: PageServerLoad = async () => {
+    const resorts = await getAllSkiResorts();
+    const sports = await getAllSports();
+    const skillLevels = await getAllSkillLevels();
+    const ageGroups = await getAllAgeGroups();
+    const currencies = await getAllCurrencies();
+
     const signupForm = await superValidate(zod(userSignupSchema));
-    return { signupForm }
+    const lessonBasicsForm = await superValidate(zod(lessonBasicsSchema))
+    return { signupForm, lessonBasicsForm, resorts, sports, skillLevels, ageGroups, currencies }
 };
 
 export const actions: Actions = {

@@ -87,11 +87,12 @@
         </fieldset>
     </ContentBox>
     <ContentBox shadow={true}>
-        <h3 class="mb-8 border-b border-b-border font-fira text-xl font-normal">Duración</h3>
+        <h3 class="mb-2 border-b border-b-border font-fira text-xl font-normal">Duración</h3>
+        <p class="mb-8 font-fira text-md text-textNeutral font-normal">Genera los bloques mínimos/máximo de reserva. Cantidad de horas/días que se puede reservar tu lección. </p>
         <fieldset class="flex w-full flex-col gap-4">
             <div class="formgroup">
                 <FormField form={lessonBasicsForm} name="timeUnit">
-                    <CustomControl label="Unidad de Tiempo (UT)">
+                    <CustomControl label="Unidad de Tiempo (UT)" >
                         {#snippet children({ props })}
 						<select {...props} bind:value={$lessonBasicsData.timeUnit} placeholder="Selecciona Tipo Unidad de Tiempo">
 							<option value="">Selecciona Unidad de Tiempo</option>
