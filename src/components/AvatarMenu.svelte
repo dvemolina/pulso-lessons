@@ -7,8 +7,8 @@
 
 	const linkList = [
 		{ href: `/profile/${user?.id}`, label: 'Mi Perfil' },
-		{ href: '/dashboard', label: 'Panel Control' },
-		{ href: '/logout', label: 'Desconectar' }
+		{ href: '/dashboard', label: 'Panel Control'},
+		{ href: '/logout', label: 'Desconectar'}
 	];
 
 	let userInitial = $derived(user?.name.charAt(0));
@@ -25,7 +25,19 @@
 		<ul class="link-list" transition:fade={{ duration: 300 }}>
 			{#each linkList as { href, label }}
 				<li class="list-item">
-					<a class="link" {href}>{label}</a>
+					{#if href === "/logout"}
+						<!-- Logout as form submission to avoid prefetching -->
+						<form action={href} method="POST" class="w-full">
+							<button type="submit" class="link">{label}</button>
+						</form>
+					{:else}
+						<a 
+							class="link" 
+							href={href} 
+						>
+							{label}
+						</a>
+					{/if}
 				</li>
 			{/each}
 		</ul>
@@ -35,7 +47,7 @@
 <style>
     .avatar-fallback {
         padding: 0.1rem 0.6rem;
-        text-align: center
+        text-align: center;
     }
 
 	.link-list {
@@ -56,6 +68,4 @@
 	.link:focus {
 		color: var(--text);
 	}
-
-    
 </style>

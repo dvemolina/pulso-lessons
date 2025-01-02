@@ -83,29 +83,59 @@
 					<!-- Navigation Links -->
 					<nav class="px-2">
 						{#each navItems as { href, icon, placeholder }}
-							<a
-								onclick={() => {
-									if (isMobile) {
-										closeSidebar();
-									}
-								}}
-								{href}
-								class="flex flex-row font-fira {sidebarOpen
-									? 'justify-start'
-									: 'justify-center'} items-center gap-3 rounded px-2 py-2.5 transition-all duration-100
-									{href === '/dashboard'
-									? activeRoute === href
+							{#if href === '/logout'}
+								<!-- Logout link with form styling -->
+								<form
+									action="/logout"
+									method="POST"
+									class="flex flex-row font-fira {sidebarOpen
+										? 'justify-start'
+										: 'justify-center'} items-center gap-3 rounded px-2 py-2.5 transition-all duration-100
+					{activeRoute === href
 										? 'bg-primaryWashed'
-										: 'hover:bg-primaryWashed hover:opacity-100 text-text opacity-80'
-									: activeRoute.startsWith(href) && activeRoute !== '/dashboard'
-										? 'bg-primaryWashed'
-										: 'hover:bg-primaryWashed hover:opacity-100 text-text opacity-80'}"
-							>
-								<img src={icon} alt={placeholder} class="invert-0 dark:invert w-5" />
-								{#if sidebarOpen || isMobile}
-									<span>{placeholder}</span>
-								{/if}
-							</a>
+										: 'text-text opacity-80 hover:bg-primaryWashed hover:opacity-100'}"
+								>
+									<button
+										type="submit"
+										class="flex w-full flex-row items-center gap-3 text-left"
+										onclick={() => {
+											if (isMobile) {
+												closeSidebar();
+											}
+										}}
+									>
+										<img src={icon} alt={placeholder} class="w-5 invert-0 dark:invert" />
+										{#if sidebarOpen || isMobile}
+											<span>{placeholder}</span>
+										{/if}
+									</button>
+								</form>
+							{:else}
+								<!-- Regular navigation links -->
+								<a
+									onclick={() => {
+										if (isMobile) {
+											closeSidebar();
+										}
+									}}
+									{href}
+									class="flex flex-row font-fira {sidebarOpen
+										? 'justify-start'
+										: 'justify-center'} items-center gap-3 rounded px-2 py-2.5 transition-all duration-100
+					{href === '/dashboard'
+										? activeRoute === href
+											? 'bg-primaryWashed'
+											: 'text-text opacity-80 hover:bg-primaryWashed hover:opacity-100'
+										: activeRoute.startsWith(href) && activeRoute !== '/dashboard'
+											? 'bg-primaryWashed'
+											: 'text-text opacity-80 hover:bg-primaryWashed hover:opacity-100'}"
+								>
+									<img src={icon} alt={placeholder} class="w-5 invert-0 dark:invert" />
+									{#if sidebarOpen || isMobile}
+										<span>{placeholder}</span>
+									{/if}
+								</a>
+							{/if}
 						{/each}
 					</nav>
 					{#if !isMobile && !sidebarOpen}
@@ -114,7 +144,11 @@
 							onclick={toggleSidebar}
 							class="absolute bottom-7 right-4 flex items-center justify-center rounded p-1 transition-all duration-100"
 						>
-							<img src="/svg/forwardburger.svg" alt="Abrir Barra Lateral" class="invert-0 dark:invert">
+							<img
+								src="/svg/forwardburger.svg"
+								alt="Abrir Barra Lateral"
+								class="invert-0 dark:invert"
+							/>
 						</button>
 					{/if}
 					{#if !isMobile && sidebarOpen}
@@ -123,7 +157,11 @@
 							onclick={toggleSidebar}
 							class=" absolute bottom-7 right-4 flex items-center justify-center rounded p-1 transition-all duration-100"
 						>
-						<img src="/svg/backburger.svg" alt="Abrir Barra Lateral" class="invert-0 dark:invert">
+							<img
+								src="/svg/backburger.svg"
+								alt="Abrir Barra Lateral"
+								class="invert-0 dark:invert"
+							/>
 						</button>
 					{/if}
 					{#if isMobile && sidebarOpen}
@@ -132,7 +170,11 @@
 							onclick={toggleSidebar}
 							class="bg-tansparent text-neutral-light hover:bg-neutral-light hover:text-neutral-dark absolute right-4 flex items-center justify-center rounded p-1 transition-all duration-200"
 						>
-							<img src="/svg/backburger.svg" alt="Abrir Barra Lateral" class="invert-0 dark:invert">
+							<img
+								src="/svg/backburger.svg"
+								alt="Abrir Barra Lateral"
+								class="invert-0 dark:invert"
+							/>
 						</button>
 					{/if}
 				</aside>
@@ -140,7 +182,7 @@
 		{/if}
 		<!-- Main content area -->
 		<main
-			class="flex h-full w-full flex-col dark:bg-neutral-900/70  bg-transparent {isMobile
+			class="flex h-full w-full flex-col bg-transparent dark:bg-neutral-900/70 {isMobile
 				? 'p-5'
 				: 'p-10'} transition-all duration-100 ease-in-out
 				{isMobile && sidebarOpen ? 'hidden' : 'flex'}
@@ -151,7 +193,7 @@
 					onclick={toggleSidebar}
 					class="flex w-fit flex-row content-center items-center pb-3"
 				>
-					<img src="/svg/menu-dots.svg" alt="Menu" class="invert-0 dark:invert"/>
+					<img src="/svg/menu-dots.svg" alt="Menu" class="invert-0 dark:invert" />
 				</button>
 			{/if}
 			<div class="min-h-[100px] w-full flex-grow">
@@ -161,10 +203,10 @@
 					</ScrollArea.Viewport>
 					<ScrollArea.Scrollbar
 						orientation="vertical"
-						class="hover:cursor-pointer hover:bg-bgNeutral bg-transparent flex h-full w-2 touch-none select-none rounded-full border-x border-x-border transition-all hover:w-2.5"
+						class="flex h-full w-2 touch-none select-none rounded-full border-x border-x-border bg-transparent transition-all hover:w-2.5 hover:cursor-pointer hover:bg-bgNeutral"
 					>
 						<ScrollArea.Thumb
-							class="bg-textNeutral relative flex-1 rounded-full opacity-30 transition-opacity hover:opacity-100"
+							class="relative flex-1 rounded-full bg-textNeutral opacity-30 transition-opacity hover:opacity-100"
 						/>
 					</ScrollArea.Scrollbar>
 					<ScrollArea.Corner />

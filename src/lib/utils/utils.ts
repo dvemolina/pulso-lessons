@@ -117,6 +117,22 @@ export function arraysAreEqual(arr1: never[], arr2: never[]): boolean {
     }
     return true;
 }
-// This function can be extended for other types of deep comparison if necessary
+
+
+export function mapIdsToValues<T>(
+    ids: number | number[], // This can be a single ID or an array of IDs
+    mappingData: T[], // Array of mapping data
+    idField: keyof T, // Field in mapping data that corresponds to the ID
+    valueField: keyof T // Field in mapping data that corresponds to the value
+  ): string[] {
+    // Ensure that ids is an array
+    const idsArray = Array.isArray(ids) ? ids : [ids];
+  
+    // Map the IDs to their corresponding values
+    return idsArray.map(id => {
+      const match = mappingData.find(item => item[idField] === id);
+      return match ? String(match[valueField]) : 'N/A'; // Return the value or 'N/A' if not found
+    });
+  }
 
 

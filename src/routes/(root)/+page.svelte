@@ -1,4 +1,6 @@
 <script>
+	import { goto } from "$app/navigation";
+
 	
 </script>
 
@@ -20,6 +22,7 @@
 				<p>Eres Instructor?</p>
 			</a>
 			<button
+				onclick={goto('/pulso')}
 				aria-label="Encuentra Instructores"
 				class="hover:bg-primaryActive hover:scale-105 xl:text-xl text-lg px-7 py-3 rounded-md bg-primary xl:px-10 xl:py-4 font-fira font-normal transition-all ease-in-out text-teal-50"
 			>

@@ -30,11 +30,10 @@
 
 {#if !hasSearched}
 <div class="flex flex-col items-center justify-center w-full h-full" transition:fade>
-	
-	<a href="/">
-		<img src="/pulso.png" alt="Inicio Pulso" class="w-24">
-	</a>
 	<ContentBox>
+		<a href="/" class="flex flex-row items-center justify-center mb-8">
+			<img src="/pulso.png" alt="Inicio Pulso" class="w-24">
+		</a>
 		<form action="" method="POST" use:enhance class="flex w-full flex-col justify-center gap-4">
 			<fieldset >
 				<FormField form={searchForm} name="sport">

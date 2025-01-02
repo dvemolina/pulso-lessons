@@ -50,7 +50,16 @@ export class LessonService {
     }
 
     async getUserLessons(userId: number) {
-        const lessons = await this.lessonRepository.getLessonsByUserId(userId)
-        return lessons
+        const lessons = await this.lessonRepository.getLessonsByUserId(userId);
+
+        // Use Promise.all to fetch sports for each lesson concurrently
+        const lessonsWithSports = await Promise.all(
+            lessons.map(async (lesson) => {
+                const sports = await this.lessonRepository.getLessonSports(lesson.id); // Assuming `id` is the lesson identifier
+                return { ...lesson, sports };
+            })
+        );
+
+        return lessonsWithSports;
     }
 }

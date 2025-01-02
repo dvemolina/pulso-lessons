@@ -51,3 +51,11 @@ export const pricingModes = pgTable('pricing_modes', {
   pricingMode: varchar('pricing_mode').notNull().unique()
 })
 
+export type Resorts = typeof resorts.$inferSelect;
+export type Languages = typeof languages.$inferSelect;
+export type Countries = typeof countries.$inferSelect;
+export type Currencies = typeof currencies.$inferSelect;
+export type SkillLevels = typeof skillLevels.$inferSelect;
+export type AgeGroups = typeof ageGroups.$inferSelect;
+export type Sports = typeof sports.$inferSelect;
+export type PricingModes = typeof pricingModes.$inferSelect;
