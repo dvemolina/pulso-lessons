@@ -2,13 +2,13 @@ import type { InsertUser} from "$src/lib/server/db/schemas/users";
 import { UserRepository } from "./UserRepository";
 import { hashPassword } from "$src/lib/utils/bcrypt";
 import type { UserSignup } from "./userValidations";
-import { sendClientSignupMail } from "$src/lib/nodemailer/nodemailer";
+import { sendUserSignupMail } from "$src/lib/nodemailer/nodemailer";
 
 
 export class UserService {
     private userRepository = new UserRepository()
 
-    async registerUserWithPassword(signupData: UserSignup) {
+    async registerUserWithPassword(signupData: UserSignup, roleId: number) {
         if (signupData.phone && signupData.country_code) {
             const formattedPhone = `${signupData.country_code}-${signupData.phone}`;
             signupData.phone = formattedPhone;
@@ -20,22 +20,36 @@ export class UserService {
         delete signupData.country_code;
         delete signupData.confirm_password;
 
-        const userData: InsertUser = {...signupData, roleId: 1};
-
         try {
-            const createdUser = await this.userRepository.createUser(userData);
-            console.log('User Created Successfully: ', createdUser);
-
-            if (createdUser) {
-                await sendClientSignupMail(createdUser.name, createdUser.email);
+        if(roleId === 1) {
+            const userData: InsertUser = {...signupData, roleId: 1};
+            
+                const createdUser = await this.userRepository.createUser(userData);
+                console.log('User Created Successfully: ', createdUser);
+    
+                if (createdUser) {
+                    await sendUserSignupMail(createdUser.name, createdUser.email, createdUser.roleId);
+                }
+    
+                return createdUser;
+            
+            } else if (roleId === 2) {
+                const instructorData: InsertUser = {...signupData, roleId: 2};
+                
+                const createdInstructor = await this.userRepository.createUser(instructorData);
+                console.log('User Created Successfully: ', createdInstructor);
+                
+                if (createdInstructor) {
+                    await sendUserSignupMail(createdInstructor.name, createdInstructor.email, createdInstructor.roleId);
+                }
+                
+                return createdInstructor;
             }
-
-            return createdUser;
-        
         } catch (error) {
             console.error('Something went wrong when Creating the User', error);
             throw new Error('Algo falló intentando crear la cuenta de Usuario');
         }  
+            
     }
 
     async getUserByEmail(email: string) {

@@ -42,14 +42,15 @@ export const actions: Actions = {
         }
         
         try {
-            const newUser =  await userService.registerUserWithPassword(form.data);
+            const newUser =  await userService.registerUserWithPassword(form.data, 2);
 
-            //CREATE THE SESSION AND SET THE SESSION TOKENS
-            const sessionToken = generateSessionToken();
-	        const session = await createSession(sessionToken, newUser.id);
-	        setSessionTokenCookie(event, sessionToken, session.expiresAt);
-
-            return {form, userId: newUser.id, userName: newUser.name}
+            if(newUser) {
+                const sessionToken = generateSessionToken();
+                const session = await createSession(sessionToken, newUser.id);
+                setSessionTokenCookie(event, sessionToken, session.expiresAt);
+    
+                return {form, userId: newUser.id, userName: newUser.name}
+            }
 
         } catch (error: unknown){
             console.error('Unexpected error: ', error);

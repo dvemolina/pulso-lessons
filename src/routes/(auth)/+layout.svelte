@@ -1,8 +1,5 @@
 <script lang="ts">
 	import ContentBox from '$src/components/ContentBox.svelte';
-	import ModeSwitch from '$src/components/ModeSwitch.svelte';
-	import SuperDebug from 'sveltekit-superforms';
-
 	let { children } = $props();
 </script>
 

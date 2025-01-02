@@ -5,18 +5,32 @@
 	import { countryPrefix } from '$src/lib/utils/utils';
 	import { Control, Description, FieldErrors, Fieldset, Label, Legend } from 'formsnap';
 	import { superForm } from 'sveltekit-superforms';
-	import { createUploadThing } from "$lib/utils/uploadthing";
+	import { createUploadThing } from '$lib/utils/uploadthing';
+	import { goto } from '$app/navigation';
 	
-	const { startUpload } = createUploadThing("qualificationFile", {
+
+	let uploadingFile = $state(false);
+	let uploadMessage = $state("")
+
+	const { startUpload } = createUploadThing('qualificationFile', {
+
+		onUploadBegin: () => {
+			uploadingFile = true;
+			uploadMessage = "Subiendo Archivo..."
+		},
 		onClientUploadComplete: () => {
-			alert("Upload Completed");
+			uploadingFile = false;
+			uploadMessage = "Titulación enviada! Espera un segundo..."
+			goto('/signup/success')
 		},
 		onUploadError: (e: Error) => {
-			console.error('Error uploading qualification document', e.message)
-			alert("Error al subir el archivo! Intenta de nuevo!")
+			uploadingFile = false;
+			uploadMessage= "Error al subir el archivo! Intenta de nuevo!"
+			console.error('Error uploading qualification document', e.message);
+			alert('Error al subir el archivo! Intenta de nuevo!');
 		}
 	});
-	
+
 	let { data } = $props();
 
 	const timeUnits = [
@@ -29,7 +43,7 @@
 		{ value: 3, label: 'Precio x Alumno' }
 	];
 
-	let step = $state(3);
+	let step = $state(1);
 	let userId = $state();
 	let userName = $state(data.user?.name);
 
@@ -457,16 +471,21 @@
 		>
 	</p>
 	<div class="flex flex-col">
-		<input
-			type="file"
-			onchange={async (e) => {
-				const file = e.currentTarget.files?.[0];
-				if (!file) return;
-				// Do something with files
-				// Then start the upload
-				await startUpload([file]);
-			}}
-		/>
+		{#if uploadingFile === false}
+			<input
+				type="file"
+				onchange={async (e) => {
+					const file = e.currentTarget.files?.[0];
+					if (!file) return;
+					// Do something with files
+					// Then start the upload
+					await startUpload([file]);
+				}}
+			/>
+			<p class="text-center font-fira text-lg font-semibold text-text">{uploadMessage}</p>
+		{:else if uploadingFile === true}
+				<p class="text-center font-fira text-lg font-semibold text-text">{uploadMessage}</p>
+		{/if}
 	</div>
 {/if}
 

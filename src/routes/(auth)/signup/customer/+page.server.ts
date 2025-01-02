@@ -28,7 +28,7 @@ export const actions: Actions = {
         }
         
         try {
-            await userService.registerUserWithPassword(form.data);
+            await userService.registerUserWithPassword(form.data, 1);
             redirect(302, '/signup/success')
 
         } catch (e: unknown){

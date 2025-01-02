@@ -34,22 +34,27 @@ async function sendMail(mailOptions: mailOptions) {
 }
 
 //Signup
-export async function sendClientSignupMail(clientName: string, clientMail: string) {
+export async function sendUserSignupMail(userName: string, userMail: string, roleId: number) {
 
   const placeholders = [
-    {placeholder: '{{name}}', replaceValue: clientName},
+    {placeholder: '{{name}}', replaceValue: userName},
   ]
-  
- const emailBody = prepareEmail('userSignupEmail', placeholders)
+ 
+  let emailBody = "";
+  if(roleId === 1) {
+    emailBody = prepareEmail('userSignupEmail', placeholders)
+  } else if(roleId === 2) {
+    emailBody = prepareEmail('instructorSignupEmail', placeholders)
+  }
 
   const mailOptions = {
-      from: '"Pulso de Nieve" <admin@pulsodenieve.com>',
-      to: clientMail,
-      subject: 'Ya formas parte de Pulso de Nieve',
-      html: emailBody
-    };
-  
-    await sendMail(mailOptions)
+    from: '"Pulso de Nieve" <admin@pulsodenieve.com>',
+    to: userMail,
+    subject: 'Ya formas parte de Pulso de Nieve',
+    html: emailBody
+  };
+
+  await sendMail(mailOptions)
 
 }
 //Password Reset
