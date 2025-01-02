@@ -51,6 +51,11 @@ export const pricingModes = pgTable('pricing_modes', {
   pricingMode: varchar('pricing_mode').notNull().unique()
 })
 
+export const timeUnits = pgTable('time_units', {
+  id: integer('id').primaryKey().generatedAlwaysAsIdentity({ name: 'time_units_id_sequence', startWith: 1, increment: 1 }),
+  timeUnit: varchar('time_unit').notNull().unique()
+})
+
 export type Resorts = typeof resorts.$inferSelect;
 export type Languages = typeof languages.$inferSelect;
 export type Countries = typeof countries.$inferSelect;

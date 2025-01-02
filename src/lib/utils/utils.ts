@@ -131,7 +131,7 @@ export function mapIdsToValues<T>(
     // Map the IDs to their corresponding values
     return idsArray.map(id => {
       const match = mappingData.find(item => item[idField] === id);
-      return match ? String(match[valueField]) : 'N/A'; // Return the value or 'N/A' if not found
+      return match ? String(match[valueField]) : ''; // Return the value or 'N/A' if not found
     });
   }
 
