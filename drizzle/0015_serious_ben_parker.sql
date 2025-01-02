@@ -1,0 +1,1 @@
+ALTER TABLE "lessons" ADD CONSTRAINT "lessons_time_unit_time_units_id_fk" FOREIGN KEY ("time_unit") REFERENCES "public"."time_units"("id") ON DELETE no action ON UPDATE no action;

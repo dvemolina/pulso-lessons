@@ -1,11 +1,12 @@
-<script>
+<script lang="ts">
 	import ContentBox from "$src/components/ContentBox.svelte";
 	import CoolCta from "$src/components/CoolCTA.svelte";
 	import CustomControl from "$src/components/CustomControl.svelte";
 	import FormField from "$src/components/FormField.svelte";
 	import { lessonBasicsSchema } from "$src/features/Lessons/lib/lessonValidations";
+	import type { AgeGroups, SkillLevels } from "$src/lib/server/db/schemas/normalized.js";
 	import { Control, Description, FieldErrors, Fieldset, Label, Legend } from "formsnap";
-	import { superForm } from "sveltekit-superforms";
+	import SuperDebug, { superForm } from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
 
     let { data } = $props();
@@ -16,10 +17,55 @@
 
     const { form: lessonBasicsData, enhance: lessonBasicsEnhance } = lessonBasicsForm
 
-    const timeUnits = [
-        {value: "hour", label: "Hora"},
-        {value: "day", label: "Día"}
-    ]
+    let maxSkillLevelDisabled: boolean = $state(false)
+    let maxAgeGroupDisabled: boolean = $state(false)
+
+    let filteredSkillLevels: SkillLevels[] = $state([]);
+    let filteredAgeGroups: AgeGroups[] = $state([])
+
+    $effect(() => {
+        // Avoid redundant assignments
+        if (maxAgeGroupDisabled !== ($lessonBasicsData.minAgeGroupId === 9)) {
+            maxAgeGroupDisabled = $lessonBasicsData.minAgeGroupId === 9;
+        }
+
+        if (maxSkillLevelDisabled !== ($lessonBasicsData.minSkillId === 8)) {
+            maxSkillLevelDisabled = $lessonBasicsData.minSkillId === 8;
+        }
+
+        // Filter logic
+        const newFilteredSkillLevels = data.skillLevels.filter(level => {
+            return (
+                level.id >= $lessonBasicsData.minSkillId &&
+                (level.id !== 8 || $lessonBasicsData.minSkillId === 8)
+            );
+        });
+
+        const newFilteredAgeGroups = data.ageGroups.filter(ageGroup => {
+            return (
+                ageGroup.id >= $lessonBasicsData.minAgeGroupId &&
+                (ageGroup.id !== 9 || $lessonBasicsData.minAgeGroupId === 9)
+            );
+        });
+
+        // Only update arrays if they have changed
+        if (JSON.stringify(filteredSkillLevels) !== JSON.stringify(newFilteredSkillLevels)) {
+            filteredSkillLevels = newFilteredSkillLevels;
+        }
+
+        if (JSON.stringify(filteredAgeGroups) !== JSON.stringify(newFilteredAgeGroups)) {
+            filteredAgeGroups = newFilteredAgeGroups;
+        }
+
+        // Reset max values
+        if ($lessonBasicsData.minSkillId === 8 && $lessonBasicsData.maxSkillId !== null) {
+            $lessonBasicsData.maxSkillId = null;
+        }
+        if ($lessonBasicsData.minAgeGroupId === 9 && $lessonBasicsData.maxAgeGroupId !== null) {
+            $lessonBasicsData.maxAgeGroupId = null;
+        }
+    });
+
 </script>
 <a href="./" class=" font-fira font-semibold text-tex opacity-60 hover:opacity-100 focus:opacity-100 flex flex-row items-center mb-6 gap-2">
     <img src="/svg/arrow-left.svg" alt="Volver" class="invert-0 dark:invert">
@@ -91,13 +137,12 @@
         <p class="mb-8 font-fira text-md text-textNeutral font-normal">Genera los bloques mínimos/máximo de reserva. Cantidad de horas/días que se puede reservar tu lección. </p>
         <fieldset class="flex w-full flex-col gap-4">
             <div class="formgroup">
-                <FormField form={lessonBasicsForm} name="timeUnit">
+                <FormField form={lessonBasicsForm} name="timeUnitId">
                     <CustomControl label="Unidad de Tiempo (UT)" >
                         {#snippet children({ props })}
-						<select {...props} bind:value={$lessonBasicsData.timeUnit} placeholder="Selecciona Tipo Unidad de Tiempo">
-							<option value="">Selecciona Unidad de Tiempo</option>
-							{#each timeUnits as { value, label }}
-							<option value={value} aria-label={label}>{label}</option>
+						<select {...props} bind:value={$lessonBasicsData.timeUnitId} placeholder="Selecciona Tipo Unidad de Tiempo">
+							{#each data.timeUnits as { id, timeUnit }}
+							<option value={id} aria-label={timeUnit}>{timeUnit}</option>
 							{/each}
 						</select>
 						{/snippet}
@@ -144,7 +189,6 @@
 					<CustomControl label="Nivel de Habilidad Mínimo" >
 						{#snippet children({ props })}
 						<select {...props} bind:value={$lessonBasicsData.minSkillId} placeholder="Selecciona Nivel de Habilidad">
-							<option value="">Selecciona Nivel de Habilidad</option>
 							{#each data.skillLevels as { id, skillLevel }}
 							<option value={id} aria-label={skillLevel}>{skillLevel}</option>
 							{/each}
@@ -155,9 +199,8 @@
                 <FormField form={lessonBasicsForm} name="maxSkillId">
 					<CustomControl label="Nivel de Habilidad Máximo" >
 						{#snippet children({ props })}
-						<select {...props} bind:value={$lessonBasicsData.maxSkillId} placeholder="Selecciona Nivel de Habilidad">
-							<option value="">Selecciona Nivel de Habilidad</option>
-							{#each data.skillLevels as { id, skillLevel }}
+						<select {...props} bind:value={$lessonBasicsData.maxSkillId} disabled={maxSkillLevelDisabled} placeholder="Selecciona Nivel de Habilidad">
+							{#each filteredSkillLevels as { id, skillLevel }}
 							<option value={id} aria-label={skillLevel}>{skillLevel}</option>
 							{/each}
 						</select>
@@ -170,7 +213,6 @@
 					<CustomControl label="Grupo de Edad Mínimo" >
 						{#snippet children({ props })}
 						<select {...props} bind:value={$lessonBasicsData.minAgeGroupId} placeholder="Selecciona Grupo de Edad">
-							<option value="">Selecciona Grupo de Edad</option>
 							{#each data.ageGroups as { id, ageGroup }}
 							<option value={id} aria-label={ageGroup}>{ageGroup}</option>
 							{/each}
@@ -181,9 +223,8 @@
                 <FormField form={lessonBasicsForm} name="maxAgeGroupId">
 					<CustomControl label="Grupo de Edad Máximo" >
 						{#snippet children({ props })}
-						<select {...props} bind:value={$lessonBasicsData.maxAgeGroupId} placeholder="Selecciona Grupo de Edad">
-							<option value="">Selecciona Grupo de Edad</option>
-							{#each data.ageGroups as { id, ageGroup }}
+						<select {...props} bind:value={$lessonBasicsData.maxAgeGroupId} disabled={maxAgeGroupDisabled} placeholder="Selecciona Grupo de Edad">
+							{#each filteredAgeGroups as { id, ageGroup }}
 							<option value={id} aria-label={ageGroup}>{ageGroup}</option>
 							{/each}
 						</select>
@@ -201,8 +242,8 @@
                     <CustomControl label="Tipo de Multiplicador de Precio">
                         {#snippet children({ props })}
                         <select {...props} bind:value={$lessonBasicsData.pricingModeId} placeholder="Selecciona Modo de Precio">
-                            {#each timeUnits as { value, label }}
-                            <option value={value} aria-label={label}>{label}</option>
+                            {#each data.pricingModes as { id, pricingMode }}
+                            <option value={id} aria-label={pricingMode}>{pricingMode}</option>
                             {/each}
                         </select>
                         {/snippet}
@@ -211,8 +252,7 @@
                 <FormField form={lessonBasicsForm} name="currencyId">
                     <CustomControl label="Divisa Principal">
                         {#snippet children({ props })}
-                        <select {...props} bind:value={$lessonBasicsData.currencyId} placeholder="Selecciona la Divisa">
-                            <option value="">Selecciona Divisa Principal</option>
+                        <select {...props} bind:value={$lessonBasicsData.currencyId}  placeholder="Selecciona la Divisa">
                             {#each data.currencies as { id, currency }}
                             <option value={id} aria-label={currency}>{currency}</option>
                             {/each}
@@ -235,3 +275,4 @@
         <CoolCta type="submit">Guardar Datos del Servicio</CoolCta>
     </ContentBox>
 </form>
+<SuperDebug data={$lessonBasicsData}/>

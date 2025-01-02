@@ -12,7 +12,7 @@
     <h2 class="text-xl text-text font-sans border-b border-border">Servicio Básico</h2>
     <h3 class="text-md text-textNeutral mb-4 font-sans">Este servicio se puede modificar pero no eliminar.</h3>
     {#each data.lessons as lesson }
-        <LessonCard type="edit" lessonData={lesson} profileImage={data.user?.profileImage} currencies={data.currencies} sports={data.sports} skillLevels={data.skillLevels} ageGroups={data.ageGroups}/>
+        <LessonCard type="edit" lessonData={lesson} profileImage={data.user?.profileImage} currencies={data.currencies} sports={data.sports} skillLevels={data.skillLevels} ageGroups={data.ageGroups} timeUnits={data.timeUnits}/>
     {/each}
 </ContentBox>
     

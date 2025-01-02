@@ -3,7 +3,7 @@ import type { PageServerLoad } from "./$types";
 import { expiredSessionRedirectUrl } from "$src/lib/utils/utils";
 import { fail, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
-import { getAllAgeGroups, getAllCurrencies, getAllSkillLevels, getAllSkiResorts, getAllSports } from "$src/lib/server/db/querys";
+import { getAllAgeGroups, getAllCurrencies, getAllPricingModes, getAllSkillLevels, getAllSkiResorts, getAllSports, getAllTimeUnits } from "$src/lib/server/db/querys";
 import { lessonBasicsSchema } from "$src/features/Lessons/lib/lessonValidations";
 import { LessonService } from "$src/features/Lessons/lib/LessonService";
 
@@ -27,8 +27,10 @@ export const load: PageServerLoad = async (event) => {
     const skillLevels = await getAllSkillLevels();
     const ageGroups = await getAllAgeGroups();
     const currencies = await getAllCurrencies();
+    const timeUnits = await getAllTimeUnits();
+    const pricingModes = await getAllPricingModes();
 
-    return { lessonBasicsForm, resorts, sports, skillLevels, ageGroups, currencies }
+    return { lessonBasicsForm, resorts, sports, skillLevels, ageGroups, currencies, timeUnits, pricingModes }
 };
 
 export const actions: Actions = {

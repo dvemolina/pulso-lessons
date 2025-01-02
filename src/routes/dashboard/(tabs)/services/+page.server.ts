@@ -2,7 +2,7 @@ import { LessonService } from "$src/features/Lessons/lib/LessonService";
 import { redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import { expiredSessionRedirectUrl } from "$src/lib/utils/utils";
-import { getAllAgeGroups, getAllCurrencies, getAllSkillLevels, getAllSkiResorts, getAllSports } from "$src/lib/server/db/querys";
+import { getAllAgeGroups, getAllCurrencies, getAllSkillLevels, getAllSkiResorts, getAllSports, getAllTimeUnits } from "$src/lib/server/db/querys";
 
 const lessonService = new LessonService()
 
@@ -19,7 +19,8 @@ export const load: PageServerLoad = async (event) => {
     const skillLevels = await getAllSkillLevels();
     const ageGroups = await getAllAgeGroups();
     const currencies = await getAllCurrencies();
+    const timeUnits = await getAllTimeUnits();
     
     const lessons = await lessonService.getUserLessons(user.id)
-    return { user, lessons, sports, resorts, skillLevels, ageGroups, currencies }
+    return { user, lessons, sports, resorts, skillLevels, ageGroups, currencies, timeUnits }
 };

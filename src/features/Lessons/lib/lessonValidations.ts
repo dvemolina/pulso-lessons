@@ -8,7 +8,7 @@ export const lessonBasicsSchema = z.object({
     description: z.string().nonempty('Añade una Descripción del Servicio'),
     resortId: z.number().min(1, 'Selecciona Centro'),
     sports: z.number().array().min(1, 'Selecciona Deporte'),
-    timeUnit: z.string().nonempty('Selecciona Tipo de Unidad de Tiempo').default("hour"),
+    timeUnitId: z.number().min(1, 'Selecciona Tipo de Unidad de Tiempo').default(1),
     minTimeUnit: z.number().min(1, 'Selecciona Cantidad de Tiempo Mínima').default(1),
     maxTimeUnit: z.number().optional().nullable().default(6),
     minStudents: z.number().min(1, 'Selecciona Cantidad de Alumnos Mínima').default(1),

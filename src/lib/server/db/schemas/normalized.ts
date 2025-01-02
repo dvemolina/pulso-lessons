@@ -64,3 +64,4 @@ export type SkillLevels = typeof skillLevels.$inferSelect;
 export type AgeGroups = typeof ageGroups.$inferSelect;
 export type Sports = typeof sports.$inferSelect;
 export type PricingModes = typeof pricingModes.$inferSelect;
+export type TimeUnits = typeof timeUnits.$inferSelect;

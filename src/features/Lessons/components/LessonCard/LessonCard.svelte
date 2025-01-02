@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Lesson } from '$src/lib/server/db/schemas/lessons';
-	import type { AgeGroups, Currencies, SkillLevels, Sports } from '$src/lib/server/db/schemas/normalized';
+	import type { AgeGroups, Currencies, SkillLevels, Sports, TimeUnits } from '$src/lib/server/db/schemas/normalized';
 	import AvatarLessonCard from './AvatarLessonCard.svelte';
 	import ButtonsBookLessonCard from './ButtonsBookLessonCard.svelte';
 	import ButtonsEditLessonCard from './ButtonsEditLessonCard.svelte';
@@ -13,10 +13,11 @@
 		currencies: Currencies[],
 		skillLevels: SkillLevels[],
 		ageGroups: AgeGroups[],
-		sports: Sports[]
+		sports: Sports[],
+		timeUnits: TimeUnits[]
 	}
 
-	let { lessonData, profileImage, type, currencies, skillLevels, ageGroups, sports }: Props = $props();
+	let { lessonData, profileImage, type, currencies, skillLevels, ageGroups, sports, timeUnits }: Props = $props();
 </script>
 
 <div class="card w-[250px] overflow-hidden rounded-lg ease-in-out sm:w-[265px]">
@@ -24,7 +25,7 @@
 		<AvatarLessonCard lessonSports={lessonData.sports} {sports} {profileImage} />
 	</div>
 	<div class="content-section rounded-b-lg border-b border-l border-r border-border">
-		<DataLessonCard {skillLevels} {currencies} {ageGroups} {lessonData} />
+		<DataLessonCard {skillLevels} {currencies} {ageGroups} {lessonData} {timeUnits}/>
 		{#if type === 'edit'}
 			<ButtonsEditLessonCard lessonId={lessonData.id} />
 		{:else}

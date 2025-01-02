@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from ".";
-import { ageGroups, countries, currencies, resorts, skillLevels, sports } from "./schemas/normalized";
+import { ageGroups, countries, currencies, pricingModes, resorts, skillLevels, sports, timeUnits } from "./schemas/normalized";
 
 export async function getAllSkiResorts() {
     return await db.select().from(resorts);
@@ -28,4 +28,12 @@ export async function getAllSkillLevels() {
 
 export async function getAllCurrencies() {
     return await db.select().from(currencies);
+}
+
+export async function getAllTimeUnits() {
+    return await db.select().from(timeUnits)
+}
+
+export async function getAllPricingModes() {
+    return await db.select().from(pricingModes)
 }

@@ -1,6 +1,6 @@
-import { boolean, integer, pgTable, text, varchar } from "drizzle-orm/pg-core";
+import { boolean, integer, pgTable, text } from "drizzle-orm/pg-core";
 import { users } from "./users";
-import { ageGroups, currencies, pricingModes, resorts, skillLevels, sports } from "./normalized";
+import { ageGroups, currencies, pricingModes, resorts, skillLevels, sports, timeUnits } from "./normalized";
 
 export const lessons = pgTable('lessons', {
     id: integer('id').primaryKey().generatedAlwaysAsIdentity({ name: "lessons_id_sequence", startWith: 1, increment: 1, cache: 1 }),
@@ -9,7 +9,7 @@ export const lessons = pgTable('lessons', {
     title: text('title').notNull(),
     description: text('description').notNull(),
     resortId: integer('resort_id').references(() => resorts.id, {onDelete: 'cascade'}),
-    timeUnit: varchar('time_unit').notNull(),
+    timeUnitId: integer('time_unit_id').notNull().references(() => timeUnits.id),
     minTimeUnit: integer('min_time_unit').notNull(),
     maxTimeUnit: integer('max_time_unit'),
     minStudents: integer('min_students'),
