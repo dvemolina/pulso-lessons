@@ -2,30 +2,30 @@
 	import CoolCta from '$src/components/CoolCTA.svelte';
 	import CustomControl from '$src/components/CustomControl.svelte';
 	import FormField from '$src/components/FormField.svelte';
-	import { countryPrefix } from '$src/lib/utils/utils';
+	import { countryPrefix, generateTimeOptions } from '$src/lib/utils/utils';
 	import { Control, Description, FieldErrors, Fieldset, Label, Legend } from 'formsnap';
 	import { superForm } from 'sveltekit-superforms';
 	import { createUploadThing } from '$lib/utils/uploadthing';
 	import { goto } from '$app/navigation';
-	
+	import { onMount } from 'svelte';
+	import { weekDays } from '$src/features/Availability/lib/availabilityValidation.js';
 
 	let uploadingFile = $state(false);
-	let uploadMessage = $state("")
+	let uploadMessage = $state('');
 
 	const { startUpload } = createUploadThing('qualificationFile', {
-
 		onUploadBegin: () => {
 			uploadingFile = true;
-			uploadMessage = "Subiendo Archivo..."
+			uploadMessage = 'Subiendo Archivo...';
 		},
 		onClientUploadComplete: () => {
 			uploadingFile = false;
-			uploadMessage = "Titulación enviada! Espera un segundo..."
-			goto('/signup/success')
+			uploadMessage = 'Titulación enviada! Espera un segundo...';
+			goto('/signup/success');
 		},
 		onUploadError: (e: Error) => {
 			uploadingFile = false;
-			uploadMessage= "Error al subir el archivo! Intenta de nuevo!"
+			uploadMessage = 'Error al subir el archivo! Intenta de nuevo!';
 			console.error('Error uploading qualification document', e.message);
 			alert('Error al subir el archivo! Intenta de nuevo!');
 		}
@@ -33,17 +33,7 @@
 
 	let { data } = $props();
 
-	const timeUnits = [
-		{ value: 'hour', label: 'Hora' },
-		{ value: 'day', label: 'Día' }
-	];
-	const pricingMode = [
-		{ value: 1, label: 'Precio Fijo' },
-		{ value: 2, label: 'Precio x UT' },
-		{ value: 3, label: 'Precio x Alumno' }
-	];
-
-	let step = $state(1);
+	let step = $state(4);
 	let userId = $state();
 	let userName = $state(data.user?.name);
 
@@ -64,16 +54,45 @@
 		}
 	});
 
+	const availabilityForm = superForm(data.availabilityForm, {
+		onUpdate({ form, result }) {
+			if (form.valid && result.type === 'success') {
+				step = 3;
+				console.log('Availability has been created successfully');
+			}
+		}
+	});
+	const { form: availabilityData, enhance: availabilityEnhance } = availabilityForm;
+
 	const lessonBasicsForm = superForm(data.lessonBasicsForm, {
 		onUpdate({ form, result }) {
 			if (form.valid && result.type === 'success') {
 				console.log('THE USER ON SUBMIT IS: ', userName);
-				step = 3;
+				step = 4;
 				console.log(`The Lesson Basics has been created. The Step is now ${step}`);
 			}
 		}
 	});
 	const { form: lessonBasicsData, enhance: lessonBasicsEnhance } = lessonBasicsForm;
+
+	let dayStartOptions: { label: string; value: string }[] = $state([]);
+	let dayEndOptions: { label: string; value: string }[] = $state([]);
+
+	//Populate dayStartOptions on component mount
+	onMount(() => {
+		if ($availabilityData.dayStart) {
+			dayStartOptions = generateTimeOptions('00:00', '23:45', 15);
+			dayEndOptions = generateTimeOptions($availabilityData.dayStart, '23:45', 60);
+		} else {
+			dayStartOptions = generateTimeOptions('00:00', '23:45', 15);
+		}
+	});
+
+	$effect(() => {
+		if ($availabilityData.dayStart) {
+			dayEndOptions = generateTimeOptions($availabilityData.dayStart, '23:45', 60);
+		}
+	});
 </script>
 
 {#if step === 1}
@@ -205,6 +224,106 @@
 		</div>
 	</form>
 {:else if step === 2}
+	<form
+		action="?/availability"
+		method="POST"
+		use:availabilityEnhance
+		class="flex w-full flex-col justify-center gap-8"
+	>
+		<p class="mb-5 self-center text-center font-fira text-xl font-semibold text-text">
+			Vamos a crear tu Disponibilidad General para la Temporada <br />
+			<span class="text-lg font-normal text-textNeutral"
+				>Se pueden modificar más tarde en tu Dashboard</span
+			>
+		</p>
+		<fieldset class="flex w-full flex-col gap-4">
+			<div class="formgroup">
+				<FormField form={availabilityForm} name="seasonStart">
+					<CustomControl label="Fecha Inicio Temporada">
+						{#snippet children({ props })}
+							<input
+								type="date"
+								{...props}
+								bind:value={$availabilityData.seasonStart}
+								placeholder="Inicio Temporada"
+							/>
+						{/snippet}
+					</CustomControl>
+				</FormField>
+				<FormField form={availabilityForm} name="seasonEnd">
+					<CustomControl label="Fecha Final Temporada">
+						{#snippet children({ props })}
+							<input
+								type="date"
+								{...props}
+								bind:value={$availabilityData.seasonEnd}
+								placeholder="Final Temporada"
+							/>
+						{/snippet}
+					</CustomControl>
+				</FormField>
+			</div>
+			<div class="formgroup">
+				<FormField form={availabilityForm} name="dayStart">
+					<CustomControl label="Hora Inicio Jornada">
+						{#snippet children({ props })}
+							<select {...props} bind:value={$availabilityData.dayStart}>
+								<option value="">Selecciona Hora</option>
+								{#each dayStartOptions as { label, value }}
+									<option {value}>{label}</option>
+								{/each}
+							</select>
+						{/snippet}
+					</CustomControl>
+				</FormField>
+				<FormField form={availabilityForm} name="dayEnd">
+					<CustomControl label="Hora Final Jornada">
+						{#snippet children({ props })}
+							<select {...props} bind:value={$availabilityData.dayEnd}>
+								<option value="">Selecciona Hora</option>
+								{#each dayEndOptions as { label, value }}
+									<option {value}>{label}</option>
+								{/each}
+							</select>
+						{/snippet}
+					</CustomControl>
+				</FormField>
+			</div>
+			<Fieldset form={availabilityForm} name="weekDays" class="flex flex-col gap-4">
+				<Legend>Disponibilidad Semanal</Legend>
+				<Description
+					>Estarás disponible los días de la semana que selecciones en el horario escogido</Description
+				>
+				<div class="flex flex-row items-center justify-evenly gap-2">
+					{#each weekDays as { value, label }}
+						<Control>
+							{#snippet children({ props })}
+								<div class="flex flex-col items-center justify-center gap-2">
+									<input
+										type="checkbox"
+										{...props}
+										bind:group={$availabilityData.weekDays}
+										{value}
+										class="size-7 rounded-sm border border-border bg-bgNeutral sm:size-10"
+									/>
+									<Label>{label.slice(0, 3)}</Label>
+								</div>
+							{/snippet}
+						</Control>
+					{/each}
+				</div>
+				<FieldErrors />
+			</Fieldset>
+		</fieldset>
+		<CoolCta
+			type="submit"
+			paddingProp="1rem 1.5rem"
+			bgSubtleColor="var(--primary)"
+			highlightColor="var(--primary)"
+			highlightSubtleColor="var(--primary)">Siguiente</CoolCta
+		>
+	</form>
+{:else if step === 3}
 	<p class="mb-5 self-center text-center font-fira text-xl font-semibold text-text">
 		Vamos a crear tus Datos de Servicio Básicos <br />
 		<span class="text-lg font-normal text-textNeutral"
@@ -270,16 +389,16 @@
 				</p>
 			</div>
 			<div class="formgroup">
-				<FormField form={lessonBasicsForm} name="timeUnit">
+				<FormField form={lessonBasicsForm} name="timeUnitId">
 					<CustomControl label="Unidad de Tiempo (UT)">
 						{#snippet children({ props })}
 							<select
 								{...props}
-								bind:value={$lessonBasicsData.timeUnit}
+								bind:value={$lessonBasicsData.timeUnitId}
 								placeholder="Selecciona Tipo Unidad de Tiempo"
 							>
-								{#each timeUnits as { value, label }}
-									<option {value} aria-label={label}>{label}</option>
+								{#each data.timeUnits as { id, timeUnit }}
+									<option value={id} aria-label={timeUnit}>{timeUnit}</option>
 								{/each}
 							</select>
 						{/snippet}
@@ -424,8 +543,8 @@
 								bind:value={$lessonBasicsData.pricingModeId}
 								placeholder="Selecciona Modalidad de Precio"
 							>
-								{#each pricingMode as { value, label }}
-									<option {value} aria-label={label}>{label}</option>
+								{#each data.pricingModes as { id, pricingMode }}
+									<option value={id} aria-label={pricingMode}>{pricingMode}</option>
 								{/each}
 							</select>
 						{/snippet}
@@ -463,7 +582,7 @@
 		</fieldset>
 		<CoolCta type="submit">Siguiente</CoolCta>
 	</form>
-{:else if step === 3}
+{:else if step === 4}
 	<p class="mb-5 self-center text-center font-fira text-xl font-semibold text-text">
 		Sube tu Titulación Profesional <br />
 		<span class="text-lg font-normal text-textNeutral"
@@ -484,7 +603,7 @@
 			/>
 			<p class="text-center font-fira text-lg font-semibold text-text">{uploadMessage}</p>
 		{:else if uploadingFile === true}
-				<p class="text-center font-fira text-lg font-semibold text-text">{uploadMessage}</p>
+			<p class="text-center font-fira text-lg font-semibold text-text">{uploadMessage}</p>
 		{/if}
 	</div>
 {/if}

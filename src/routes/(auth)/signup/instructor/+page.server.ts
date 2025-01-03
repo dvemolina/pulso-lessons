@@ -6,13 +6,16 @@ import { UserService } from "$src/features/Users/lib/UserService";
 import { userSignupSchema } from "$src/features/Users/lib/userValidations";
 import { createSession, generateSessionToken, setSessionTokenCookie } from "$src/lib/server/auth";
 import { lessonBasicsSchema } from "$src/features/Lessons/lib/lessonValidations";
-import { getAllAgeGroups, getAllCurrencies, getAllSkillLevels, getAllSkiResorts, getAllSports } from "$src/lib/server/db/querys";
+import { getAllAgeGroups, getAllCurrencies, getAllPricingModes, getAllSkillLevels, getAllSkiResorts, getAllSports, getAllTimeUnits } from "$src/lib/server/db/querys";
 import { LessonService } from "$src/features/Lessons/lib/LessonService";
+import { availabilitySchema } from "$src/features/Availability/lib/availabilityValidation";
+import { AvailabilityService } from "$src/features/Availability/lib/AvailabilityService";
 
 
 
 
 const userService = new UserService()
+const availabilityService = new AvailabilityService()
 const lessonService = new LessonService()
 
 export const load: PageServerLoad = async () => {
@@ -21,10 +24,13 @@ export const load: PageServerLoad = async () => {
     const skillLevels = await getAllSkillLevels();
     const ageGroups = await getAllAgeGroups();
     const currencies = await getAllCurrencies();
+    const pricingModes = await getAllPricingModes();
+    const timeUnits = await getAllTimeUnits();
 
     const signupForm = await superValidate(zod(userSignupSchema));
-    const lessonBasicsForm = await superValidate(zod(lessonBasicsSchema))
-    return { signupForm, lessonBasicsForm, resorts, sports, skillLevels, ageGroups, currencies }
+    const availabilityForm = await superValidate(zod(availabilitySchema))
+    const lessonBasicsForm = await superValidate(zod(lessonBasicsSchema));
+    return { signupForm, availabilityForm, lessonBasicsForm, resorts, sports, skillLevels, ageGroups, currencies, pricingModes, timeUnits }
 };
 
 export const actions: Actions = {
@@ -56,6 +62,23 @@ export const actions: Actions = {
             console.error('Unexpected error: ', error);
             return fail(500, { form, error: 'Error interno del servidor. Intenta más tarde.' });
         }
+    },
+
+    availability: async (event) => {
+        const user = event.locals.user;
+        const form = await superValidate(event.request, zod(availabilitySchema))
+        if (!form.valid) {
+            return fail (400, { form })
+        }
+        if(!user) {
+            console.log('USER DOES NOT EXIST ON LESSON SUBMISSION')
+            return fail(400, { form })
+        }
+        const availabilityData = {...form.data, userId: user.id}
+        await availabilityService.createAvailability(availabilityData);
+        console.log('Created Availability fields: ', form.data)
+        
+        return { form }
     },
 
     lessonBasics: async (event) => {
