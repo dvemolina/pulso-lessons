@@ -7,12 +7,12 @@
 	
 
 	const mappedSports = mapIdsToValues(profileData.sports, lists.sports, 'id', 'sport');
-    const mappedResort = mapIdsToValues(profileData.resort, lists.resorts, 'id', 'resort')
+    const mappedResort = mapIdsToValues(profileData.resortId, lists.resorts, 'id', 'resort')
 </script>
 
 <div class="flex h-full flex-col items-center gap-5">
 	<div class="AVATAR flex flex-col gap-4">
-		<div class="size-52 overflow-hidden rounded-full border-[2px] border-border">
+		<div class="size-52 overflow-hidden rounded-full border-[2px] bord	er-border">
 			<img src={profileData.profileImage} alt="Profile" class="object-cover object-center" />
 		</div>
 		<div class="flex flex-row items-center justify-center gap-3">
