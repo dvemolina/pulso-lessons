@@ -31,13 +31,14 @@ export const userProfileSchema = z.object({
         message: "No se aceptan números",
       }),
     email: z.string().nonempty('Introduce un Email').email('Email inválido'),
-    country_code: z.string().optional().default('+34'),
+    country_code: z.string().default('+34').optional(),
     phone_number: z.number().optional(),
     profileImage: z.string().optional(),
     nationality: z.number().optional().nullable(),
     age: z.number().min(0, 'Eres Benjamin Button?').max(99, "No mientas, aún eres joven").optional().nullable(),
     resortId: z.number(),
-    sports: z.array(z.number())
+    sports: z.array(z.number()),
+    phone: z.string().optional()
 }).refine((data) => data.phone_number !== null || data.country_code !== null, {
     message: "Introduce Código y Teléfono",
     path: ["phone"]

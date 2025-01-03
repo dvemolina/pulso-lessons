@@ -3,7 +3,7 @@ import type { PageServerLoad } from "./$types";
 import { compareFormData, expiredSessionRedirectUrl } from "$src/lib/utils/utils";
 import { fail, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
-import { getAllAgeGroups, getAllCurrencies, getAllPricingModes, getAllSkillLevels, getAllSkiResorts, getAllSports, getAllTimeUnits } from "$src/lib/server/db/querys";
+import { getAllAgeGroups, getAllCurrencies, getAllPricingModes, getAllSkillLevels, getAllSkiResorts, getAllSports, getAllTimeUnits } from "$src/lib/server/db/referenceData";
 import { lessonBasicsSchema } from "$src/features/Lessons/lib/lessonValidations";
 import { LessonService } from "$src/features/Lessons/lib/LessonService";
 

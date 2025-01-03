@@ -6,7 +6,7 @@ import { UserService } from "$src/features/Users/lib/UserService";
 import { userSignupSchema } from "$src/features/Users/lib/userValidations";
 import { createSession, generateSessionToken, setSessionTokenCookie } from "$src/lib/server/auth";
 import { lessonBasicsSchema } from "$src/features/Lessons/lib/lessonValidations";
-import { getAllAgeGroups, getAllCurrencies, getAllPricingModes, getAllSkillLevels, getAllSkiResorts, getAllSports, getAllTimeUnits } from "$src/lib/server/db/querys";
+import { getAllAgeGroups, getAllCurrencies, getAllPricingModes, getAllSkillLevels, getAllSkiResorts, getAllSports, getAllTimeUnits } from "$src/lib/server/db/referenceData";
 import { LessonService } from "$src/features/Lessons/lib/LessonService";
 import { availabilitySchema } from "$src/features/Availability/lib/availabilityValidation";
 import { AvailabilityService } from "$src/features/Availability/lib/AvailabilityService";

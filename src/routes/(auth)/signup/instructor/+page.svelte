@@ -33,7 +33,7 @@
 
 	let { data } = $props();
 
-	let step = $state(4);
+	let step = $state(1);
 	let userId = $state();
 	let userName = $state(data.user?.name);
 

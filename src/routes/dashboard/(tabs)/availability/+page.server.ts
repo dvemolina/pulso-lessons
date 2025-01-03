@@ -1,6 +1,6 @@
 import { fail, superValidate } from "sveltekit-superforms";
 import type { PageServerLoad } from "./$types";
-import { compareFormData, expiredSessionRedirect } from "$src/lib/utils/utils";
+import { compareFormData, expiredSessionRedirectUrl } from "$src/lib/utils/utils";
 import { availabilitySchema } from "$src/features/Availability/lib/availabilityValidation";
 import { zod } from "sveltekit-superforms/adapters";
 import { AvailabilityService } from "$src/features/Availability/lib/AvailabilityService";
@@ -14,7 +14,7 @@ export const load: PageServerLoad = async (event) => {
     const session = event.locals.session;
 
     if(!user || !session) {
-        redirect(403, expiredSessionRedirect(event, 'La sesión ha caducado. Accede para modificar tu Disponibilidad'))
+        redirect(403, expiredSessionRedirectUrl(event, 'La sesión ha caducado. Accede para modificar tu Disponibilidad'))
     }
 
     const userId = user?.id;
@@ -32,7 +32,7 @@ export const actions: Actions = {
     const session = event.locals.session;
 
     if(!user || !session) {
-        redirect(403, expiredSessionRedirect(event, 'La sesión ha caducado. Accede para modificar tu Disponibilidad'))
+        redirect(403, expiredSessionRedirectUrl(event, 'La sesión ha caducado. Accede para modificar tu Disponibilidad'))
     }
     const currentAvailability = await availabilityService.getAvailabilityByUserId(user.id);
     console.log('EXISTING AVAILABILITY: ', currentAvailability)

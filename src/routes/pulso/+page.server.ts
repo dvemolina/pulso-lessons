@@ -2,7 +2,7 @@ import { searchSchema } from "$src/features/Finder/searchValidations";
 import { fail, superValidate } from "sveltekit-superforms";
 import type { PageServerLoad } from "./$types";
 import { zod } from "sveltekit-superforms/adapters";
-import { getAllSkiResorts, getAllSports } from "$src/lib/server/db/querys";
+import { getAllSkiResorts, getAllSports } from "$src/lib/server/db/referenceData";
 import type { Actions } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({locals}) => {

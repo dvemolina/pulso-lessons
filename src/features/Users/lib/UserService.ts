@@ -1,7 +1,7 @@
 import type { InsertUser} from "$src/lib/server/db/schemas/users";
 import { UserRepository } from "./UserRepository";
 import { hashPassword } from "$src/lib/utils/bcrypt";
-import type { UserSignup } from "./userValidations";
+import type { UserProfile, UserSignup } from "./userValidations";
 import { sendUserSignupMail } from "$src/lib/nodemailer/nodemailer";
 
 
@@ -63,16 +63,24 @@ export class UserService {
         return { ...user, sports };
     }
 
-    async updateUserProfile(userId: number, updatedFields: Record<string, never>) {
+    async updateUserProfile(userId: number, updatedFields: UserProfile) {
         if(Object.keys(updatedFields).length === 0) {
             return null
         }
+        if (updatedFields.phone_number && updatedFields.country_code) {
+            const formattedPhone = `${updatedFields.country_code}-${updatedFields.phone_number}`;
+            updatedFields.phone = formattedPhone;
+        }
+        delete updatedFields.country_code;
+        delete updatedFields.phone_number;
         
         const { sports, ...userFields } = updatedFields;
+
+        const userData = {...userFields, updatedAt: new Date()}
         
         // Update basic user fields
         if (Object.keys(userFields).length > 0) {
-            await this.userRepository.updateUser(userId, userFields);
+            await this.userRepository.updateUser(userId, userData);
         }
     
         // Update sports if provided

@@ -9,7 +9,7 @@
 	interface Props {
 		profileImage: string,
 		lessonData: Lesson,
-		type: 'edit' | null | undefined,
+		type?: 'edit' | null | undefined,
 		currencies: Currencies[],
 		skillLevels: SkillLevels[],
 		ageGroups: AgeGroups[],

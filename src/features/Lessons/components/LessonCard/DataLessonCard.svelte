@@ -21,7 +21,7 @@
 </script>
 
 <div class="data-section px-3 pt-3">
-	<h1 class="text-text text-lg font-semibold font-fira">
+	<h1 class="text-text text-lg font-normal font-fira">
 		{lessonData.title}
 	</h1>
 

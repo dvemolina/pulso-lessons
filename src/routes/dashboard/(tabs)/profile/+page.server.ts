@@ -6,7 +6,7 @@ import { UserService } from "$src/features/Users/lib/UserService";
 import { error, redirect } from "@sveltejs/kit";
 import { compareFormData, expiredSessionRedirect, parsePhoneNumber } from "$src/lib/utils/utils";
 import { StorageService } from "$src/lib/utils/cloudflareR2";
-import { getAllCountries, getAllSkiResorts, getAllSports } from "$src/lib/server/db/querys";
+import { getAllCountries, getAllSkiResorts, getAllSports } from "$src/lib/server/db/referenceData";
 
 const userService = new UserService();
 const storageService = new StorageService()
@@ -33,11 +33,8 @@ export const load: PageServerLoad = async (event) => {
     const userData = {...dbUser, phone_number: parsedPhone?.number, country_code: parsedPhone?.prefix}
     const userForm = await superValidate(userData, zod(userProfileSchema))
 
-    const countries = await getAllCountries();
-    const resorts = await getAllSkiResorts();
-    const sports = await getAllSports();
 
-    return { userForm, user, countries, resorts, sports}
+    return { userForm, user}
 }
 
 export const actions: Actions = {

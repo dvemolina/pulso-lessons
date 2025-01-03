@@ -1,6 +1,8 @@
 <script lang="ts">
 	import ContentBox from "$src/components/ContentBox.svelte";
 	import LessonCard from "$src/features/Lessons/components/LessonCard/LessonCard.svelte";
+    import { lists } from "$lib/stores/lists"
+	import { ageGroups } from "$src/lib/server/db/schemas/normalized.js";
 
     let { data } = $props();
 </script>
@@ -12,7 +14,7 @@
     <h2 class="text-xl text-text font-sans border-b border-border">Servicio Básico</h2>
     <h3 class="text-md text-textNeutral mb-4 font-sans">Este servicio se puede modificar pero no eliminar.</h3>
     {#each data.lessons as lesson }
-        <LessonCard type="edit" lessonData={lesson} profileImage={data.user?.profileImage} currencies={data.currencies} sports={data.sports} skillLevels={data.skillLevels} ageGroups={data.ageGroups} timeUnits={data.timeUnits}/>
+        <LessonCard type="edit" lessonData={lesson} profileImage={data.user?.profileImage} currencies={$lists.currencies} sports={$lists.sports} skillLevels={$lists.skillLevels} ageGroups={$lists.ageGroups} timeUnits={$lists.timeUnits}/>
     {/each}
 </ContentBox>
     

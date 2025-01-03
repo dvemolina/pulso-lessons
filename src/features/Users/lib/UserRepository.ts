@@ -11,7 +11,7 @@ export class UserRepository {
         return result[0];
     }
     
-    async updateUser(userId: number, updatedFields: Record<string, never>) {
+    async updateUser(userId: number, updatedFields: InsertUser) {
         const result = await db.update(users).set(updatedFields).where(eq(users.id, userId)).returning();
         return result[0];
     }

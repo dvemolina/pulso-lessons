@@ -6,7 +6,16 @@
 	import '@fontsource-variable/public-sans';
 	import '@fontsource/fira-sans';
 	import { ModeWatcher } from 'mode-watcher';
-	let { children } = $props();
+    import { onMount } from 'svelte';
+    import { setReferenceContext, getReferenceStores } from '$lib/stores/referenceData';
+
+	let {children} = $props()
+    setReferenceContext();
+    const { fetchAll } = getReferenceStores();
+
+    onMount(fetchAll);
+
+    
 </script>
 
 <div class="greenball">
