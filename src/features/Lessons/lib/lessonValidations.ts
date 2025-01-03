@@ -4,7 +4,7 @@ export const lessonBasicsSchema = z.object({
     id: z.number().optional(),
     userId: z.number(),
     isBaseLesson: z.boolean(),
-    title: z.string().nonempty('Añade Título del Servicio'),
+    title: z.string().nonempty('Añade Título del Servicio').max(60, 'El título no puede superar los 60 caracteres'),
     description: z.string().nonempty('Añade una Descripción del Servicio'),
     resortId: z.number().min(1, 'Selecciona Centro'),
     sports: z.number().array().min(1, 'Selecciona Deporte'),
@@ -20,6 +20,12 @@ export const lessonBasicsSchema = z.object({
     pricingModeId: z.number().min(1, 'Selecciona el Modo de Precio').default(2),
     currencyId: z.number().min(1, 'Selecciona Divisa').default(2),
     basePrice: z.number().min(1, 'Añade Precio del Servicio').default(50),
+}).refine(data => data.maxTimeUnit !== null && data.maxTimeUnit > data.minTimeUnit , {
+    message: "No puede ser menor a la Cantidad Mínima de UTs",
+    path: ['maxTimeUnit']
+}).refine(data => data.maxStudents !== null && data.maxStudents > data.minStudents , {
+    message: "No puede ser menor a la Cantidad Mínima de Alumnos",
+    path: ['maxStudents']
 })
 
 export type LessonBasicsData = z.infer<typeof lessonBasicsSchema>

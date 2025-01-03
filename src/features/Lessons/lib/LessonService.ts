@@ -28,18 +28,23 @@ export class LessonService {
         
         const { sports, ...lessonData } = lessonDataUpdate;
         
+        let updatedLessonData;
         // Update basic user fields
         if (Object.keys(lessonData).length > 0) {
-            await this.lessonRepository.updateLesson(lessonId, lessonData);
+            updatedLessonData = await this.lessonRepository.updateLesson(lessonId, lessonData);
         }
     
         // Update sports if provided
         if (Array.isArray(sports)) {
             await this.lessonRepository.updateLessonSports(lessonId, sports);
         }
-    
-        return true;
-        //Has to update Lesson Basics, Sports and Specials(Conditionals/Seasonals/Promotionals)
+        
+        // Retrieve updated sports from the database
+        const updatedSports = await this.lessonRepository.getLessonSports(lessonId);
+
+        const updatedLesson = { ...updatedLessonData, sports: updatedSports };
+        return updatedLesson;
+            //Has to update Lesson Basics, Sports and Specials(Conditionals/Seasonals/Promotionals)
     }
 
     async getLessonById(lessonId: number) {

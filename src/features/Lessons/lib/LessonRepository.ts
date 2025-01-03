@@ -25,17 +25,17 @@ export class LessonRepository {
     }
 
     async updateLessonSports(lessonId: number, sports: number[]) {
-        // Delete existing sports for the lesson
-        await db.delete(lessonSports).where(eq(lessonSports.lessonId, lessonId));
-    
         // Insert new sports
         if (sports.length > 0) {
+            // Delete existing sports for the lesson
+            await db.delete(lessonSports).where(eq(lessonSports.lessonId, lessonId));
+
             const newSports = sports.map((sportId) => ({
                 lessonId: lessonId,
                 sportId: sportId,
             }));
     
-            await db.insert(lessonSports).values(newSports);
+            return await db.insert(lessonSports).values(newSports);
         }
     }
 

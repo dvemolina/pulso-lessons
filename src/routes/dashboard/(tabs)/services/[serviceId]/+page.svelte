@@ -134,7 +134,7 @@
     </ContentBox>
     <ContentBox shadow={true}>
         <h3 class="mb-2 border-b border-b-border font-fira text-xl font-normal">Duración</h3>
-        <p class="mb-8 font-fira text-md text-textNeutral font-normal">Genera los bloques mínimos/máximo de reserva. Cantidad de horas/días que se puede reservar tu lección. </p>
+        <p class="mb-8 font-fira text-md text-textNeutral font-normal">Selecciona la Unidad de Tiempo que define tus Bloques de Reserva y la cantidad de UTs(horas/días) que se puede reservar tu lección. </p>
         <fieldset class="flex w-full flex-col gap-4">
             <div class="formgroup">
                 <FormField form={lessonBasicsForm} name="timeUnitId">
@@ -235,8 +235,10 @@
         </fieldset>
     </ContentBox>
     <ContentBox shadow={true}>
+        <h3 class="mb-2 border-b border-b-border font-fira text-xl font-normal">Precio - Base</h3>
+        <p class="font-fira text-md text-textNeutral font-normal">Fijo: mismo precio siempre - UT: precio multiplicado por cada UT(hora/dia) - Alumno: precio multiplicado por alumno</p>
+        <p class="mb-8 font-fira text-md text-textNeutral font-normal">Si quieres añadir precios especiales según cantidad de alumnos, horas o ambos, crea las condiciones en el apartado de "Precio - Condicional"</p>
         <fieldset class="flex w-full flex-col gap-4">
-            <h3 class="mb-8 border-b border-b-border font-fira text-xl font-normal">Precio Base</h3>
             <div class="formgroup">
                 <FormField form={lessonBasicsForm} name="pricingModeId">
                     <CustomControl label="Tipo de Multiplicador de Precio">
@@ -275,4 +277,3 @@
         <CoolCta type="submit">Guardar Datos del Servicio</CoolCta>
     </ContentBox>
 </form>
-<SuperDebug data={$lessonBasicsData}/>
