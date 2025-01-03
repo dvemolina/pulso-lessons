@@ -1,7 +1,6 @@
 import { getAllAgeGroups, getAllCountries, getAllCurrencies, getAllLanguages, getAllPricingModes, getAllSkillLevels, getAllSkiResorts, getAllSports, getAllTimeUnits } from "../server/db/referenceData";
-import type { Lists } from "../stores/lists";
 
-export async function fetchAllLists(): Promise<Lists> {
+export async function fetchAllLists() {
     return {
         resorts: await getAllSkiResorts(),
         countries: await getAllCountries(),

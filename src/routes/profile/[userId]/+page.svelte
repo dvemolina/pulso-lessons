@@ -5,6 +5,7 @@
 	import LessonCard from '$src/features/Lessons/components/LessonCard/LessonCard.svelte';
 
 	let { data } = $props();
+	const lists = data.lists
 
 	let reviews: Review[] = [
 		{
@@ -38,7 +39,7 @@
 	<div
 		class="HEAD flex w-full flex-col items-center justify-center gap-3 rounded-md border border-border bg-background p-10 md:w-1/3 xl:w-1/4"
 	>
-		<ProfileHead profileData={data.profileData} />
+		<ProfileHead profileData={data.profileData} {lists}/>
 	</div>
 	<div
 		class="CONTENT flex w-full flex-col gap-9 rounded-md border border-border bg-background p-10 md:w-2/3 xl:w-3/4"
@@ -55,13 +56,13 @@
 			</h2>
 			{#each data.services as service}
 				<LessonCard
-					ageGroups={$lists.ageGroups}
-					currencies={$lists.currencies}
+					ageGroups={lists.ageGroups}
+					currencies={lists.currencies}
 					lessonData={service}
 					profileImage={data.profileData.profileImage}
-					skillLevels={$lists.skillLevels}
-					sports={$lists.sports}
-					timeUnits={$lists.timeUnits}
+					skillLevels={lists.skillLevels}
+					sports={lists.sports}
+					timeUnits={lists.timeUnits}
 				/>
 			{/each}
 		</div>

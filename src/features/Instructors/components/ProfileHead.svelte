@@ -1,15 +1,13 @@
 <script lang="ts">
 	import CoolCta from '$src/components/CoolCTA.svelte';
 	import StarScore from '$src/components/StarScore.svelte';
-	import { getContext } from 'svelte'
 	import { mapIdsToValues } from '$src/lib/utils/utils';
-	import { type Lists } from '$src/lib/stores/lists';
 
-	let { profileData } = $props();
-	const lists = getContext<Lists>('lists');
+	let { profileData, lists } = $props();
+	
 
-	const mappedSports = mapIdsToValues(profileData.sports, $lists.sports, 'id', 'sport');
-    const mappedResort = mapIdsToValues(profileData.resort, $lists.resorts, 'id', 'resort')
+	const mappedSports = mapIdsToValues(profileData.sports, lists.sports, 'id', 'sport');
+    const mappedResort = mapIdsToValues(profileData.resort, lists.resorts, 'id', 'resort')
 </script>
 
 <div class="flex h-full flex-col items-center gap-5">

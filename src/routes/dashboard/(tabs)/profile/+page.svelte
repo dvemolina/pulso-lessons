@@ -1,16 +1,17 @@
 <script	lang="ts">
 	import CoolCTA from '$src/components/CoolCTA.svelte';
 	import ContentBox from '$src/components/ContentBox.svelte';
-	import SuperDebug, { superForm } from 'sveltekit-superforms';
+	import { superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { userProfileSchema } from '$src/features/Users/lib/userValidations';
 	import { Control, Label, Description, FieldErrors, Legend, Fieldset } from 'formsnap';
 	import CustomControl from '$src/components/CustomControl.svelte';
 	import FormField from '$src/components/FormField.svelte';
 	import { countryPrefix } from '$src/lib/utils/utils';
-	import { lists } from '$src/lib/stores/lists';
+	
 
 	let { data } = $props();
+	const lists = data.lists
 
 	const userProfileForm = superForm(data.userForm, {
 		validators: zodClient(userProfileSchema)
@@ -184,7 +185,7 @@
 						{#snippet children({ props })}
 							<select {...props} bind:value={$userProfileData.nationality} class="w-full" placeholder="Selecciona Nacionalidad">
 								<option value="">Selecciona Nacionalidad</option>
-								{#each $lists.countries as { id, name }}
+								{#each lists.countries as { id, name }}
 									<option value={id} aria-label={name}>{name}</option>
 								{/each}
 							</select>
@@ -225,7 +226,7 @@
 						{#snippet children({ props })}
 						<select {...props} bind:value={$userProfileData.resortId} class="w-full" placeholder="Selecciona Centro">
 							<option value="0">Selecciona Centro</option>
-							{#each $lists.resorts as { id, resort }}
+							{#each lists.resorts as { id, resort }}
 							<option value={id} aria-label={resort}>{resort}</option>
 							{/each}
 						</select>
@@ -239,7 +240,7 @@
 				<Legend>Selecciona Deporte</Legend>
 				<Description>Puedes seleccionar más de uno. En el futuro incluiremos modalidades de cada deporte</Description>
 				<div class="flex flex-row items-center justify-start gap-4">
-					{#each $list.sports as { id, sport }}
+					{#each lists.sports as { id, sport }}
 					<Control>
 						{#snippet children({ props })}
 						<div class="flex flex-col items-center justify-center gap-2">
